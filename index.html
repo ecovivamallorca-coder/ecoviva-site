@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoViva Mallorca</title>
 
+<style>
+body {
+  margin:0;
+  font-family:Arial;
+  background:#0b1120;
+  color:white;
+}
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+.header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.lang button {
+  margin:5px;
+  padding:8px;
+  cursor:pointer;
+}
+.hero {
+  padding:60px 0;
+}
+.cta {
+  background:#8fde65;
+  color:black;
+  padding:12px 20px;
+  display:inline-block;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container header">
+  <h2>EcoViva Mallorca</h2>
+  <div class="lang">
+    <button onclick="setLang('en')">EN</button>
+    <button onclick="setLang('es')">ES</button>
+    <button onclick="setLang('de')">DE</button>
+  </div>
+</div>
+
+<div class="container hero">
+  <h1 id="title"></h1>
+  <p id="text"></p>
+  <div class="cta" id="cta"></div>
+</div>
+
+<script>
+const t = {
+  en:{
+    title:"Sustainable Renovation in Mallorca",
+    text:"We help expats and property owners with renovation, insulation and solar projects.",
+    cta:"Request consultation"
+  },
+  es:{
+    title:"Reformas sostenibles en Mallorca",
+    text:"Ayudamos a expatriados y propietarios con reformas, aislamiento y energía solar.",
+    cta:"Solicitar consulta"
+  },
+  de:{
+    title:"Nachhaltige Renovierung auf Mallorca",
+    text:"Wir helfen Expats und Eigentümern bei Renovierung, Dämmung und Solarprojekten.",
+    cta:"Beratung anfragen"
+  }
+}
+
+function setLang(lang){
+  document.getElementById("title").innerText = t[lang].title
+  document.getElementById("text").innerText = t[lang].text
+  document.getElementById("cta").innerText = t[lang].cta
+}
+
+setLang("en")
+</script>
+
+</body>
+</html>
