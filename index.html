@@ -1,89 +1,498 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EcoViva Mallorca</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoViva Mallorca | Website Coming Soon</title>
+  <meta name="description" content="EcoViva Mallorca helps expats, property owners and investors with renovation, insulation and energy solutions in Mallorca." />
+  <style>
+    :root {
+      --bg: #0b1120;
+      --bg-soft: #111a2c;
+      --text: #ffffff;
+      --muted: #cfd7e6;
+      --green: #8fde65;
+      --line: rgba(255,255,255,0.12);
+    }
 
-<style>
-body {
-  margin:0;
-  font-family:Arial;
-  background:#0b1120;
-  color:white;
-}
-.container {
-  max-width:1100px;
-  margin:auto;
-  padding:20px;
-}
-.header {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.lang button {
-  margin:5px;
-  padding:8px;
-  cursor:pointer;
-}
-.hero {
-  padding:60px 0;
-}
-.cta {
-  background:#8fde65;
-  color:black;
-  padding:12px 20px;
-  display:inline-block;
-  margin-top:20px;
-}
-</style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(143, 222, 101, 0.10), transparent 28%),
+        linear-gradient(180deg, #09101d 0%, #10192d 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      width: 100%;
+      border-bottom: 1px solid var(--line);
+      background: rgba(9, 16, 29, 0.75);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--green);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: var(--green);
+      font-weight: 800;
+      font-size: 22px;
+    }
+
+    .brand-text {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-text small {
+      display: block;
+      margin-top: 4px;
+      color: var(--green);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px;
+    }
+
+    .lang-switch button {
+      border: 0;
+      background: transparent;
+      color: #e7edf8;
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .lang-switch button.active {
+      background: var(--green);
+      color: #0b1120;
+    }
+
+    .hero-wrap {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px 60px;
+    }
+
+    .hero {
+      width: 100%;
+      max-width: 1180px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 40px;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.18);
+    }
+
+    .eyebrow {
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(40px, 6vw, 70px);
+      line-height: 1.03;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.7;
+      margin: 0 0 28px;
+      max-width: 760px;
+    }
+
+    .status-box {
+      display: inline-block;
+      padding: 10px 14px;
+      border: 1px solid rgba(143,222,101,0.25);
+      background: rgba(143,222,101,0.10);
+      color: #eaffdf;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: #0b1120;
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .highlight {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .highlight strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .highlight span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .side-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%;
+      background:
+        linear-gradient(135deg, rgba(9,16,29,0.22), rgba(9,16,29,0.58)),
+        url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.18);
+      min-height: 520px;
+    }
+
+    .side-top {
+      padding: 28px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .mini-badge {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .side-bottom {
+      padding: 28px;
+    }
+
+    .info-box {
+      max-width: 360px;
+      background: rgba(9,16,29,0.80);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 18px;
+      backdrop-filter: blur(8px);
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .info-box p {
+      margin: 0;
+      color: #dde4f2;
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    .footer-note {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 22px 28px;
+      color: #9eadc4;
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .highlights {
+        grid-template-columns: 1fr;
+      }
+
+      .side-card {
+        min-height: 360px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .card,
+      .side-bottom,
+      .side-top {
+        padding: 22px;
+      }
+
+      .topbar-inner {
+        padding: 16px;
+      }
+
+      .brand-text {
+        font-size: 24px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="page">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-mark">E</div>
+          <div class="brand-text">
+            ECOVIVA
+            <small>Mallorca</small>
+          </div>
+        </div>
 
-<div class="container header">
-  <h2>EcoViva Mallorca</h2>
-  <div class="lang">
-    <button onclick="setLang('en')">EN</button>
-    <button onclick="setLang('es')">ES</button>
-    <button onclick="setLang('de')">DE</button>
+        <div class="lang-switch">
+          <button class="active" data-lang="en">EN</button>
+          <button data-lang="es">ES</button>
+          <button data-lang="de">DE</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="hero-wrap">
+      <section class="hero">
+        <div class="card">
+          <div class="eyebrow" data-i18n="eyebrow">Website launching soon</div>
+          <div class="status-box" data-i18n="status">Our full website will be online soon</div>
+
+          <h1 data-i18n="title">Sustainable Renovation & Energy Solutions in Mallorca</h1>
+
+          <p class="lead" data-i18n="text">
+            EcoViva Mallorca supports expats, property owners and investors with renovation, insulation, solar and technical project guidance.
+          </p>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="mailto:info@ecoviva-mallorca.com?subject=Consultation request - EcoViva Mallorca" data-i18n="cta1">Request Consultation</a>
+            <a class="btn btn-secondary" href="mailto:info@ecoviva-mallorca.com?subject=Project inquiry - EcoViva Mallorca" data-i18n="cta2">Discuss Your Project</a>
+          </div>
+
+          <div class="highlights">
+            <div class="highlight">
+              <strong data-i18n="h1">Technical expertise</strong>
+              <span data-i18n="h1t">Clear guidance for renovation, insulation, solar and energy upgrades.</span>
+            </div>
+            <div class="highlight">
+              <strong data-i18n="h2">Local coordination</strong>
+              <span data-i18n="h2t">Support for international clients who need structure and reliability on Mallorca.</span>
+            </div>
+            <div class="highlight">
+              <strong data-i18n="h3">Premium approach</strong>
+              <span data-i18n="h3t">A professional service focused on expats, investors and second-home owners.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-card">
+          <div class="side-top">
+            <div class="mini-badge" data-i18n="badge">Mallorca • Coming Soon</div>
+          </div>
+
+          <div class="side-bottom">
+            <div class="info-box">
+              <strong data-i18n="boxTitle">Contact us directly</strong>
+              <p data-i18n="boxText">
+                While the full website is being completed, you can already contact us for project inquiries, consultations and renovation questions.
+              </p>
+              <p style="margin-top:14px;">
+                <a href="mailto:info@ecoviva-mallorca.com" style="color:#8fde65; font-weight:700;">info@ecoviva-mallorca.com</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="footer-note" data-i18n="footer">
+      EcoViva Mallorca — website under construction. More pages and project information will follow soon.
+    </div>
   </div>
-</div>
 
-<div class="container hero">
-  <h1 id="title"></h1>
-  <p id="text"></p>
-  <div class="cta" id="cta"></div>
-</div>
+  <script>
+    const translations = {
+      en: {
+        eyebrow: "Website launching soon",
+        status: "Our full website will be online soon",
+        title: "Sustainable Renovation & Energy Solutions in Mallorca",
+        text: "EcoViva Mallorca supports expats, property owners and investors with renovation, insulation, solar and technical project guidance.",
+        cta1: "Request Consultation",
+        cta2: "Discuss Your Project",
+        h1: "Technical expertise",
+        h1t: "Clear guidance for renovation, insulation, solar and energy upgrades.",
+        h2: "Local coordination",
+        h2t: "Support for international clients who need structure and reliability on Mallorca.",
+        h3: "Premium approach",
+        h3t: "A professional service focused on expats, investors and second-home owners.",
+        badge: "Mallorca • Coming Soon",
+        boxTitle: "Contact us directly",
+        boxText: "While the full website is being completed, you can already contact us for project inquiries, consultations and renovation questions.",
+        footer: "EcoViva Mallorca — website under construction. More pages and project information will follow soon."
+      },
+      es: {
+        eyebrow: "Sitio web disponible pronto",
+        status: "Nuestra web completa estará online muy pronto",
+        title: "Reformas Sostenibles y Soluciones Energéticas en Mallorca",
+        text: "EcoViva Mallorca acompaña a expatriados, propietarios e inversores con reformas, aislamiento, energía solar y asesoramiento técnico de proyectos.",
+        cta1: "Solicitar consulta",
+        cta2: "Hablar de su proyecto",
+        h1: "Experiencia técnica",
+        h1t: "Orientación clara para reformas, aislamiento, energía solar y mejoras energéticas.",
+        h2: "Coordinación local",
+        h2t: "Apoyo para clientes internacionales que necesitan estructura y fiabilidad en Mallorca.",
+        h3: "Enfoque premium",
+        h3t: "Un servicio profesional orientado a expatriados, inversores y propietarios de segunda residencia.",
+        badge: "Mallorca • Próximamente",
+        boxTitle: "Contáctenos directamente",
+        boxText: "Mientras terminamos la web completa, ya puede contactarnos para consultas, proyectos y preguntas sobre reformas.",
+        footer: "EcoViva Mallorca — sitio web en construcción. Muy pronto añadiremos más páginas e información sobre proyectos."
+      },
+      de: {
+        eyebrow: "Website bald online",
+        status: "Unsere vollständige Website ist in Kürze online",
+        title: "Nachhaltige Renovierungs- und Energielösungen auf Mallorca",
+        text: "EcoViva Mallorca unterstützt Expats, Eigentümer und Investoren bei Renovierung, Dämmung, Solar und technischer Projektbegleitung.",
+        cta1: "Beratung anfragen",
+        cta2: "Projekt besprechen",
+        h1: "Technische Expertise",
+        h1t: "Klare Begleitung für Renovierung, Dämmung, Solar und energetische Verbesserungen.",
+        h2: "Lokale Koordination",
+        h2t: "Unterstützung für internationale Kunden, die Struktur und Verlässlichkeit auf Mallorca suchen.",
+        h3: "Premium-Ansatz",
+        h3t: "Ein professioneller Service für Expats, Investoren und Zweitwohnsitzbesitzer.",
+        badge: "Mallorca • Bald online",
+        boxTitle: "Kontaktieren Sie uns direkt",
+        boxText: "Während die vollständige Website fertiggestellt wird, können Sie uns bereits für Projektanfragen, Beratungen und Renovierungsfragen kontaktieren.",
+        footer: "EcoViva Mallorca — Website im Aufbau. Weitere Seiten und Projektinformationen folgen in Kürze."
+      }
+    };
 
-<script>
-const t = {
-  en:{
-    title:"Sustainable Renovation in Mallorca",
-    text:"We help expats and property owners with renovation, insulation and solar projects.",
-    cta:"Request consultation"
-  },
-  es:{
-    title:"Reformas sostenibles en Mallorca",
-    text:"Ayudamos a expatriados y propietarios con reformas, aislamiento y energía solar.",
-    cta:"Solicitar consulta"
-  },
-  de:{
-    title:"Nachhaltige Renovierung auf Mallorca",
-    text:"Wir helfen Expats und Eigentümern bei Renovierung, Dämmung und Solarprojekten.",
-    cta:"Beratung anfragen"
-  }
-}
+    function setLanguage(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
 
-function setLang(lang){
-  document.getElementById("title").innerText = t[lang].title
-  document.getElementById("text").innerText = t[lang].text
-  document.getElementById("cta").innerText = t[lang].cta
-}
+      document.querySelectorAll("[data-lang]").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+      });
 
-setLang("en")
-</script>
-<!-- update -->
+      localStorage.setItem("ecoviva-lang", lang);
+    }
+
+    document.querySelectorAll("[data-lang]").forEach(btn => {
+      btn.addEventListener("click", () => setLanguage(btn.getAttribute("data-lang")));
+    });
+
+    const savedLang = localStorage.getItem("ecoviva-lang") || "en";
+    setLanguage(savedLang);
+  </script>
 </body>
 </html>
