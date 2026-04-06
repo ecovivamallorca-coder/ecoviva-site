@@ -60,24 +60,25 @@
     }
 
     .brand {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-height: 64px;
+    }
 
-.brand-icon {
-  height: 72px;
-  width: auto;
-  display: block;
-  flex-shrink: 0;
-}
+    .brand-icon {
+      height: 64px;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+    }
 
-.brand-text-logo {
-  height: 64px;
-  width: auto;
-  display: block;
-  flex-shrink: 0;
-}
+    .brand-text-logo {
+      height: 54px;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+    }
 
     .lang-switch {
       display: flex;
@@ -230,9 +231,9 @@
       flex-direction: column;
       justify-content: space-between;
       background:
-        linear-gradient(135deg, rgba(8,17,29,0.12), rgba(8,17,29,0.56)),
-        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80') center center / cover no-repeat;
-      filter: saturate(1.05) contrast(1.03);
+        linear-gradient(135deg, rgba(8,17,29,0.08), rgba(8,17,29,0.42)),
+        url('https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1600&q=80') center center / cover no-repeat;
+      filter: saturate(1.08) contrast(1.02);
     }
 
     .side-top {
@@ -242,8 +243,8 @@
     }
 
     .mini-badge {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
       color: #fff;
       padding: 10px 14px;
       border-radius: 999px;
@@ -258,7 +259,7 @@
 
     .info-box {
       max-width: 360px;
-      background: rgba(8,17,29,0.80);
+      background: rgba(8,17,29,0.76);
       border: 1px solid rgba(255,255,255,0.14);
       border-radius: 18px;
       padding: 18px;
@@ -317,12 +318,16 @@
         padding: 16px;
       }
 
+      .brand {
+        gap: 12px;
+      }
+
       .brand-icon {
-        height: 42px;
+        height: 46px;
       }
 
       .brand-text-logo {
-        height: 28px;
+        height: 38px;
       }
 
       .card,
@@ -347,8 +352,8 @@
     <header class="topbar">
       <div class="topbar-inner">
         <a class="brand" href="#">
-          <img class="brand-icon" src="ECOVIVA%20Logo%20Original.png" alt="EcoViva icon">
-          <img class="brand-text-logo" src="ECOVIVA%20Logo%20Original%202.png" alt="EcoViva Mallorca">
+          <img class="brand-icon" src="customcolor_icon_customcolor_background.png" alt="EcoViva icon">
+          <img class="brand-text-logo" src="customcolor_textlogo_customcolor_background.png" alt="EcoViva Mallorca">
         </a>
 
         <div class="lang-switch">
