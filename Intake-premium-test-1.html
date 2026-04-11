@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoViva Mallorca | Private Project Intake</title>
+  <meta
+    name="description"
+    content="Confidential project intake for renovation, insulation, solar and technical project guidance in Mallorca."
+  />
+
+  <style>
+    :root {
+      --bg: #07111d;
+      --bg-2: #0b1624;
+      --panel-light: #f3f5f7;
+      --panel-dark: #121d2a;
+      --panel-dark-2: #162231;
+      --text-dark: #0f1724;
+      --text-light: #f5f7fa;
+      --muted-dark: #5f6b7b;
+      --muted-light: #a9b4c2;
+      --line-light: rgba(15, 23, 36, 0.08);
+      --line-dark: rgba(255, 255, 255, 0.08);
+      --accent: #8fde65;
+      --accent-soft: rgba(143, 222, 101, 0.18);
+      --accent-dark: #1f3118;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.28);
+      --radius-shell: 30px;
+      --radius-card: 24px;
+      --container: 1320px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top center, rgba(34, 91, 179, 0.22), transparent 34%),
+        linear-gradient(180deg, #06101a 0%, #09131f 100%);
+      color: var(--text-light);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .shell {
+      max-width: var(--container);
+      margin: 0 auto;
+      border-radius: var(--radius-shell);
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 22px 34px;
+      background: rgba(7, 17, 29, 0.7);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(143, 222, 101, 0.24), rgba(143, 222, 101, 0.1));
+      border: 1px solid rgba(143, 222, 101, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+
+    .brand-copy {
+      min-width: 0;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-light);
+    }
+
+    .brand-subtitle {
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: var(--muted-light);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: var(--muted-light);
+      font-size: 14px;
+    }
+
+    .nav a {
+      transition: color 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--text-light);
+    }
+
+    .hero {
+      background: var(--panel-light);
+      color: var(--text-dark);
+      padding: 54px 42px 42px;
+      border-bottom: 1px solid var(--line-light);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      gap: 32px;
+      align-items: end;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.2rem, 4vw, 4.1rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      max-width: 900px;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--muted-dark);
+    }
+
+    .hero-trust {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #697487;
+      letter-spacing: 0.01em;
+    }
+
+    .intro-card {
+      background: white;
+      border: 1px solid rgba(15, 23, 36, 0.06);
+      border-radius: 22px;
+      padding: 22px 22px 20px;
+      box-shadow: 0 16px 40px rgba(15, 23, 36, 0.08);
+    }
+
+    .intro-card-title {
+      margin: 0 0 12px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .intro-steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .intro-step {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .intro-step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(15, 23, 36, 0.06);
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .intro-step-text {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted-dark);
+      padding-top: 3px;
+    }
+
+    .main {
+      background: linear-gradient(180deg, #101925 0%, #131e2c 100%);
+      padding: 28px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .form-card {
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      border: 1px solid var(--line-dark);
+      background: rgba(255, 255, 255, 0.02);
+      min-width: 0;
+    }
+
+    .form-frame {
+      width: 100%;
+      min-height: 1700px;
+      background: transparent;
+    }
+
+    .form-frame iframe {
+      width: 100% !important;
+      min-height: 1700px !important;
+      border: 0 !important;
+      background: transparent !important;
+    }
+
+    .sidebar {
+      display: grid;
+      gap: 18px;
+      position: sticky;
+      top: 24px;
+    }
+
+    .side-card {
+      border-radius: 22px;
+      padding: 22px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--line-dark);
+    }
+
+    .side-card h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .side-card p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted-light);
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .mini-item {
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .mini-item:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .mini-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #8d99aa;
+      margin-bottom: 4px;
+    }
+
+    .mini-value {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--text-light);
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 22px 34px 30px;
+      background: rgba(7, 17, 29, 0.72);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--muted-light);
+      font-size: 13px;
+    }
+
+    .footer strong {
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-light);
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: 12px;
+      }
+
+      .topbar {
+        padding: 18px 18px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        padding: 30px 20px 24px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .main {
+        padding: 14px;
+      }
+
+      .footer {
+        padding: 20px 18px 24px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .form-frame,
+      .form-frame iframe {
+        min-height: 1850px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">EV</div>
+          <div class="brand-copy">
+            <p class="brand-title">EcoViva Mallorca</p>
+            <p class="brand-subtitle">Renovation · Energy upgrades · Project guidance</p>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#">Services</a>
+          <a href="#">Process</a>
+          <a href="#">Contact</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div class="hero-grid">
+          <div>
+            <div class="badge">Confidential project intake</div>
+            <h1>Private renovation & property advisory intake</h1>
+            <p>
+              Share a few details about your property, project goals and preferred next step.
+              We review each request personally and guide you towards the most suitable
+              consultation, site visit or follow-up.
+            </p>
+            <div class="hero-trust">
+              Private review · Mallorca-based coordination · English / Español / Deutsch
+            </div>
+          </div>
+
+          <aside class="intro-card" aria-label="What happens next">
+            <h2 class="intro-card-title">What happens next</h2>
+            <div class="intro-steps">
+              <div class="intro-step">
+                <div class="intro-step-number">1</div>
+                <div class="intro-step-text">
+                  We review your request and assess the scope, location and preferred support type.
+                </div>
+              </div>
+              <div class="intro-step">
+                <div class="intro-step-number">2</div>
+                <div class="intro-step-text">
+                  We recommend the right next step, such as an introductory call or an on-site consultation.
+                </div>
+              </div>
+              <div class="intro-step">
+                <div class="intro-step-number">3</div>
+                <div class="intro-step-text">
+                  You receive a personal follow-up with the most suitable path for your project.
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="main">
+        <div class="content-grid">
+          <div class="form-card">
+            <div
+              class="form-frame"
+              data-fillout-id="59qsbh9ckrus"
+              data-fillout-embed-type="standard"
+              data-fillout-inherit-parameters
+              data-fillout-dynamic-resize
+            ></div>
+          </div>
+
+          <aside class="sidebar">
+            <div class="side-card">
+              <h3>Consultation formats</h3>
+              <p>
+                Depending on your project, we may advise an introductory call, a structured follow-up
+                or a paid on-site consultation.
+              </p>
+
+              <div class="mini-list">
+                <div class="mini-item">
+                  <div class="mini-label">Introductory call</div>
+                  <div class="mini-value">Suitable for first orientation, project fit and initial advisory.</div>
+                </div>
+                <div class="mini-item">
+                  <div class="mini-label">On-site consultation</div>
+                  <div class="mini-value">For properties requiring direct assessment, technical review or next-step definition.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="side-card">
+              <h3>Project types</h3>
+              <p>
+                Renovation strategy, façade and insulation upgrades, roofing, solar integration,
+                technical scope reviews and property improvement planning.
+              </p>
+            </div>
+
+            <div class="side-card">
+              <h3>Languages</h3>
+              <p>English, Español and Deutsch. Multi-language coordination for owners, buyers, investors and partners in Mallorca.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div>
+          <strong>EcoViva Mallorca</strong> · Private project guidance for renovation and energy upgrades in Mallorca
+        </div>
+
+        <div class="footer-links">
+          <a href="#">Privacy</a>
+          <a href="#">Contact</a>
+          <a href="#">English / Español / Deutsch</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="https://server.fillout.com/embed/v1/"></script>
+</body>
+</html>
