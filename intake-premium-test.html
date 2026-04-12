@@ -4,707 +4,164 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Start Your Project | EcoViva Mallorca</title>
-  <meta
-    name="description"
-    content="Start your renovation, insulation, solar or technical consultation request with EcoViva Mallorca."
-  />
+
   <style>
     :root {
       --bg: #07101b;
       --bg2: #0d1828;
       --panel: rgba(255,255,255,0.04);
-      --panel-strong: rgba(255,255,255,0.06);
       --line: rgba(255,255,255,0.12);
-      --line-soft: rgba(255,255,255,0.08);
       --text: #ffffff;
       --muted: #cdd7e6;
       --muted-2: #9aa8bd;
       --green: #8fde65;
-      --green-dark: #6fbe4c;
       --white-card: #ffffff;
-      --white-soft: #f5f7fb;
-      --shadow: 0 28px 80px rgba(0,0,0,0.24);
+      --shadow: 0 34px 90px rgba(0,0,0,0.26);
       --radius-xl: 32px;
       --radius-lg: 24px;
-      --radius-md: 18px;
       --max: 1240px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: var(--text);
       background:
         radial-gradient(circle at top left, rgba(143,222,101,0.08), transparent 24%),
-        radial-gradient(circle at top right, rgba(255,255,255,0.04), transparent 20%),
         linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-      min-height: 100vh;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .page {
-      min-height: 100vh;
     }
 
     .container {
-      width: 100%;
       max-width: var(--max);
       margin: 0 auto;
-      padding-left: 24px;
-      padding-right: 24px;
+      padding: 0 24px;
     }
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(7,16,27,0.72);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--line-soft);
-    }
-
-    .topbar-inner {
-      min-height: 88px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 16px;
-      min-width: 0;
-    }
-
-    .brand-icon {
-      height: 60px;
-      width: auto;
-      flex-shrink: 0;
-    }
-
-    .brand-text-logo {
-      height: 44px;
-      width: auto;
-      flex-shrink: 0;
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .lang-switch {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-    }
-
-    .lang-switch button {
-      appearance: none;
-      border: 0;
-      background: transparent;
-      color: #e8eef8;
-      padding: 9px 12px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 14px;
-      line-height: 1;
-      transition: 0.2s ease;
-    }
-
-    .lang-switch button.active {
-      background: var(--green);
-      color: #08111d;
-    }
-
-    .hero-section {
-      padding: 34px 0 18px;
+    /* HERO */
+    .hero {
+      padding: 80px 0;
     }
 
     .hero-card {
-      position: relative;
-      overflow: hidden;
-      min-height: 440px;
       border-radius: var(--radius-xl);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
+      padding: 60px;
       background:
-        linear-gradient(90deg, rgba(7,16,27,0.90) 0%, rgba(7,16,27,0.82) 34%, rgba(7,16,27,0.40) 65%, rgba(7,16,27,0.20) 100%),
-        url("https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1800&q=80") center center / cover no-repeat;
-      display: flex;
-      align-items: center;
+        linear-gradient(90deg, rgba(7,16,27,0.9), rgba(7,16,27,0.4)),
+        url("https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1800&q=80") center/cover;
     }
 
-    .hero-content {
-      width: 100%;
-      max-width: 760px;
-      padding: 56px;
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 16px;
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 18px;
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-    }
-
-    h1 {
-      margin: 0 0 18px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(42px, 5vw, 70px);
-      line-height: 1.02;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-lead {
-      max-width: 690px;
-      margin: 0 0 28px;
+    .hero p {
       color: var(--muted);
-      font-size: clamp(18px, 1.8vw, 22px);
-      line-height: 1.7;
+      font-size: 18px;
+      max-width: 600px;
     }
 
-    .hero-points {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-
-    .hero-point {
-      display: inline-flex;
-      align-items: center;
-      padding: 11px 15px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.14);
-      color: #eef4fd;
-      font-size: 14px;
-      line-height: 1.3;
-      backdrop-filter: blur(8px);
-    }
-
-    .hero-meta {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      max-width: 760px;
-    }
-
-    .hero-meta-card {
-      padding: 18px 18px 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      backdrop-filter: blur(8px);
-    }
-
-    .hero-meta-card strong {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 16px;
-      line-height: 1.2;
-    }
-
-    .hero-meta-card span {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .intro-section {
-      padding: 18px 0 18px;
-    }
-
-    .intro-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 18px;
-    }
-
-    .info-card,
-    .contact-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 22px 60px rgba(0,0,0,0.16);
-      padding: 28px;
-    }
-
-    .section-title {
-      margin: 0 0 10px;
-      font-size: 26px;
-      line-height: 1.2;
-      letter-spacing: -0.01em;
-    }
-
-    .section-text {
-      margin: 0;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.75;
-    }
-
-    .contact-lines {
-      display: grid;
-      gap: 10px;
-      margin-top: 18px;
-      color: #edf3fb;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    .contact-lines a {
-      color: var(--green);
-      font-weight: 700;
-    }
-
+    /* FORM */
     .form-section {
-      padding: 18px 0 58px;
+      padding: 40px 0 80px;
     }
 
     .form-shell {
-      max-width: 1020px;
+      max-width: 1000px;
       margin: 0 auto;
       background: var(--white-card);
       border-radius: var(--radius-xl);
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 34px 90px rgba(0,0,0,0.26);
+      box-shadow: var(--shadow);
     }
 
     .form-head {
-      padding: 28px 30px;
-      background: linear-gradient(180deg, #fafcff 0%, #f0f4f9 100%);
-      border-bottom: 1px solid rgba(8,17,29,0.08);
+      padding: 28px;
+      background: #f5f7fb;
       color: #08111d;
     }
 
-    .form-head-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-    }
-
-    .form-kicker {
-      display: inline-flex;
-      align-items: center;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(143,222,101,0.18);
-      color: #1d3911;
-      font-weight: 700;
-      font-size: 13px;
-      line-height: 1;
-    }
-
     .form-head h2 {
-      margin: 0;
-      font-size: 30px;
-      line-height: 1.12;
-      letter-spacing: -0.02em;
-    }
-
-    .form-head p {
-      margin: 0;
-      color: #4e5a70;
-      font-size: 15px;
-      line-height: 1.7;
-      max-width: 720px;
+      margin: 0 0 10px;
     }
 
     .form-embed {
-      background: #fff;
       padding: 0 20px 20px;
+      background: white;
     }
 
+    /* FIXED FILL OUT */
     .fillout-wrapper {
       width: 100%;
-      min-height: 920px;
       border-radius: 18px;
       overflow: hidden;
     }
 
-    .privacy-note {
-      max-width: 1020px;
-      margin: 18px auto 0;
-      padding: 0 8px;
+    .privacy {
+      text-align: center;
+      margin-top: 16px;
       color: var(--muted-2);
-      text-align: center;
       font-size: 14px;
-      line-height: 1.7;
     }
 
-    .footer-note {
-      padding: 0 0 40px;
-    }
-
-    .footer-note-inner {
-      max-width: 1020px;
-      margin: 0 auto;
-      padding: 0 24px;
-      color: #9eadc4;
-      font-size: 14px;
-      line-height: 1.9;
-      text-align: center;
-    }
-
-    .footer-note a {
-      color: var(--green);
-      font-weight: 700;
-    }
-
-    @media (max-width: 1100px) {
-      .hero-meta {
-        grid-template-columns: 1fr;
-        max-width: 520px;
-      }
-
-      .intro-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 980px) {
-      .hero-card {
-        min-height: 360px;
-        background:
-          linear-gradient(180deg, rgba(7,16,27,0.84) 0%, rgba(7,16,27,0.68) 52%, rgba(7,16,27,0.52) 100%),
-          url("https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1800&q=80") center center / cover no-repeat;
-      }
-
-      .hero-content {
-        padding: 38px 34px;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .container {
-        padding-left: 16px;
-        padding-right: 16px;
-      }
-
-      .topbar-inner {
-        min-height: auto;
-        padding-top: 14px;
-        padding-bottom: 14px;
-      }
-
-      .brand {
-        gap: 10px;
-      }
-
-      .brand-icon {
-        height: 44px;
-      }
-
-      .brand-text-logo {
-        height: 32px;
-      }
-
-      .hero-section {
-        padding-top: 22px;
-      }
-
-      .hero-content {
-        padding: 26px 22px;
-      }
-
-      h1 {
-        font-size: clamp(34px, 8vw, 46px);
-      }
-
-      .hero-lead {
-        font-size: 17px;
-      }
-
-      .info-card,
-      .contact-card {
-        padding: 22px;
-      }
-
-      .form-shell {
-        border-radius: 24px;
-      }
-
-      .form-head {
-        padding: 22px 18px;
-      }
-
-      .form-head h2 {
-        font-size: 24px;
-      }
-
-      .form-embed {
-        padding: 0 10px 10px;
-      }
-
-      .fillout-wrapper {
-        min-height: 1080px;
-      }
+    @media (max-width: 768px) {
+      .hero-card { padding: 30px; }
+      .hero h1 { font-size: 32px; }
     }
   </style>
 </head>
+
 <body>
-  <div class="page">
-    <header class="topbar">
-      <div class="container topbar-inner">
-        <a class="brand" href="/">
-          <img class="brand-icon" src="customcolor_icon_customcolor_background.png" alt="EcoViva icon">
-          <img class="brand-text-logo" src="customcolor_textlogo_customcolor_background.png" alt="EcoViva Mallorca">
-        </a>
 
-        <div class="top-actions">
-          <div class="lang-switch">
-            <button class="active" data-lang="en">EN</button>
-            <button data-lang="es">ES</button>
-            <button data-lang="de">DE</button>
-          </div>
-        </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <h1>Start your project</h1>
+        <p>
+          Tell us about your request — we guide you to the right next step.
+        </p>
       </div>
-    </header>
+    </div>
+  </section>
 
-    <section class="hero-section">
-      <div class="container">
-        <div class="hero-card">
-          <div class="hero-content">
-            <div class="eyebrow" data-i18n="eyebrow">Project intake</div>
+  <!-- FORM -->
+  <section class="form-section">
+    <div class="container">
 
-            <h1 data-i18n="title">Start your project with EcoViva Mallorca</h1>
+      <div class="form-shell">
 
-            <p class="hero-lead" data-i18n="text">
-              Tell us a bit about your property or request. We will guide you to the right next step — whether that is a call, on-site consultation or technical follow-up.
-            </p>
-
-            <div class="hero-points">
-              <div class="hero-point" data-i18n="point1">Technical guidance</div>
-              <div class="hero-point" data-i18n="point2">Local coordination</div>
-              <div class="hero-point" data-i18n="point3">For expats & investors</div>
-            </div>
-
-            <div class="hero-meta">
-              <div class="hero-meta-card">
-                <strong data-i18n="meta1Title">Structured first step</strong>
-                <span data-i18n="meta1Text">A short intake that helps us understand your request quickly and clearly.</span>
-              </div>
-              <div class="hero-meta-card">
-                <strong data-i18n="meta2Title">Professional follow-up</strong>
-                <span data-i18n="meta2Text">We review your details and guide you towards the right next step.</span>
-              </div>
-              <div class="hero-meta-card">
-                <strong data-i18n="meta3Title">Mallorca-based support</strong>
-                <span data-i18n="meta3Text">Local coordination for expats, investors and second-home owners.</span>
-              </div>
-            </div>
-          </div>
+        <div class="form-head">
+          <h2>Project intake form</h2>
+          <p>Complete the form below and we will review your request.</p>
         </div>
+
+        <div class="form-embed">
+          
+          <div
+            class="fillout-wrapper"
+            style="width:100%;"
+            data-fillout-id="59qsbh9ckrus"
+            data-fillout-embed-type="standard"
+            data-fillout-inherit-parameters
+            data-fillout-dynamic-resize>
+          </div>
+
+        </div>
+
       </div>
-    </section>
 
-    <section class="intro-section">
-      <div class="container">
-        <div class="intro-grid">
-          <div class="info-card">
-            <h2 class="section-title" data-i18n="introTitle">A clear and efficient intake</h2>
-            <p class="section-text" data-i18n="introText">
-              This intake helps us understand your project type, property location and preferred next step. It creates a cleaner first review and allows us to respond in a more structured way.
-            </p>
-          </div>
-
-          <div class="contact-card">
-            <h2 class="section-title" data-i18n="contactTitle">Prefer direct contact first?</h2>
-            <p class="section-text" data-i18n="contactText">
-              If you prefer to speak to us before filling in the form, you are welcome to contact us directly.
-            </p>
-
-            <div class="contact-lines">
-              <div><a href="mailto:info@ecoviva-mallorca.com">info@ecoviva-mallorca.com</a></div>
-              <div>Markus Hackenjos · +34 645 354 228</div>
-              <div>Maritza Cubillos · +34 652 662 869</div>
-            </div>
-          </div>
-        </div>
+      <div class="privacy">
+        Your information is treated confidentially.
       </div>
-    </section>
 
-    <section class="form-section">
-      <div class="container">
-        <div class="form-shell">
-          <div class="form-head">
-            <div class="form-head-top">
-              <div class="form-kicker" data-i18n="formKicker">Confidential intake</div>
-            </div>
+    </div>
+  </section>
 
-            <h2 data-i18n="formTitle">Project intake form</h2>
-            <p data-i18n="formText">
-              Complete the form below and we will review your request as soon as possible.
-            </p>
-          </div>
-
-          <div class="form-embed">
-            <div
-              class="fillout-wrapper"
-              data-fillout-id="59qsbh9ckrus"
-              data-fillout-embed-type="standard"
-              data-fillout-inherit-parameters
-              data-fillout-dynamic-resize>
-            </div>
-          </div>
-        </div>
-
-        <div class="privacy-note" data-i18n="privacy">
-          Your information is treated confidentially and used only to review and follow up on your request.
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer-note">
-      <div class="footer-note-inner">
-        <div data-i18n="footer1">
-          EcoViva Mallorca — renovation, insulation, solar and technical project guidance in Mallorca.
-        </div>
-        <div style="margin-top:12px;">
-          Carrer Unio, 10 2 A, 07001 Palma de Mallorca, Balearic Islands, Spain<br>
-          <a href="mailto:info@ecoviva-mallorca.com">info@ecoviva-mallorca.com</a>
-        </div>
-      </div>
-    </footer>
-  </div>
-
+  <!-- SCRIPT (ONLY ONCE!) -->
   <script src="https://server.fillout.com/embed/v1/"></script>
 
-  <script>
-    const translations = {
-      en: {
-        eyebrow: "Project intake",
-        title: "Start your project with EcoViva Mallorca",
-        text: "Tell us a bit about your property or request. We will guide you to the right next step — whether that is a call, on-site consultation or technical follow-up.",
-        point1: "Technical guidance",
-        point2: "Local coordination",
-        point3: "For expats & investors",
-        meta1Title: "Structured first step",
-        meta1Text: "A short intake that helps us understand your request quickly and clearly.",
-        meta2Title: "Professional follow-up",
-        meta2Text: "We review your details and guide you towards the right next step.",
-        meta3Title: "Mallorca-based support",
-        meta3Text: "Local coordination for expats, investors and second-home owners.",
-        introTitle: "A clear and efficient intake",
-        introText: "This intake helps us understand your project type, property location and preferred next step. It creates a cleaner first review and allows us to respond in a more structured way.",
-        contactTitle: "Prefer direct contact first?",
-        contactText: "If you prefer to speak to us before filling in the form, you are welcome to contact us directly.",
-        formKicker: "Confidential intake",
-        formTitle: "Project intake form",
-        formText: "Complete the form below and we will review your request as soon as possible.",
-        privacy: "Your information is treated confidentially and used only to review and follow up on your request.",
-        footer1: "EcoViva Mallorca — renovation, insulation, solar and technical project guidance in Mallorca."
-      },
-      es: {
-        eyebrow: "Solicitud de proyecto",
-        title: "Inicie su proyecto con EcoViva Mallorca",
-        text: "Cuéntenos un poco sobre su propiedad o solicitud. Le guiaremos hacia el siguiente paso adecuado, ya sea una llamada, una visita técnica o un seguimiento técnico.",
-        point1: "Asesoramiento técnico",
-        point2: "Coordinación local",
-        point3: "Para expatriados e inversores",
-        meta1Title: "Primer paso estructurado",
-        meta1Text: "Un formulario breve que nos ayuda a entender su solicitud con rapidez y claridad.",
-        meta2Title: "Seguimiento profesional",
-        meta2Text: "Revisamos su información y le guiamos hacia el siguiente paso adecuado.",
-        meta3Title: "Soporte en Mallorca",
-        meta3Text: "Coordinación local para expatriados, inversores y propietarios de segunda residencia.",
-        introTitle: "Una solicitud clara y eficiente",
-        introText: "Este formulario nos ayuda a entender el tipo de proyecto, la ubicación de la propiedad y el siguiente paso preferido. Así podremos revisar su solicitud de forma más estructurada.",
-        contactTitle: "¿Prefiere contacto directo primero?",
-        contactText: "Si prefiere hablar con nosotros antes de completar el formulario, puede contactarnos directamente.",
-        formKicker: "Solicitud confidencial",
-        formTitle: "Formulario de proyecto",
-        formText: "Complete el siguiente formulario y revisaremos su solicitud lo antes posible.",
-        privacy: "Su información se trata de forma confidencial y se utiliza únicamente para revisar y dar seguimiento a su solicitud.",
-        footer1: "EcoViva Mallorca — reformas, aislamiento, energía solar y acompañamiento técnico de proyectos en Mallorca."
-      },
-      de: {
-        eyebrow: "Projektanfrage",
-        title: "Starten Sie Ihr Projekt mit EcoViva Mallorca",
-        text: "Teilen Sie uns etwas über Ihre Immobilie oder Anfrage mit. Wir führen Sie zum passenden nächsten Schritt — ob Erstgespräch, Vor-Ort-Termin oder technische Begleitung.",
-        point1: "Technische Begleitung",
-        point2: "Lokale Koordination",
-        point3: "Für Expats & Investoren",
-        meta1Title: "Strukturierter erster Schritt",
-        meta1Text: "Ein kurzes Formular, das uns hilft, Ihre Anfrage schnell und klar zu verstehen.",
-        meta2Title: "Professionelle Rückmeldung",
-        meta2Text: "Wir prüfen Ihre Angaben und führen Sie zum passenden nächsten Schritt.",
-        meta3Title: "Unterstützung auf Mallorca",
-        meta3Text: "Lokale Koordination für Expats, Investoren und Zweitwohnsitzbesitzer.",
-        introTitle: "Eine klare und effiziente Anfrage",
-        introText: "Dieses Formular hilft uns, Ihre Projektart, den Standort der Immobilie und den gewünschten nächsten Schritt zu verstehen. So können wir Ihre Anfrage strukturierter prüfen.",
-        contactTitle: "Bevorzugen Sie zuerst direkten Kontakt?",
-        contactText: "Wenn Sie lieber vor dem Ausfüllen des Formulars mit uns sprechen möchten, können Sie uns direkt kontaktieren.",
-        formKicker: "Vertrauliche Anfrage",
-        formTitle: "Projektformular",
-        formText: "Füllen Sie das folgende Formular aus, und wir prüfen Ihre Anfrage so bald wie möglich.",
-        privacy: "Ihre Informationen werden vertraulich behandelt und nur zur Prüfung und Nachverfolgung Ihrer Anfrage verwendet.",
-        footer1: "EcoViva Mallorca — Renovierung, Dämmung, Solar und technische Projektbegleitung auf Mallorca."
-      }
-    };
-
-    function setLanguage(lang) {
-      document.documentElement.lang = lang;
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.getAttribute("data-i18n");
-        if (translations[lang] && translations[lang][key]) {
-          el.textContent = translations[lang][key];
-        }
-      });
-
-      document.querySelectorAll("[data-lang]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
-      });
-
-      localStorage.setItem("ecoviva-lang", lang);
-    }
-
-    document.querySelectorAll("[data-lang]").forEach(btn => {
-      btn.addEventListener("click", () => setLanguage(btn.getAttribute("data-lang")));
-    });
-
-    const savedLang = localStorage.getItem("ecoviva-lang") || "en";
-    setLanguage(savedLang);
-  </script>
 </body>
 </html>
