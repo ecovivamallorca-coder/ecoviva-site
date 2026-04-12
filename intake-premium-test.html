@@ -37,7 +37,6 @@
       padding: 40px 20px;
     }
 
-    /* HERO */
     .hero {
       margin-bottom: 30px;
       padding: 40px;
@@ -48,35 +47,43 @@
     .hero h1 {
       margin: 0 0 10px;
       font-size: 38px;
+      line-height: 1.05;
     }
 
     .hero p {
       color: var(--muted);
       max-width: 600px;
+      margin: 0;
+      line-height: 1.6;
     }
 
-    /* GRID */
     .grid {
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: 20px;
+      align-items: start;
     }
 
-    /* FORM */
     .form-box {
       background: #f5f7fb;
       border-radius: var(--radius);
-      padding: 20px;
+      padding: 16px;
     }
 
-    /* FIX: GEEN HEIGHT MEER */
     .fillout-wrapper {
       width: 100%;
       border-radius: 16px;
       overflow: hidden;
+      min-height: 0;
+      line-height: 0;
     }
 
-    /* SIDEBAR */
+    .fillout-wrapper iframe {
+      display: block;
+      width: 100%;
+      border: 0;
+    }
+
     .sidebar {
       display: flex;
       flex-direction: column;
@@ -91,29 +98,37 @@
     }
 
     .card h3 {
-      margin-top: 0;
+      margin: 0 0 10px;
       font-size: 18px;
+      line-height: 1.2;
     }
 
     .card p {
+      margin: 0;
       color: var(--muted);
       font-size: 14px;
+      line-height: 1.7;
     }
 
-    /* MOBILE */
-    @media(max-width: 900px) {
+    @media (max-width: 900px) {
       .grid {
         grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 28px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
       }
     }
   </style>
 </head>
 
 <body>
-
   <div class="container">
 
-    <!-- HERO -->
     <div class="hero">
       <h1>Private renovation & property advisory intake</h1>
       <p>
@@ -121,12 +136,9 @@
       </p>
     </div>
 
-    <!-- GRID -->
     <div class="grid">
 
-      <!-- FORM -->
       <div class="form-box">
-
         <div
           class="fillout-wrapper"
           data-fillout-id="59qsbh9ckrus"
@@ -134,12 +146,9 @@
           data-fillout-inherit-parameters
           data-fillout-dynamic-resize>
         </div>
-
       </div>
 
-      <!-- SIDEBAR -->
       <div class="sidebar">
-
         <div class="card">
           <h3>What happens next</h3>
           <p>We review your request and guide you to the right next step.</p>
@@ -154,15 +163,11 @@
           <h3>Project types</h3>
           <p>Renovation, insulation, solar and technical advisory.</p>
         </div>
-
       </div>
 
     </div>
-
   </div>
 
-  <!-- SCRIPT (ENKEL 1X!) -->
   <script src="https://server.fillout.com/embed/v1/"></script>
-
 </body>
 </html>
