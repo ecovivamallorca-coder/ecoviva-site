@@ -3,27 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EcoViva Mallorca | Project Intake</title>
+
+  <title>EcoViva Mallorca | Private Project Intake</title>
   <meta
     name="description"
-    content="Start your EcoViva Mallorca project intake. We use this intake to understand your project, define the right scope and prepare a tailored proposal for the selected service."
+    content="Private EcoViva Mallorca project intake for renovation, insulation, solar and technical advisory requests. We use this intake to understand your project and prepare the right proposal for the selected service."
   />
+
+  <link rel="icon" type="image/x-icon" href="favicon/favicon.ico" />
+  <link rel="shortcut icon" href="favicon/favicon.ico" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+
   <style>
     :root {
-      --bg: #0b1120;
-      --panel: #11192b;
-      --panel-soft: rgba(255,255,255,0.04);
-      --text: #f5f7fb;
-      --muted: #b7c0d4;
-      --line: rgba(255,255,255,0.1);
-      --accent: #8fde65;
-      --accent-dark: #6fc94c;
-      --white: #ffffff;
-      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --bg: #07101b;
+      --bg2: #0d1828;
+      --line: rgba(255,255,255,0.12);
+      --line-soft: rgba(255,255,255,0.08);
+      --panel: rgba(255,255,255,0.05);
+      --text: #ffffff;
+      --muted: #cdd7e6;
+      --muted-2: #9aa8bd;
+      --green: #8fde65;
+      --green-hover: #9ae56f;
       --radius-xl: 28px;
       --radius-lg: 20px;
-      --radius-md: 14px;
-      --max: 1180px;
+      --shadow: 0 24px 70px rgba(0,0,0,0.22);
+      --shadow-modal: 0 36px 90px rgba(0,0,0,0.32);
+      --max: 1280px;
     }
 
     * {
@@ -36,12 +43,18 @@
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
-      background:
-        linear-gradient(180deg, rgba(11,17,32,0.86), rgba(11,17,32,0.94)),
-        url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: var(--text);
-      line-height: 1.5;
+      background:
+        radial-gradient(circle at top left, rgba(143,222,101,0.08), transparent 24%),
+        radial-gradient(circle at top right, rgba(255,255,255,0.04), transparent 20%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      min-height: 100vh;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+      touch-action: none;
     }
 
     a {
@@ -49,488 +62,920 @@
       text-decoration: none;
     }
 
-    .container {
-      width: min(var(--max), calc(100% - 40px));
-      margin: 0 auto;
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
     }
 
-    .hero {
+    .page {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 56px 0;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.95fr;
-      gap: 34px;
-      align-items: stretch;
-      width: 100%;
-    }
-
-    .content-card,
-    .form-card {
-      background: rgba(10, 16, 30, 0.78);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-
-    .content-card {
-      padding: 42px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(143, 222, 101, 0.1);
-      border: 1px solid rgba(143, 222, 101, 0.22);
-      color: var(--accent);
-      font-size: 0.84rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.3rem, 5vw, 4.5rem);
-      line-height: 1.02;
-      letter-spacing: -0.03em;
-      max-width: 11ch;
-    }
-
-    .lead {
-      margin: 22px 0 0;
-      font-size: 1.08rem;
-      color: var(--muted);
-      max-width: 64ch;
-    }
-
-    .lead strong {
-      color: var(--white);
-      font-weight: 650;
-    }
-
-    .intro-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 30px;
-    }
-
-    .info-box {
-      background: var(--panel-soft);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-    }
-
-    .info-box h3 {
-      margin: 0 0 10px;
-      font-size: 1rem;
-      line-height: 1.2;
-    }
-
-    .info-box p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.97rem;
-    }
-
-    .process-card {
-      margin-top: 26px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.025));
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
       padding: 24px;
     }
 
-    .process-card h2 {
-      margin: 0 0 10px;
-      font-size: 1.15rem;
+    .shell {
+      max-width: var(--max);
+      margin: 0 auto;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid var(--line-soft);
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
     }
 
-    .process-intro {
-      margin: 0 0 20px;
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 28px;
+      background: rgba(6,14,24,0.72);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .brand-icon {
+      width: 68px;
+      height: 68px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.18));
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 68px;
+      min-width: 0;
+    }
+
+    .brand-main {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      line-height: 1;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .brand-sub {
+      font-size: 19px;
+      line-height: 1;
+      color: var(--green);
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: #dbe5f3;
+      font-size: 15px;
+    }
+
+    .nav a {
+      opacity: 0.9;
+      transition: opacity 0.18s ease;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+    }
+
+    .hero-wrap {
+      padding: 26px;
+    }
+
+    .hero-card {
+      border-radius: var(--radius-xl);
+      padding: 56px 56px 50px;
+      background:
+        linear-gradient(90deg, rgba(7,16,27,0.92) 0%, rgba(7,16,27,0.88) 34%, rgba(7,16,27,0.60) 100%),
+        radial-gradient(circle at right center, rgba(143,222,101,0.06), transparent 30%);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(143,222,101,0.16);
+      color: #d8f2ca;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(42px, 6vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      max-width: 980px;
+    }
+
+    .hero-text {
+      max-width: 900px;
+      margin: 0 0 28px;
       color: var(--muted);
-      font-size: 0.96rem;
-      max-width: 60ch;
+      font-size: clamp(18px, 2vw, 21px);
+      line-height: 1.6;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .primary-cta {
+      appearance: none;
+      border: 0;
+      background: var(--green);
+      color: #08111d;
+      padding: 16px 30px;
+      border-radius: 14px;
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 10px 24px rgba(143,222,101,0.18);
+    }
+
+    .primary-cta:hover {
+      background: var(--green-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(143,222,101,0.22);
+    }
+
+    .cta-note {
+      color: var(--muted-2);
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      padding: 0 26px 30px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 20px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line-soft);
+      padding: 22px 26px 26px;
+      background: rgba(6,14,24,0.56);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .footer-left {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .footer-left strong {
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .footer-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--muted-2);
+      font-size: 13px;
+    }
+
+    .footer-right a:hover,
+    .footer-left a:hover {
+      color: var(--text);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 8, 14, 0.78);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.22s ease, visibility 0.22s ease;
+      z-index: 9998;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-shell {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.22s ease, visibility 0.22s ease;
+      pointer-events: none;
+    }
+
+    .modal-shell.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      position: relative;
+      width: min(1320px, 100%);
+      height: min(860px, calc(100vh - 56px));
+      border-radius: 26px;
+      overflow: hidden;
+      background: #f5f7fb;
+      box-shadow: var(--shadow-modal);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .modal-topline {
+      height: 5px;
+      background: linear-gradient(90deg, var(--green) 0%, #9ae56f 100%);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 46px;
+      height: 46px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(8,17,29,0.86);
+      color: white;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      height: calc(100% - 5px);
+    }
+
+    .modal-sidebar {
+      background:
+        linear-gradient(180deg, rgba(7,16,27,0.96), rgba(11,24,40,0.98)),
+        radial-gradient(circle at top left, rgba(143,222,101,0.08), transparent 30%);
+      color: white;
+      padding: 34px 28px 28px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .modal-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-right: 48px;
+    }
+
+    .modal-brand-icon {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .modal-brand-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 48px;
+      min-width: 0;
+    }
+
+    .modal-brand-main {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      line-height: 1;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .modal-brand-sub {
+      font-size: 14px;
+      line-height: 1;
+      color: var(--green);
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    .modal-tag {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(143,222,101,0.14);
+      color: #d8f2ca;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin-bottom: 22px;
+    }
+
+    .modal-sidebar h2 {
+      margin: 0 0 16px;
+      font-size: 34px;
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+    }
+
+    .modal-sidebar p {
+      margin: 0 0 22px;
+      color: #d7e0ee;
+      font-size: 16px;
+      line-height: 1.75;
     }
 
     .timeline {
       display: grid;
-      gap: 12px;
+      gap: 14px;
+      margin-top: 8px;
     }
 
     .timeline-item {
       display: grid;
-      grid-template-columns: 42px 1fr;
-      gap: 14px;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
       align-items: start;
-      padding: 12px 0;
-      border-top: 1px solid rgba(255,255,255,0.06);
     }
 
-    .timeline-item:first-child {
-      border-top: 0;
-      padding-top: 0;
-    }
-
-    .step {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
+    .timeline-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.06);
+      color: #ffffff;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: rgba(143,222,101,0.14);
-      border: 1px solid rgba(143,222,101,0.24);
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 0.95rem;
+      font-weight: 800;
+      font-size: 14px;
+      margin-top: 2px;
     }
 
-    .timeline-item h4 {
-      margin: 2px 0 4px;
-      font-size: 1rem;
-      line-height: 1.25;
+    .timeline-copy {
+      color: #d7e0ee;
+      font-size: 14px;
+      line-height: 1.65;
     }
 
-    .timeline-item p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .note {
-      margin-top: 20px;
-      padding-top: 18px;
+    .modal-sidebar-footer {
+      margin-top: auto;
+      padding-top: 24px;
       border-top: 1px solid rgba(255,255,255,0.08);
-      color: var(--muted);
-      font-size: 0.93rem;
+      color: #cfe3c3;
+      font-size: 13px;
+      line-height: 1.9;
     }
 
-    .form-card {
-      padding: 30px;
+    .modal-sidebar-footer strong {
+      display: block;
+      font-size: 14px;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .modal-main {
+      background: #eef2f7;
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-mobile-header {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 16px 8px;
+      background: #eef2f7;
+      border-bottom: 1px solid rgba(8,17,29,0.06);
+    }
+
+    .modal-mobile-icon {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .modal-mobile-text {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      height: 40px;
+      min-width: 0;
     }
 
-    .form-top h2 {
-      margin: 0;
-      font-size: 1.55rem;
-      line-height: 1.12;
-    }
-
-    .form-top p {
-      margin: 14px 0 0;
-      color: var(--muted);
-      font-size: 0.98rem;
-    }
-
-    .checklist {
-      display: grid;
-      gap: 12px;
-      margin: 24px 0 28px;
-    }
-
-    .checklist-item {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      color: var(--muted);
-      font-size: 0.96rem;
-    }
-
-    .checklist-item strong {
-      color: var(--white);
-      font-weight: 600;
-    }
-
-    .checkmark {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: rgba(143,222,101,0.14);
-      border: 1px solid rgba(143,222,101,0.22);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      font-size: 0.8rem;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .cta-box {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      padding: 18px;
-      margin-bottom: 22px;
-    }
-
-    .cta-box h3 {
-      margin: 0 0 8px;
-      font-size: 1rem;
-    }
-
-    .cta-box p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .cta-button {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      min-height: 58px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, var(--accent), var(--accent-dark));
-      color: #0d1610;
+    .modal-mobile-main {
+      font-size: 20px;
       font-weight: 800;
-      font-size: 1rem;
-      letter-spacing: 0.01em;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 14px 30px rgba(143, 222, 101, 0.22);
+      letter-spacing: 0.03em;
+      line-height: 1;
+      color: #101828;
+      white-space: nowrap;
     }
 
-    .cta-button:hover {
-      transform: translateY(-1px);
+    .modal-mobile-sub {
+      font-size: 12px;
+      line-height: 1;
+      color: #78c751;
+      font-style: italic;
+      white-space: nowrap;
     }
 
-    .fineprint {
+    .modal-body {
+      flex: 1;
+      min-height: 0;
+      min-width: 0;
+      padding: 18px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-frame {
+      width: 100%;
+      min-height: 740px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #f5f7fb;
+    }
+
+    .modal-note {
       margin-top: 14px;
-      color: rgba(183,192,212,0.82);
-      font-size: 0.84rem;
+      color: #667085;
+      font-size: 13px;
+      line-height: 1.6;
       text-align: center;
     }
 
-    .footer-mini {
-      margin-top: 18px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      color: rgba(183,192,212,0.78);
-      font-size: 0.84rem;
-      line-height: 1.7;
+    @media (max-width: 1100px) {
+      .modal-grid {
+        grid-template-columns: 330px 1fr;
+      }
+
+      .modal-sidebar h2 {
+        font-size: 30px;
+      }
     }
 
-    @media (max-width: 1040px) {
-      .hero-grid {
+    @media (max-width: 980px) {
+      .cards {
         grid-template-columns: 1fr;
       }
 
-      h1 {
-        max-width: 14ch;
+      .hero-card {
+        padding: 40px 28px 34px;
+      }
+
+      .topbar {
+        padding: 16px 18px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-right {
+        justify-content: flex-start;
       }
     }
 
     @media (max-width: 720px) {
-      .hero {
-        min-height: auto;
-        padding: 20px 0 34px;
+      .page {
+        padding: 12px;
       }
 
-      .container {
-        width: min(100% - 20px, 100%);
+      .nav {
+        display: none;
       }
 
-      .content-card,
-      .form-card {
-        border-radius: 22px;
+      .topbar {
+        padding: 14px 16px;
       }
 
-      .content-card,
-      .form-card {
-        padding: 24px 18px;
-      }
-
-      .intro-grid {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: clamp(2rem, 9vw, 3rem);
-        max-width: 100%;
-      }
-
-      .lead {
-        font-size: 1rem;
-      }
-
-      .timeline-item {
-        grid-template-columns: 36px 1fr;
+      .brand {
         gap: 12px;
       }
 
-      .step {
-        width: 36px;
-        height: 36px;
-        font-size: 0.85rem;
+      .brand-icon {
+        width: 52px;
+        height: 52px;
       }
 
-      .cta-button {
-        min-height: 54px;
+      .brand-text {
+        height: 52px;
+      }
+
+      .brand-main {
+        font-size: 26px;
+      }
+
+      .brand-sub {
+        font-size: 14px;
+      }
+
+      .hero-wrap {
+        padding: 16px;
+      }
+
+      .hero-card {
+        padding: 30px 20px 28px;
+      }
+
+      .hero-eyebrow {
+        margin-bottom: 18px;
+      }
+
+      h1 {
+        font-size: clamp(36px, 12vw, 50px);
+      }
+
+      .hero-text {
+        font-size: 17px;
+      }
+
+      .cards {
+        padding: 0 16px 20px;
+      }
+
+      .primary-cta {
+        width: 100%;
+      }
+
+      .cta-row {
+        align-items: stretch;
+      }
+
+      .footer {
+        padding: 20px 16px 22px;
+      }
+
+      .modal-shell {
+        padding: 0;
+        align-items: stretch;
+      }
+
+      .modal-card {
+        width: 100%;
+        height: 100dvh;
+        max-height: 100dvh;
+        border-radius: 0;
+      }
+
+      .modal-topline {
+        height: 4px;
+      }
+
+      .modal-grid {
+        display: block;
+        height: calc(100% - 4px);
+      }
+
+      .modal-sidebar {
+        display: none;
+      }
+
+      .modal-mobile-header {
+        display: flex;
+      }
+
+      .modal-close {
+        top: 12px;
+        right: 12px;
+        width: 44px;
+        height: 44px;
+      }
+
+      .modal-main {
+        height: 100%;
+      }
+
+      .modal-body {
+        padding: 12px 12px 18px;
+      }
+
+      .modal-frame {
+        min-height: 920px;
+        border-radius: 16px;
+      }
+
+      .modal-note {
+        font-size: 12px;
+        padding-bottom: 10px;
       }
     }
   </style>
 </head>
 <body>
-  <main class="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <section class="content-card">
-          <div class="eyebrow">EcoViva Project Intake</div>
-          <h1>Start with clarity before we prepare your proposal.</h1>
-          <p class="lead">
-            This intake is designed to <strong>understand your project, define the right scope</strong> and prepare a tailored proposal for the selected service. Whether you are planning renovation, insulation, solar or technical advisory support, this is the first step to structure the project properly.
+  <div class="page">
+    <div class="shell">
+
+      <header class="topbar">
+        <div class="brand">
+          <img
+            class="brand-icon"
+            src="assets/icons/icon-192.png"
+            alt="EcoViva Mallorca icon"
+          />
+          <div class="brand-text" aria-label="EcoViva Mallorca">
+            <div class="brand-main">ECOVIVA</div>
+            <div class="brand-sub">mallorca</div>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#how-it-works">How it works</a>
+          <a href="#intake-purpose">Purpose</a>
+          <a href="#footer-contact">Contact</a>
+        </nav>
+      </header>
+
+      <section class="hero-wrap">
+        <div class="hero-card">
+          <div class="hero-eyebrow">Private project intake</div>
+
+          <h1>Start your project intake for scope review and proposal preparation</h1>
+
+          <p class="hero-text">
+            This intake is designed to help EcoViva understand your project, define the right scope and prepare
+            the right proposal for your selected service. Use it for renovation, insulation, solar or technical advisory requests in Mallorca.
           </p>
 
-          <div class="intro-grid">
-            <div class="info-box">
-              <h3>What this intake is for</h3>
-              <p>
-                To map your project, understand what you are looking for and determine what we need internally to prepare the right next step.
-              </p>
+          <div class="cta-row">
+            <button class="primary-cta" id="open-modal-btn" type="button">
+              Start your intake
+            </button>
+            <div class="cta-note">
+              A structured first step to review your project, clarify your request and prepare the right next step.
             </div>
-            <div class="info-box">
-              <h3>What this intake is not</h3>
-              <p>
-                This is not a generic contact form. It is the starting point for project review, proposal preparation and the advisory process around your chosen service.
-              </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cards" id="how-it-works">
+        <div class="card">
+          <h3>Why this intake matters</h3>
+          <p>
+            We use this intake to understand what you are looking for, assess the project direction and determine what is needed internally before moving to the next stage.
+          </p>
+        </div>
+
+        <div class="card" id="intake-purpose">
+          <h3>What happens next</h3>
+          <p>
+            Depending on the request, the next step may include an internal review, a clarification call, a site visit and the preparation of a tailored proposal.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>What this intake is for</h3>
+          <p>
+            This is not a generic contact form. It is the starting point for project understanding, scope definition and offer preparation for the selected EcoViva service.
+          </p>
+        </div>
+      </section>
+
+      <footer class="footer" id="footer-contact">
+        <div class="footer-grid">
+          <div class="footer-left">
+            <strong>EcoViva Mallorca SL</strong><br />
+            Carrer Unio, 10 2 A, 07001 Palma de Mallorca, Baleares, España ·
+            <a href="https://www.ecoviva-mallorca.com" target="_blank" rel="noopener">www.ecoviva-mallorca.com</a> ·
+            <a href="mailto:info@ecoviva-mallorca.com">info@ecoviva-mallorca.com</a> ·
+            +34 645 354 228 · +34 652 662 869<br />
+            © 2026 EcoViva Mallorca SL. All rights reserved.
+          </div>
+
+          <div class="footer-right">
+            <a href="#">Privacy &amp; Cookies</a>
+            <a href="#">Terms &amp; Conditions</a>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-overlay"></div>
+
+  <div class="modal-shell" id="modal-shell" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-label="EcoViva intake form">
+      <div class="modal-topline"></div>
+
+      <button class="modal-close" id="close-modal-btn" aria-label="Close intake">×</button>
+
+      <div class="modal-grid">
+        <aside class="modal-sidebar" aria-label="Intake explanation">
+          <div class="modal-brand">
+            <img
+              class="modal-brand-icon"
+              src="assets/icons/icon-192.png"
+              alt="EcoViva Mallorca icon"
+            />
+            <div class="modal-brand-text" aria-label="EcoViva Mallorca">
+              <div class="modal-brand-main">ECOVIVA</div>
+              <div class="modal-brand-sub">mallorca</div>
             </div>
           </div>
 
-          <div class="process-card">
-            <h2>How the intake process works</h2>
-            <p class="process-intro">
-              The exact path depends on your project, but the intake generally follows a clear internal process from first request to proposal and planning.
-            </p>
+          <div class="modal-tag">Project intake</div>
 
-            <div class="timeline">
-              <div class="timeline-item">
-                <div class="step">1</div>
-                <div>
-                  <h4>Submit your intake</h4>
-                  <p>You tell us what you are looking for so we can understand the project direction and requested service.</p>
-                </div>
-              </div>
+          <h2>We use this intake to understand and scope your project</h2>
 
-              <div class="timeline-item">
-                <div class="step">2</div>
-                <div>
-                  <h4>Internal review</h4>
-                  <p>We review the request internally and determine what is needed to move the project forward correctly.</p>
-                </div>
-              </div>
+          <p>
+            This intake helps us understand what you are looking for, review the project internally and prepare the right proposal for the selected service. The exact path may vary, but the process generally follows these steps.
+          </p>
 
-              <div class="timeline-item">
-                <div class="step">3</div>
-                <div>
-                  <h4>Follow-up call</h4>
-                  <p>We contact you to clarify the request, align expectations and confirm the right next step.</p>
-                </div>
-              </div>
-
-              <div class="timeline-item">
-                <div class="step">4</div>
-                <div>
-                  <h4>Site visit when needed</h4>
-                  <p>For certain projects, a site visit is needed to assess the technical situation and define the scope properly.</p>
-                </div>
-              </div>
-
-              <div class="timeline-item">
-                <div class="step">5</div>
-                <div>
-                  <h4>Proposal preparation</h4>
-                  <p>We prepare the proposal based on the selected service, the project details and the outcome of the review process.</p>
-                </div>
-              </div>
-
-              <div class="timeline-item">
-                <div class="step">6</div>
-                <div>
-                  <h4>Proposal discussion</h4>
-                  <p>We review the offer together during a site or office meeting, explain the scope and adjust where needed.</p>
-                </div>
-              </div>
-
-              <div class="timeline-item">
-                <div class="step">7</div>
-                <div>
-                  <h4>Planning the works</h4>
-                  <p>Once approved, we move into the preparation and planning phase of the project or works.</p>
-                </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-number">1</div>
+              <div class="timeline-copy">
+                You submit your intake so we understand what you are looking for.
               </div>
             </div>
 
-            <p class="note">
-              Not every project follows every step in the exact same way, but this gives you a clear idea of how EcoViva structures the intake and proposal process.
-            </p>
-          </div>
-        </section>
-
-        <aside class="form-card">
-          <div>
-            <div class="form-top">
-              <h2>Project intake for advisory and proposal preparation</h2>
-              <p>
-                Use this intake when you want EcoViva to review your request and prepare the right proposal for your chosen service.
-              </p>
-            </div>
-
-            <div class="checklist">
-              <div class="checklist-item">
-                <span class="checkmark">✓</span>
-                <span><strong>Clear starting point</strong> for renovation, insulation, solar and technical project requests.</span>
-              </div>
-              <div class="checklist-item">
-                <span class="checkmark">✓</span>
-                <span><strong>Structured internal review</strong> before calls, visits or proposal drafting.</span>
-              </div>
-              <div class="checklist-item">
-                <span class="checkmark">✓</span>
-                <span><strong>Focused on scope and offer preparation</strong>, not just general contact.</span>
+            <div class="timeline-item">
+              <div class="timeline-number">2</div>
+              <div class="timeline-copy">
+                We review the request internally and assess the right next step.
               </div>
             </div>
 
-            <div class="cta-box">
-              <h3>Before you start</h3>
-              <p>
-                Please share the project direction as clearly as possible. The better we understand your request, the more efficiently we can review and prepare the right next step.
-              </p>
+            <div class="timeline-item">
+              <div class="timeline-number">3</div>
+              <div class="timeline-copy">
+                We contact you to clarify the project and align expectations.
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-number">4</div>
+              <div class="timeline-copy">
+                If needed, we plan a site visit to assess the situation properly.
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-number">5</div>
+              <div class="timeline-copy">
+                We prepare the proposal based on the selected service and project scope.
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-number">6</div>
+              <div class="timeline-copy">
+                We review the offer together, explain it clearly and adjust where needed.
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-number">7</div>
+              <div class="timeline-copy">
+                Once approved, we move into planning and preparation of the project or works.
+              </div>
             </div>
           </div>
 
-          <div>
-            <a class="cta-button" href="#fillout-form">Start your intake</a>
-            <p class="fineprint">Selected project requests • Structured review • Proposal-oriented follow-up</p>
-
-            <div class="footer-mini">
-              EcoViva Mallorca<br />
-              Carrer del General Riera 44, 07003 Palma de Mallorca<br />
-              info@ecoviva-mallorca.com • +34 645 354 228 • +34 652 662 869
-            </div>
+          <div class="modal-sidebar-footer">
+            <strong>info@ecoviva-mallorca.com</strong>
+            Markus Hackenjos · +34 645 354 228<br />
+            Maritza Cubillos · +34 652 662 869<br />
+            www.ecoviva-mallorca.com
           </div>
         </aside>
+
+        <div class="modal-main">
+          <div class="modal-mobile-header">
+            <img
+              class="modal-mobile-icon"
+              src="assets/icons/icon-192.png"
+              alt="EcoViva Mallorca icon"
+            />
+            <div class="modal-mobile-text" aria-label="EcoViva Mallorca">
+              <div class="modal-mobile-main">ECOVIVA</div>
+              <div class="modal-mobile-sub">mallorca</div>
+            </div>
+          </div>
+
+          <div class="modal-body">
+            <div
+              class="modal-frame"
+              data-fillout-id="59qsbh9ckrus"
+              data-fillout-embed-type="standard"
+              data-fillout-inherit-parameters
+              data-fillout-dynamic-resize>
+            </div>
+
+            <div class="modal-note">
+              Your information is treated confidentially and only used to review and follow up on your request.
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </main>
+  </div>
 
-  <section id="fillout-form" style="background:#ffffff; padding: 0;">
-    <div style="width:100%;height:900px;" data-fillout-id="59qsbh9ckrus" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div>
-    <script src="https://server.fillout.com/embed/v1/"></script>
-  </section>
+  <script src="https://server.fillout.com/embed/v1/"></script>
+
+  <script>
+    const openBtn = document.getElementById('open-modal-btn');
+    const closeBtn = document.getElementById('close-modal-btn');
+    const overlay = document.getElementById('modal-overlay');
+    const modalShell = document.getElementById('modal-shell');
+
+    function openModal() {
+      overlay.classList.add('active');
+      modalShell.classList.add('active');
+      modalShell.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    }
+
+    function closeModal() {
+      overlay.classList.remove('active');
+      modalShell.classList.remove('active');
+      modalShell.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
 </body>
 </html>
