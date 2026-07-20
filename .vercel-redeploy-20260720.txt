@@ -1,0 +1,1 @@
+Force production redeploy after restoring the previous working site on 2026-07-20.
