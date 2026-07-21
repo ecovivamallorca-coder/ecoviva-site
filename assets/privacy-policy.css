@@ -119,6 +119,7 @@ a:hover {
 }
 
 .policy-card {
+  min-width: 0;
   padding: clamp(28px, 5vw, 58px);
 }
 
@@ -140,6 +141,12 @@ h1 {
   margin: 0 0 18px;
   font-size: clamp(42px, 6vw, 68px);
   line-height: 1.02;
+}
+
+h1,
+h2 {
+  hyphens: auto;
+  overflow-wrap: anywhere;
 }
 
 .lead {

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoViva Mallorca SL | Website Coming Soon</title>
-  <meta name="description" content="EcoViva Mallorca SL supports expats, property owners and investors with renovation, insulation, solar and technical project guidance in Mallorca." />
+  <meta name="description" content="EcoViva Mallorca SL supports expats, property owners and investors with renovation, insulation, solar and technical project guidance in Mallorca.">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -141,6 +141,7 @@
     }
 
     .card {
+      min-width: 0;
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 28px;
@@ -174,6 +175,8 @@
       font-family: Georgia, "Times New Roman", serif;
       font-size: clamp(40px, 6vw, 70px);
       line-height: 1.03;
+      hyphens: auto;
+      overflow-wrap: anywhere;
     }
 
     .lead {
@@ -302,6 +305,10 @@
       font-weight: 700;
     }
 
+    .info-box .contact-details {
+      margin-top: 14px;
+    }
+
     .footer-note {
       max-width: 1220px;
       margin: 0 auto;
@@ -315,6 +322,11 @@
     .footer-note a {
       color: var(--green);
       font-weight: 700;
+    }
+
+    .footer-contact,
+    .footer-policy {
+      margin-top: 12px;
     }
 
     @media (max-width: 980px) {
@@ -375,9 +387,9 @@
         </a>
 
         <div class="lang-switch">
-          <button class="active" data-lang="en">EN</button>
-          <button data-lang="es">ES</button>
-          <button data-lang="de">DE</button>
+          <button type="button" class="active" data-lang="en" aria-label="English" aria-pressed="true">EN</button>
+          <button type="button" data-lang="es" aria-label="Español" aria-pressed="false">ES</button>
+          <button type="button" data-lang="de" aria-label="Deutsch" aria-pressed="false">DE</button>
         </div>
       </div>
     </header>
@@ -388,7 +400,7 @@
           <div class="eyebrow" data-i18n="eyebrow">Website launching soon</div>
           <div class="status-box" data-i18n="status">Our full website will be online soon</div>
 
-          <h1 data-i18n="title">Sustainable Renovation & Energy Solutions in Mallorca</h1>
+          <h1 data-i18n="title">Sustainable Renovation &amp; Energy Solutions in Mallorca</h1>
 
           <p class="lead" data-i18n="text">
             EcoViva Mallorca supports expats, property owners and investors with renovation, insulation, solar and technical project guidance.
@@ -426,12 +438,12 @@
               <p data-i18n="boxText">
                 While the full website is being completed, you can already contact us for project inquiries, consultations and renovation questions.
               </p>
-              <p style="margin-top:14px;">
+              <p class="contact-details">
                 <strong>EcoViva Mallorca SL</strong><br>
                 Pg. de Mallorca, 14-A<br>
                 Entresuelo 2, Puerta E<br>
                 07012 Palma, Illes Balears, Spain<br>
-                <a href="tel:+34871532758">+34 871 53 27 58</a><br>
+                <a href="tel:+34871532758">+34&nbsp;871&nbsp;53&nbsp;27&nbsp;58</a><br>
                 <a href="mailto:info@ecoviva-mallorca.com">info@ecoviva-mallorca.com</a>
               </p>
             </div>
@@ -442,15 +454,15 @@
 
     <footer class="footer-note">
       <div data-i18n="footer1">EcoViva Mallorca — website under construction. More pages and project information will follow soon.</div>
-      <div style="margin-top:12px;">
+      <div class="footer-contact">
         EcoViva Mallorca SL<br>
         Pg. de Mallorca, 14-A<br>
         Entresuelo 2, Puerta E<br>
         07012 Palma, Illes Balears, Spain<br>
-        <a href="tel:+34871532758">+34 871 53 27 58</a><br>
+        <a href="tel:+34871532758">+34&nbsp;871&nbsp;53&nbsp;27&nbsp;58</a><br>
         <a href="mailto:info@ecoviva-mallorca.com">info@ecoviva-mallorca.com</a>
       </div>
-      <div style="margin-top:12px;">
+      <div class="footer-policy">
         <a data-privacy-link href="/en/privacy-policy" data-i18n="privacyLink">Privacy Policy</a>
       </div>
     </footer>
@@ -527,7 +539,9 @@
       });
 
       document.querySelectorAll("[data-lang]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+        const isActive = btn.getAttribute("data-lang") === lang;
+        btn.classList.toggle("active", isActive);
+        btn.setAttribute("aria-pressed", String(isActive));
       });
 
       const privacyPaths = {
