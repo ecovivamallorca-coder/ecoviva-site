@@ -450,6 +450,9 @@
         <a href="tel:+34871532758">+34 871 53 27 58</a><br>
         <a href="mailto:info@ecoviva-mallorca.com">info@ecoviva-mallorca.com</a>
       </div>
+      <div style="margin-top:12px;">
+        <a data-privacy-link href="/en/privacy-policy" data-i18n="privacyLink">Privacy Policy</a>
+      </div>
     </footer>
   </div>
 
@@ -471,7 +474,8 @@
         badge: "Mallorca • Coming Soon",
         boxTitle: "Contact us directly",
         boxText: "While the full website is being completed, you can already contact us for project inquiries, consultations and renovation questions.",
-        footer1: "EcoViva Mallorca — website under construction. More pages and project information will follow soon."
+        footer1: "EcoViva Mallorca — website under construction. More pages and project information will follow soon.",
+        privacyLink: "Privacy Policy"
       },
       es: {
         eyebrow: "Sitio web disponible pronto",
@@ -489,7 +493,8 @@
         badge: "Mallorca • Próximamente",
         boxTitle: "Contáctenos directamente",
         boxText: "Mientras terminamos la web completa, ya puede contactarnos para consultas, proyectos y preguntas sobre reformas.",
-        footer1: "EcoViva Mallorca — sitio web en construcción. Muy pronto añadiremos más páginas e información sobre proyectos."
+        footer1: "EcoViva Mallorca — sitio web en construcción. Muy pronto añadiremos más páginas e información sobre proyectos.",
+        privacyLink: "Política de privacidad"
       },
       de: {
         eyebrow: "Website bald online",
@@ -507,7 +512,8 @@
         badge: "Mallorca • Bald online",
         boxTitle: "Kontaktieren Sie uns direkt",
         boxText: "Während die vollständige Website fertiggestellt wird, können Sie uns bereits für Projektanfragen, Beratungen und Renovierungsfragen kontaktieren.",
-        footer1: "EcoViva Mallorca — Website im Aufbau. Weitere Seiten und Projektinformationen folgen in Kürze."
+        footer1: "EcoViva Mallorca — Website im Aufbau. Weitere Seiten und Projektinformationen folgen in Kürze.",
+        privacyLink: "Datenschutzerklärung"
       }
     };
 
@@ -523,6 +529,16 @@
       document.querySelectorAll("[data-lang]").forEach(btn => {
         btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
       });
+
+      const privacyPaths = {
+        en: "/en/privacy-policy",
+        es: "/es/politica-de-privacidad",
+        de: "/de/datenschutzerklaerung"
+      };
+      const privacyLink = document.querySelector("[data-privacy-link]");
+      if (privacyLink && privacyPaths[lang]) {
+        privacyLink.href = privacyPaths[lang];
+      }
 
       localStorage.setItem("ecoviva-lang", lang);
     }
