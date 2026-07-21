@@ -1,0 +1,7 @@
+{
+  "redirects": [
+    { "source": "/intake.html", "destination": "/en/intake", "permanent": true },
+    { "source": "/intake4.html", "destination": "/en/intake", "permanent": true },
+    { "source": "/partners.html", "destination": "/en/partners", "permanent": true }
+  ]
+}

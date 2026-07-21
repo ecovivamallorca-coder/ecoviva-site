@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>Choose customer language | EcoViva Mallorca</title>
+  <link rel="icon" href="/favicon/favicon.png">
+  <link rel="stylesheet" href="/assets/intake-host.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="EcoViva Mallorca home">
+      <img src="/customcolor_icon_customcolor_background.png" alt="">
+      <img src="/customcolor_textlogo_customcolor_background.png" alt="EcoViva Mallorca">
+    </a>
+  </header>
+  <main class="selector-main">
+    <section class="selector-card" aria-labelledby="selector-title">
+      <p class="eyebrow">Internal intake</p>
+      <h1 id="selector-title">Choose the customer’s language</h1>
+      <p class="lead">Select a language to open the correct EcoViva intake experience.</p>
+      <nav class="language-choices" aria-label="Customer language">
+        <a data-internal-language="en" href="/en/intake">English</a>
+        <a data-internal-language="es" href="/es/intake" lang="es">Español</a>
+        <a data-internal-language="de" href="/de/intake" lang="de">Deutsch</a>
+      </nav>
+    </section>
+  </main>
+  <script>
+    const incoming = new URLSearchParams(location.search);
+    document.querySelectorAll('[data-internal-language]').forEach((link) => {
+      const locale = link.dataset.internalLanguage;
+      const target = new URL(link.href, location.origin);
+      incoming.forEach((value, key) => target.searchParams.set(key, value));
+      target.searchParams.set('source', 'internal');
+      target.searchParams.set('source_page', 'intake_start');
+      target.searchParams.set('source_url', location.origin + location.pathname);
+      target.searchParams.set('form_variant', 'project_request');
+      target.searchParams.set('locale', locale);
+      target.searchParams.set('request_context', 'intake');
+      target.searchParams.set('schema_version', '1.0');
+      link.href = target.pathname + '?' + target.searchParams.toString();
+    });
+  </script>
+</body>
+</html>
