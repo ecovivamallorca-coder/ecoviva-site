@@ -1,5 +1,11 @@
 {
   "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "ecoviva-mallorca.com" }],
+      "destination": "https://www.ecoviva-mallorca.com/$1",
+      "permanent": true
+    },
     { "source": "/intake.html", "destination": "/en/intake", "permanent": true },
     { "source": "/intake4.html", "destination": "/en/intake", "permanent": true },
     { "source": "/partners.html", "destination": "/en/partners", "permanent": true }
