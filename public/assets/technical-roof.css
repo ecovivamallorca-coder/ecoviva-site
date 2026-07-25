@@ -63,8 +63,8 @@ body.roof-page {
   border-radius: 999px;
 }
 .language-switch a {
-  min-width: 40px;
-  min-height: 40px;
+  min-width: 44px;
+  min-height: 44px;
   display: grid;
   place-items: center;
   border-radius: 999px;
