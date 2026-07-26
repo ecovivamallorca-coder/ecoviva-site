@@ -24,6 +24,10 @@ const forbidden = ["localhost", "chatgpt.com", "openai.com", "/Users/", "file://
 const thermowoodGeometry = JSON.parse(
   await readFile(join(root, "scripts", "thermowood-geometry.json"), "utf8"),
 );
+const thermowoodGenerator = await readFile(
+  join(root, "scripts", "generate-thermowood-production.py"),
+  "utf8",
+);
 
 const assert = (condition, message) => {
   if (!condition) throw new Error(message);
@@ -50,6 +54,41 @@ const technicalLibraryCss = await readFile(
   join(root, "public", "assets", "technical-roof.css"),
   "utf8",
 );
+const startPage = await readFile(
+  join(root, "public", "technical-library", "start", "index.html"),
+  "utf8",
+);
+const startPageCss = await readFile(
+  join(root, "public", "assets", "technical-library.css"),
+  "utf8",
+);
+assert(
+  (startPage.match(/class="language-card"/g) ?? []).length === 3,
+  "Technical Library start page must retain three language choices",
+);
+assert(
+  startPage.includes(
+    'class="tl-button tl-button--secondary home-button" href="https://www.ecoviva-mallorca.com/"',
+  ),
+  "Technical Library start page home action is missing or incorrect",
+);
+for (const label of ["Return to Home", "Volver al Inicio", "Zur Startseite"]) {
+  assert(startPage.includes(label), `Technical Library start page label missing: ${label}`);
+}
+assert(!startPage.toLowerCase().includes("qr"), "Technical Library start page contains a QR reference");
+for (const requiredRule of [
+  ".home-navigation {",
+  ".home-button {",
+  "min-height: 50px;",
+  "border-radius: 999px;",
+  "width: 100%;",
+  "flex-wrap: wrap;",
+]) {
+  assert(
+    startPageCss.includes(requiredRule),
+    `Technical Library start page responsive button rule missing: ${requiredRule}`,
+  );
+}
 assert(
   !/\.stone-component-grid \.component-image img\s*\{[^}]*transform:\s*none/s.test(
     technicalLibraryCss,
@@ -81,6 +120,12 @@ for (const requiredHeroRule of [
 }
 
 for (const lang of langs) {
+  const expectedThermowoodUrl =
+    `https://www.ecoviva-mallorca.com/technical-library/${lang}/${thermowoodSlugByLang[lang]}/`;
+  assert(
+    thermowoodGenerator.includes(`"${lang}": "${expectedThermowoodUrl}"`),
+    `${lang} ThermoWood: language-specific PDF QR destination is missing`,
+  );
   const landingPath = join(root, "public", "technical-library", lang, "index.html");
   const landing = await readFile(landingPath, "utf8");
   assert(landing.includes(`/technical-library/${lang}/traditional-mallorcan-roof/`), `${lang}: roof card missing`);
@@ -387,4 +432,4 @@ for (const legacyAsset of ["stone-hero.png", "stone-veneer-strip.png"]) {
   }
 }
 
-console.log("Validated 3 pages each for Roof, ETICS, Natural Stone and ThermoWood, 3 landing pages, 15 PDFs, shared ThermoWood geometry/copy and all module image assets.");
+console.log("Validated the Technical Library start page, 3 pages each for Roof, ETICS, Natural Stone and ThermoWood, 3 landing pages, 15 PDFs, shared ThermoWood geometry/copy and all module image assets.");
