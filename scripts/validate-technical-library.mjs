@@ -18,6 +18,14 @@ import {
   thermowoodPrintPdfByLang,
   thermowoodSlugByLang,
 } from "./technical-library-thermowood-content.mjs";
+import {
+  universalComponentImages,
+  universalCopy,
+  universalDownloadPdfByLang,
+  universalMaterialImages,
+  universalPrintPdfByLang,
+  universalSlugByLang,
+} from "./technical-library-universal-facade-content.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const forbidden = ["localhost", "chatgpt.com", "openai.com", "/Users/", "file://", "vercel.app"];
@@ -26,6 +34,13 @@ const thermowoodGeometry = JSON.parse(
 );
 const thermowoodGenerator = await readFile(
   join(root, "scripts", "generate-thermowood-production.py"),
+  "utf8",
+);
+const universalGeometry = JSON.parse(
+  await readFile(join(root, "scripts", "universal-facade-geometry.json"), "utf8"),
+);
+const universalGenerator = await readFile(
+  join(root, "scripts", "generate-universal-facade-production.py"),
   "utf8",
 );
 
@@ -126,12 +141,19 @@ for (const lang of langs) {
     thermowoodGenerator.includes(`"${lang}": "${expectedThermowoodUrl}"`),
     `${lang} ThermoWood: language-specific PDF QR destination is missing`,
   );
+  const expectedUniversalUrl =
+    `https://www.ecoviva-mallorca.com/technical-library/${lang}/`;
+  assert(
+    universalGenerator.includes(`"${lang}": "${expectedUniversalUrl}"`),
+    `${lang} Universal Façade: language-specific overview PDF QR destination is missing`,
+  );
   const landingPath = join(root, "public", "technical-library", lang, "index.html");
   const landing = await readFile(landingPath, "utf8");
   assert(landing.includes(`/technical-library/${lang}/traditional-mallorcan-roof/`), `${lang}: roof card missing`);
   assert(landing.includes(`/technical-library/${lang}/${eticsSlugByLang[lang]}/`), `${lang}: ETICS card missing`);
   assert(landing.includes(`/technical-library/${lang}/${stoneSlugByLang[lang]}/`), `${lang}: Natural Stone card missing`);
   assert(landing.includes(`/technical-library/${lang}/${thermowoodSlugByLang[lang]}/`), `${lang}: ThermoWood card missing`);
+  assert(landing.includes(`/technical-library/${lang}/${universalSlugByLang[lang]}/`), `${lang}: Universal Façade card missing`);
   assert(
     landing.includes(
       'class="library-card library-card--natural-stone"',
@@ -158,6 +180,14 @@ for (const lang of langs) {
   assert(
     !landing.includes("thermowood-hero-annotated-v1.png"),
     `${lang}: annotated ThermoWood hero remains on the landing page`,
+  );
+  assert(
+    landing.includes('class="library-card library-card--universal-facade"'),
+    `${lang}: Universal Façade landing card class missing`,
+  );
+  assert(
+    landing.includes("universal-facade-hero.png"),
+    `${lang}: Universal Façade landing card does not use the clean hero`,
   );
   assert((landing.match(/class="tl-button tl-button--secondary"/g) ?? []).length === 2, `${lang}: landing actions are not shared buttons`);
 
@@ -350,6 +380,115 @@ for (const lang of langs) {
       );
     }
   }
+
+  const universal = universalCopy[lang];
+  const universalPath = join(
+    root,
+    "public",
+    "technical-library",
+    lang,
+    universalSlugByLang[lang],
+    "index.html",
+  );
+  const universalPage = await readFile(universalPath, "utf8");
+  assert(universalPage.includes(`<html lang="${lang}">`), `${lang} Universal Façade: incorrect html lang`);
+  assert(
+    universalPage.includes(
+      `<link rel="canonical" href="https://www.ecoviva-mallorca.com/technical-library/${lang}/${universalSlugByLang[lang]}/">`,
+    ),
+    `${lang} Universal Façade: canonical missing`,
+  );
+  assert(
+    (universalPage.match(/<link rel="alternate" hreflang="/g) ?? []).length === 4,
+    `${lang} Universal Façade: incomplete hreflang set`,
+  );
+  assert((universalPage.match(/<h1>/g) ?? []).length === 1, `${lang} Universal Façade: page needs exactly one h1`);
+  assert(
+    universalPage.includes('data-callout-count="5"') &&
+      universalPage.includes('data-leader-line-count="5"'),
+    `${lang} Universal Façade: five-callout contract missing`,
+  );
+  assert(
+    universalPage.includes(
+      `data-callout-endpoints="${universalGeometry.hero.callouts
+        .map(({ endpoint }) => endpoint.join(","))
+        .join(";")}"`,
+    ),
+    `${lang} Universal Façade: callout endpoints differ from shared geometry`,
+  );
+  assert(
+    universalPage.includes('data-coordinate-system="image-relative-svg"') &&
+      universalPage.includes("universal-facade-hero.png"),
+    `${lang} Universal Façade: responsive shared hero geometry is missing`,
+  );
+  assert((universalPage.match(/<span class="number">/g) ?? []).length === 5, `${lang} Universal Façade: build-up needs five numbered layers`);
+  assert((universalPage.match(/class="component-image"/g) ?? []).length === 5, `${lang} Universal Façade: five components required`);
+  assert((universalPage.match(/class="universal-material-card"/g) ?? []).length === 6, `${lang} Universal Façade: six material cards required`);
+  assert((universalPage.match(/class="tl-button /g) ?? []).length === 4, `${lang} Universal Façade: four shared action buttons required`);
+  assert(!/preview|not for publication/i.test(universalPage), `${lang} Universal Façade: preview label remains`);
+  assert(!universalPage.toLowerCase().includes("qr"), `${lang} Universal Façade: QR reference found`);
+  assert(
+    [...universalPage.matchAll(/<img /g)].every((match) => {
+      const start = match.index;
+      const end = universalPage.indexOf(">", start);
+      return universalPage.slice(start, end).includes(" alt=");
+    }),
+    `${lang} Universal Façade: image without alt attribute`,
+  );
+  for (const value of [
+    universal.title,
+    universal.subtitle,
+    universal.overview,
+    universal.overviewNote,
+    ...universal.why,
+    ...universal.layers.flatMap(([title, body]) => [title, body]),
+    ...universal.principles.flatMap(([title, body]) => [title, body]),
+    ...universal.components.flatMap(([title, body]) => [title, body]),
+    ...universal.materials.flatMap(([title, body]) => [title, body]),
+    ...universal.benefits,
+    ...universal.applications,
+    universal.appearance,
+    universal.requirements,
+  ]) {
+    assert(
+      universalPage.includes(escapeHtml(value)),
+      `${lang} Universal Façade: approved copy missing: ${value}`,
+    );
+  }
+  for (const value of forbidden) {
+    assert(!universalPage.includes(value), `${lang} Universal Façade: forbidden reference ${value}`);
+  }
+
+  for (const [filename, expectedMedia, expectedTrim, expectedBleed] of [
+    [
+      universalDownloadPdfByLang[lang],
+      [0, 0, 210, 297],
+      [0, 0, 210, 297],
+      [0, 0, 210, 297],
+    ],
+    [
+      universalPrintPdfByLang[lang],
+      [0, 0, 216, 303],
+      [3, 3, 213, 300],
+      [0, 0, 216, 303],
+    ],
+  ]) {
+    const data = await readFile(join(root, "public", "downloads", filename));
+    assert(data.subarray(0, 5).toString("ascii") === "%PDF-", `${lang} Universal Façade: invalid PDF ${filename}`);
+    assert(data.toString("latin1").includes("/OutputIntents"), `${lang} Universal Façade: sRGB output intent missing in ${filename}`);
+    assert(!/PREVIEW|NOT FOR PUBLICATION/i.test(data.toString("latin1")), `${lang} Universal Façade: preview text remains in ${filename}`);
+    for (const [boxName, expected] of [
+      ["MediaBox", expectedMedia],
+      ["TrimBox", expectedTrim],
+      ["BleedBox", expectedBleed],
+    ]) {
+      const actual = pdfBox(data, boxName).map(pointsToMm);
+      assert(
+        actual.every((value, index) => approximately(value, expected[index])),
+        `${lang} Universal Façade: ${filename} ${boxName} is ${actual.join(", ")} mm`,
+      );
+    }
+  }
 }
 
 for (const asset of [
@@ -397,6 +536,15 @@ for (const asset of [
 ]) {
   await access(join(root, "public", "assets", "technical-library", "thermowood", asset));
 }
+for (const asset of [
+  "universal-facade-hero.png",
+  ...universalComponentImages,
+  ...universalMaterialImages,
+]) {
+  await access(
+    join(root, "public", "assets", "technical-library", "universal-ventilated-facade", asset),
+  );
+}
 const publicThermowoodFiles = [
   ...(await readdir(join(root, "public", "assets", "technical-library", "thermowood"))),
   ...(await readdir(join(root, "public", "downloads"))).filter((name) =>
@@ -443,4 +591,4 @@ for (const legacyAsset of ["stone-hero.png", "stone-veneer-strip.png"]) {
   }
 }
 
-console.log("Validated the Technical Library start page, 3 pages each for Roof, ETICS, Natural Stone and ThermoWood, 3 landing pages, 15 PDFs, shared ThermoWood geometry/copy and all module image assets.");
+console.log("Validated the Technical Library start page, 3 pages each for Roof, ETICS, Natural Stone, ThermoWood and Universal Façade, 3 landing pages, 21 PDFs, shared module geometry/copy and all image assets.");
