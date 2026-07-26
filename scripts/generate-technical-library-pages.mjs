@@ -1228,7 +1228,7 @@ const flatRoofPage = (lang) => {
     ogWidth: 1536,
     ogHeight: 1024,
     structuredData,
-    extraStylesheet: "/assets/technical-flat-roof.css",
+    extraStylesheet: "/assets/technical-flat-roof-v1.css",
   })}
   <body class="roof-page thermowood-page flat-roof-page">
     ${header(lang, "", destinations)}

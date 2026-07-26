@@ -534,7 +534,7 @@ for (const lang of langs) {
   );
   assert((flatRoofPage.match(/<link rel="alternate" hreflang="/g) ?? []).length === 4, `${lang} Flat Roof: incomplete hreflang set`);
   assert(
-    flatRoofPage.includes('<link rel="stylesheet" href="/assets/technical-flat-roof.css">'),
+    flatRoofPage.includes('<link rel="stylesheet" href="/assets/technical-flat-roof-v1.css">'),
     `${lang} Flat Roof: module stylesheet missing`,
   );
   assert((flatRoofPage.match(/<h1>/g) ?? []).length === 1, `${lang} Flat Roof: page needs exactly one h1`);
@@ -613,7 +613,7 @@ for (const asset of [
   );
 }
 assert(
-  (await readFile(join(root, "public", "assets", "technical-flat-roof.css"))).equals(
+  (await readFile(join(root, "public", "assets", "technical-flat-roof-v1.css"))).equals(
     await readFile(join(root, "public", "assets", "technical-roof.css")),
   ),
   "Flat Roof standalone stylesheet has drifted from the approved shared layout rules",
