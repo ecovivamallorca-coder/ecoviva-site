@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { access, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -56,7 +57,20 @@ for (const lang of langs) {
   assert(landing.includes(`/technical-library/${lang}/traditional-mallorcan-roof/`), `${lang}: roof card missing`);
   assert(landing.includes(`/technical-library/${lang}/${eticsSlugByLang[lang]}/`), `${lang}: ETICS card missing`);
   assert(landing.includes(`/technical-library/${lang}/${stoneSlugByLang[lang]}/`), `${lang}: Natural Stone card missing`);
-  assert(landing.includes("natural-stone-hero-v1-2.png"), `${lang}: Natural Stone landing card does not use the approved V1.2 hero`);
+  assert(
+    landing.includes(
+      'class="library-card library-card--natural-stone"',
+    ),
+    `${lang}: Natural Stone landing card class missing`,
+  );
+  assert(
+    landing.includes("natural-stone-overview-hero-v1-2.png"),
+    `${lang}: Natural Stone landing card does not use the clean V1.2 overview hero`,
+  );
+  assert(
+    !landing.includes("natural-stone-hero-v1-2.png"),
+    `${lang}: annotated Natural Stone hero remains on the landing page`,
+  );
   assert(!landing.includes("stone-hero.png"), `${lang}: legacy Natural Stone hero remains on the landing page`);
   assert((landing.match(/class="tl-button tl-button--secondary"/g) ?? []).length === 2, `${lang}: landing actions are not shared buttons`);
 
@@ -132,6 +146,7 @@ for (const asset of [
 
 for (const asset of [
   "natural-stone-hero-v1-2.png",
+  "natural-stone-overview-hero-v1-2.png",
   "component_01_natural_stone_veneers.png",
   "component_02_corner_stones.png",
   "component_03_stone_adhesive.png",
@@ -153,6 +168,22 @@ for (const asset of [
 ]) {
   await access(join(root, "public", "assets", "technical-library", "natural-stone", asset));
 }
+
+const cleanStoneOverviewHero = await readFile(
+  join(
+    root,
+    "public",
+    "assets",
+    "technical-library",
+    "natural-stone",
+    "natural-stone-overview-hero-v1-2.png",
+  ),
+);
+assert(
+  createHash("sha256").update(cleanStoneOverviewHero).digest("hex") ===
+    "6e26010281315f9063a1ab1652ad09b4bef5f4c2c49f3ffc67dac72033d56300",
+  "Natural Stone overview hero is not the approved clean raster embedded in the V1.2 master",
+);
 
 for (const legacyAsset of ["stone-hero.png", "stone-veneer-strip.png"]) {
   try {

@@ -647,8 +647,8 @@ const landingPage = (lang) => {
             <small>${escapeHtml(c.openSheet)} <span aria-hidden="true">→</span></small>
           </span>
         </a>
-        <a class="library-card" href="/technical-library/${lang}/${stoneSlugByLang[lang]}/">
-          <img src="${stoneAssetRoot}/natural-stone-hero-v1-2.png" width="1860" height="1100" alt="${escapeHtml(stoneCopy[lang].heroAlt)}">
+        <a class="library-card library-card--natural-stone" href="/technical-library/${lang}/${stoneSlugByLang[lang]}/">
+          <img src="${stoneAssetRoot}/natural-stone-overview-hero-v1-2.png" width="1535" height="1024" alt="${escapeHtml(stoneCopy[lang].heroAlt)}">
           <span>
             <strong>${escapeHtml(stoneCopy[lang].title)}</strong>
             <small>${escapeHtml(c.openSheet)} <span aria-hidden="true">→</span></small>
