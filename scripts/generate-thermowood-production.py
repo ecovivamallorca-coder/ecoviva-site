@@ -11,6 +11,8 @@ from pathlib import Path
 
 from PIL import Image
 from pypdf import PdfReader, PdfWriter
+import qrcode
+from qrcode.constants import ERROR_CORRECT_H
 from pypdf.generic import (
     ArrayObject,
     DecodedStreamObject,
@@ -52,6 +54,7 @@ TEXT = HexColor("#0B0D0B")
 BODY = HexColor("#454A45")
 LIGHT = HexColor("#D9DED8")
 PALE = HexColor("#F6F8F4")
+TECHNICAL_LIBRARY_URL = "https://www.ecoviva-mallorca.com/technical-library/start/"
 
 
 def register_fonts() -> None:
@@ -63,6 +66,17 @@ def register_fonts() -> None:
 
 def top_y(top_mm: float) -> float:
     return PAGE_H_MM * mm - top_mm * mm
+
+
+def technical_library_qr() -> Image.Image:
+    qr = qrcode.QRCode(
+        error_correction=ERROR_CORRECT_H,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(TECHNICAL_LIBRARY_URL)
+    qr.make(fit=True)
+    return qr.make_image(fill_color="#3E6B20", back_color="white").convert("RGB")
 
 
 def split_lines(text: str, width_pt: float, font: str, size: float) -> list[str]:
@@ -257,6 +271,7 @@ def bullet(c: canvas.Canvas, x: float, top: float, radius: float = 0.62) -> None
 def draw_page(c: canvas.Canvas, content: dict) -> None:
     lang = content["lang"]
     logo = extract_logo_png(ASSETS / "ecoviva-logo.svg")
+    qr = technical_library_qr()
     hero = Image.open(THERMO / GEOMETRY["hero"]["asset"]).convert("RGB")
     component_assets = [
         Image.open(THERMO / item["file"]).convert("RGB")
@@ -286,11 +301,12 @@ def draw_page(c: canvas.Canvas, content: dict) -> None:
     c.setFont("Arial-Bold", subtitle_size)
     c.setFillColor(BODY)
     c.drawString(63 * mm, top_y(27.1) - subtitle_size, content["subtitle"])
+    draw_contained_image(c, qr, 184.4, 4.3, 17.5, 17.5)
     c.setFillColor(GREEN)
-    c.circle(195 * mm, top_y(27.7), 4.8 * mm, fill=1, stroke=0)
+    c.circle(176.2 * mm, top_y(27.7), 4.8 * mm, fill=1, stroke=0)
     c.setFont("Arial-Bold", 7.3)
     c.setFillColor(white)
-    c.drawCentredString(195 * mm, top_y(27.7) - 2.55, content["code"])
+    c.drawCentredString(176.2 * mm, top_y(27.7) - 2.55, content["code"])
 
     # Exact approved V6 annotated hero panel.
     c.drawImage(
