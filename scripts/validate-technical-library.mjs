@@ -210,7 +210,7 @@ for (const lang of langs) {
     `${lang}: Universal Façade landing card does not use the clean hero`,
   );
   assert(
-    landing.includes('class="library-card library-card--flat-roof"') &&
+    landing.includes('class="library-card library-card--universal-facade library-card--flat-roof"') &&
       landing.includes("/assets/technical-library/universal-insulated-flat-roof/flat-roof-hero.png"),
     `${lang}: Flat Roof landing card does not use the clean approved hero`,
   );
@@ -533,6 +533,10 @@ for (const lang of langs) {
     `${lang} Flat Roof: canonical missing`,
   );
   assert((flatRoofPage.match(/<link rel="alternate" hreflang="/g) ?? []).length === 4, `${lang} Flat Roof: incomplete hreflang set`);
+  assert(
+    flatRoofPage.includes('<link rel="stylesheet" href="/assets/technical-flat-roof.css">'),
+    `${lang} Flat Roof: module stylesheet missing`,
+  );
   assert((flatRoofPage.match(/<h1>/g) ?? []).length === 1, `${lang} Flat Roof: page needs exactly one h1`);
   assert(
     flatRoofPage.includes('data-callout-count="5"') &&

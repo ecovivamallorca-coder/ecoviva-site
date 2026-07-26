@@ -192,6 +192,7 @@ const documentHead = ({
   ogWidth = 1536,
   ogHeight = 1024,
   structuredData = "",
+  extraStylesheet = "",
 }) => `<!doctype html>
 <html lang="${lang}">
   <head>
@@ -212,7 +213,7 @@ ${alternates}
     <meta property="og:image:height" content="${ogHeight}">
     <meta property="og:image:alt" content="${escapeHtml(alt)}">${structuredData ? `\n${structuredData}` : ""}
     <link rel="icon" href="/favicon/favicon.png" type="image/png">
-    <link rel="stylesheet" href="/assets/technical-roof.css">
+    <link rel="stylesheet" href="/assets/technical-roof.css">${extraStylesheet ? `\n    <link rel="stylesheet" href="${extraStylesheet}">` : ""}
   </head>`;
 
 const heroDiagram = (lang) => {
@@ -1227,6 +1228,7 @@ const flatRoofPage = (lang) => {
     ogWidth: 1536,
     ogHeight: 1024,
     structuredData,
+    extraStylesheet: "/assets/technical-flat-roof.css",
   })}
   <body class="roof-page thermowood-page flat-roof-page">
     ${header(lang, "", destinations)}
@@ -1332,7 +1334,7 @@ const landingPage = (lang) => {
             <small>${escapeHtml(c.openSheet)} <span aria-hidden="true">→</span></small>
           </span>
         </a>
-        <a class="library-card library-card--flat-roof" href="/technical-library/${lang}/${flatRoofSlugByLang[lang]}/">
+        <a class="library-card library-card--universal-facade library-card--flat-roof" href="/technical-library/${lang}/${flatRoofSlugByLang[lang]}/">
           <img src="${flatRoofAssetRoot}/flat-roof-hero.png" width="1536" height="1024" alt="${escapeHtml(flatRoofCopy[lang].cleanHeroAlt)}">
           <span>
             <strong>${escapeHtml(flatRoofCopy[lang].cardTitle)}</strong>
