@@ -38,6 +38,17 @@ for (const [component, scale] of [
     `Natural Stone component ${component} does not use the approved V1.2 optical scale`,
   );
 }
+for (const requiredHeroRule of [
+  ".stone-hero-diagram {\n  overflow: hidden;",
+  "border-color: var(--roof-green);",
+  "border-radius: var(--roof-radius);",
+  ".stone-hero-diagram > img {\n  width: 100%;\n  height: auto;\n  object-fit: contain;\n  object-position: center;\n  transform: none;",
+]) {
+  assert(
+    technicalLibraryCss.includes(requiredHeroRule),
+    `Natural Stone hero containment rule missing: ${requiredHeroRule}`,
+  );
+}
 
 for (const lang of langs) {
   const landingPath = join(root, "public", "technical-library", lang, "index.html");

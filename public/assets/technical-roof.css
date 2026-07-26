@@ -126,6 +126,19 @@ body.roof-page {
 }
 .hero-diagram svg { width: 100%; display: block; }
 .hero-diagram > img { width: 100%; display: block; }
+.stone-hero-diagram {
+  overflow: hidden;
+  border-color: var(--roof-green);
+  border-radius: var(--roof-radius);
+  background: #f4f6f3;
+}
+.stone-hero-diagram > img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+}
 .hero-number { fill: #fff; font: 700 2.3px Arial, sans-serif; }
 .panel {
   min-width: 0;
