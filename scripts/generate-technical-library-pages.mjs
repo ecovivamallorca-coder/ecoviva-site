@@ -2,11 +2,14 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { copy, langs, pdfByLang, privacyByLang } from "./technical-library-content.mjs";
+import { eticsCopy, eticsPdfByLang, eticsSlugByLang } from "./technical-library-etics-content.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const origin = "https://www.ecoviva-mallorca.com";
 const assetRoot = "/assets/technical-library";
+const eticsAssetRoot = `${assetRoot}/etics`;
 const roofSlug = "traditional-mallorcan-roof";
+const colourSwatches = ["#D8D1C2", "#CDB995", "#D6BB7A", "#E6DDC8", "#C79B7C", "#8F6A4F"];
 
 const landingDescriptions = {
   en: "EcoViva Mallorca technical construction guidance and downloadable technical sheets for renovation projects in Mallorca.",
@@ -40,13 +43,24 @@ const alternateLinks = (suffix = "") =>
     )
     .join("\n");
 
-const languageSwitch = (lang, suffix = "") => {
+const eticsAlternateLinks = () =>
+  langs
+    .map(
+      (lang) =>
+        `    <link rel="alternate" hreflang="${lang}" href="${origin}/technical-library/${lang}/${eticsSlugByLang[lang]}/">`,
+    )
+    .concat(
+      `    <link rel="alternate" hreflang="x-default" href="${origin}/technical-library/en/${eticsSlugByLang.en}/">`,
+    )
+    .join("\n");
+
+const languageSwitch = (lang, suffix = "", destinations = null) => {
   const label = copy[lang].languageLabel;
   return `<nav class="language-switch" aria-label="${escapeHtml(label)}">
 ${langs
   .map(
     (item) =>
-      `          <a href="/technical-library/${item}/${suffix}" hreflang="${item}" lang="${item}"${
+      `          <a href="${destinations ? destinations[item] : `/technical-library/${item}/${suffix}`}" hreflang="${item}" lang="${item}"${
         item === lang ? ' aria-current="page"' : ""
       }>${copy[item].code}</a>`,
   )
@@ -54,13 +68,13 @@ ${langs
         </nav>`;
 };
 
-const header = (lang, suffix = "") => `<a class="skip-link" href="#main">${escapeHtml(copy[lang].skip)}</a>
+const header = (lang, suffix = "", destinations = null) => `<a class="skip-link" href="#main">${escapeHtml(copy[lang].skip)}</a>
     <header class="roof-site-header">
       <div class="roof-header-inner">
         <a class="roof-brand" href="${origin}/" aria-label="EcoViva Mallorca">
           <img src="${assetRoot}/ecoviva-logo.svg" width="2420" height="690" alt="EcoViva Mallorca">
         </a>
-        ${languageSwitch(lang, suffix)}
+        ${languageSwitch(lang, suffix, destinations)}
       </div>
     </header>`;
 
@@ -76,7 +90,20 @@ const footer = (lang) => `<footer class="roof-site-footer">
       </div>
     </footer>`;
 
-const documentHead = ({ lang, title, description, canonical, suffix, type = "website", alt }) => `<!doctype html>
+const documentHead = ({
+  lang,
+  title,
+  description,
+  canonical,
+  suffix,
+  type = "website",
+  alt,
+  alternates = alternateLinks(suffix),
+  ogImage = `${origin}${assetRoot}/tejo-roof-hero.png`,
+  ogWidth = 1536,
+  ogHeight = 1024,
+  structuredData = "",
+}) => `<!doctype html>
 <html lang="${lang}">
   <head>
     <meta charset="utf-8">
@@ -85,16 +112,16 @@ const documentHead = ({ lang, title, description, canonical, suffix, type = "web
     <meta name="description" content="${escapeHtml(description)}">
     <meta name="robots" content="index,follow">
     <link rel="canonical" href="${canonical}">
-${alternateLinks(suffix)}
+${alternates}
     <meta property="og:type" content="${type}">
     <meta property="og:locale" content="${lang === "en" ? "en_GB" : lang === "es" ? "es_ES" : "de_DE"}">
     <meta property="og:title" content="${escapeHtml(title)}">
     <meta property="og:description" content="${escapeHtml(description)}">
     <meta property="og:url" content="${canonical}">
-    <meta property="og:image" content="${origin}${assetRoot}/tejo-roof-hero.png">
-    <meta property="og:image:width" content="1536">
-    <meta property="og:image:height" content="1024">
-    <meta property="og:image:alt" content="${escapeHtml(alt)}">
+    <meta property="og:image" content="${ogImage}">
+    <meta property="og:image:width" content="${ogWidth}">
+    <meta property="og:image:height" content="${ogHeight}">
+    <meta property="og:image:alt" content="${escapeHtml(alt)}">${structuredData ? `\n${structuredData}` : ""}
     <link rel="icon" href="/favicon/favicon.png" type="image/png">
     <link rel="stylesheet" href="/assets/technical-roof.css">
   </head>`;
@@ -245,6 +272,184 @@ ${c.fixings
 `;
 };
 
+const eticsHeroDiagram = (lang) => {
+  const callouts = [
+    [1, 36.3, 16, 39, 20, 44],
+    [2, 44, 16.5, 46, 38, 51],
+    [3, 51.7, 17, 54, 50.5, 57],
+    [4, 59.4, 17.5, 62, 56, 68.5],
+    [5, 67.1, 18, 68.7, 60, 70.8],
+    [6, 74.8, 18.5, 75.8, 66.5, 77.2],
+    [7, 82.5, 19, 82.5, 70.5, 82.8],
+    [8, 90.2, 19.5, 90, 92, 87.5],
+  ];
+  const c = eticsCopy[lang];
+  return `<figure class="hero-diagram etics-hero-diagram">
+              <svg viewBox="7 31 103 68.667" role="img" aria-labelledby="etics-hero-title-${lang}">
+                <title id="etics-hero-title-${lang}">${escapeHtml(c.heroAlt)}</title>
+                <rect x="7" y="31" width="103" height="68.667" fill="#f4f6f3" stroke="#d9ded8" stroke-width=".45"/>
+                <image href="${eticsAssetRoot}/crepi-hero.png" x="7" y="31" width="103" height="68.667" preserveAspectRatio="xMidYMid meet"/>
+                <g stroke-linecap="round" stroke-linejoin="round">
+${callouts
+  .map(([number, cy, elbowX, elbowY, targetX, targetY]) => {
+    const path = `M13.55 ${cy} L${elbowX} ${elbowY} L${targetX} ${targetY}`;
+    return `                  <g>
+                    <path d="${path}" fill="none" stroke="#fff" stroke-width="1"/>
+                    <path d="${path}" fill="none" stroke="#0b0d0b" stroke-width=".34"/>
+                    <circle cx="${targetX}" cy="${targetY}" r=".65" fill="#fff" stroke="#0b0d0b" stroke-width=".34"/>
+                    <circle cx="11.4" cy="${cy}" r="2.15" fill="#3e6b20" stroke="#fff" stroke-width=".35"/>
+                    <text x="11.4" y="${(cy + 0.78).toFixed(2)}" text-anchor="middle" class="hero-number">${number}</text>
+                  </g>`;
+  })
+  .join("\n")}
+                </g>
+              </svg>
+            </figure>`;
+};
+
+const eticsPage = (lang) => {
+  const c = eticsCopy[lang];
+  const slug = eticsSlugByLang[lang];
+  const canonical = `${origin}/technical-library/${lang}/${slug}/`;
+  const destinations = Object.fromEntries(
+    langs.map((item) => [item, `/technical-library/${item}/${eticsSlugByLang[item]}/`]),
+  );
+  const breadcrumbNames = {
+    en: ["Technical Library", c.title],
+    es: ["Biblioteca Técnica", c.title],
+    de: ["Technische Bibliothek", c.title],
+  };
+  const structuredData = `    <script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: breadcrumbNames[lang][0],
+        item: `${origin}/technical-library/${lang}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: breadcrumbNames[lang][1],
+        item: canonical,
+      },
+    ],
+  }).replaceAll("<", "\\u003c")}</script>`;
+  const pageTitle =
+    lang === "de" ? "Wärmedämm<wbr>verbundsystem – WDVS" : escapeHtml(c.title);
+
+  return `${documentHead({
+    lang,
+    title: c.metaTitle,
+    description: c.metaDescription,
+    canonical,
+    suffix: `${slug}/`,
+    type: "article",
+    alt: c.heroAlt,
+    alternates: eticsAlternateLinks(),
+    ogImage: `${origin}${eticsAssetRoot}/crepi-hero.png`,
+    ogWidth: 1535,
+    ogHeight: 1024,
+    structuredData,
+  })}
+  <body class="roof-page etics-page">
+    ${header(lang, "", destinations)}
+    <main id="main">
+      <section class="page-heading roof-shell">
+        <p class="roof-eyebrow">${escapeHtml(c.eyebrow)}</p>
+        <h1>${pageTitle}</h1>
+        <div class="heading-rule" aria-hidden="true"></div>
+      </section>
+
+      <div class="roof-shell content-flow">
+        <section class="hero-overview" aria-label="${escapeHtml(c.overviewTitle)}">
+          ${eticsHeroDiagram(lang)}
+          <div class="stack">
+            <article class="panel overview">
+              ${sectionTitle(c.overviewTitle)}
+              <p>${escapeHtml(c.overview)}</p>
+            </article>
+            <article class="panel">
+              ${sectionTitle(c.whyTitle)}
+              <ul class="why-list">
+${c.why.map((item) => `                <li>${escapeHtml(item)}</li>`).join("\n")}
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          ${sectionTitle(c.layersTitle)}
+          <ol class="layer-grid">
+${c.layers
+  .map(
+    ([title, body], index) => `            <li>
+              <span class="number">${index + 1}</span>
+              <div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>
+            </li>`,
+  )
+  .join("\n")}
+          </ol>
+        </section>
+
+        <section class="panel">
+          ${sectionTitle(c.principlesTitle)}
+          ${iconCards(c.principles, "etics-principle-grid")}
+        </section>
+
+        <section class="panel">
+          ${sectionTitle(c.componentsTitle)}
+          <p>${escapeHtml(c.componentsIntro)}</p>
+          <ol class="component-grid">
+${c.components
+  .map(
+    ([label, image], index) => `            <li>
+              <div class="component-image component-image-${index + 1}">
+                <img src="${eticsAssetRoot}/${image}" width="${index === 3 ? 1086 : 1024}" height="${
+                  index === 3 ? 1448 : 1536
+                }" alt="${escapeHtml(label)}">
+              </div>
+              <span><b>${index + 1}.</b> ${escapeHtml(label)}</span>
+            </li>`,
+  )
+  .join("\n")}
+          </ol>
+        </section>
+
+        <div class="lower-grid">
+          <aside class="panel compliance">
+            ${sectionTitle(c.complianceTitle)}
+            <p>${escapeHtml(c.compliance)}</p>
+          </aside>
+          <section class="panel">
+            ${sectionTitle(c.benefitsTitle)}
+            ${iconCards(c.benefits, "benefit-list")}
+          </section>
+        </div>
+
+        <section class="panel colour-panel" aria-labelledby="facade-colours-${lang}">
+          <h2 class="section-title" id="facade-colours-${lang}">${escapeHtml(c.coloursTitle)}</h2>
+          <div class="colour-row" aria-hidden="true">
+${colourSwatches.map((colour) => `            <span style="background-color:${colour}"></span>`).join("\n")}
+          </div>
+          <p>${escapeHtml(c.coloursDisclaimer)}</p>
+        </section>
+
+        <nav class="actions" aria-label="${escapeHtml(copy[lang].actionsLabel)}">
+          <a class="button primary" href="/downloads/${eticsPdfByLang[lang]}" download="${eticsPdfByLang[lang]}">${escapeHtml(c.download)}</a>
+          <a class="button secondary" href="/technical-library/${lang}/">${escapeHtml(copy[lang].backLibrary)}</a>
+          <a class="button text-button" href="${origin}/">${escapeHtml(copy[lang].backHome)}</a>
+        </nav>
+      </div>
+    </main>
+    ${footer(lang)}
+  </body>
+</html>
+`;
+};
+
 const landingPage = (lang) => {
   const c = copy[lang];
   const canonical = `${origin}/technical-library/${lang}/`;
@@ -270,6 +475,13 @@ const landingPage = (lang) => {
             <small>${escapeHtml(c.openSheet)} <span aria-hidden="true">→</span></small>
           </span>
         </a>
+        <a class="library-card" href="/technical-library/${lang}/${eticsSlugByLang[lang]}/">
+          <img src="${eticsAssetRoot}/crepi-hero.png" width="1535" height="1024" alt="${escapeHtml(eticsCopy[lang].heroAlt)}">
+          <span>
+            <strong>${escapeHtml(eticsCopy[lang].title)}</strong>
+            <small>${escapeHtml(c.openSheet)} <span aria-hidden="true">→</span></small>
+          </span>
+        </a>
       </section>
       <nav class="landing-links" aria-label="${escapeHtml(c.actionsLabel)}">
         <a href="${origin}/">${escapeHtml(c.backHome)}</a>
@@ -287,10 +499,22 @@ const landingPage = (lang) => {
 for (const lang of langs) {
   const landingPath = join(root, "public", "technical-library", lang, "index.html");
   const roofPath = join(root, "public", "technical-library", lang, roofSlug, "index.html");
+  const eticsPath = join(
+    root,
+    "public",
+    "technical-library",
+    lang,
+    eticsSlugByLang[lang],
+    "index.html",
+  );
   await mkdir(dirname(landingPath), { recursive: true });
   await mkdir(dirname(roofPath), { recursive: true });
+  await mkdir(dirname(eticsPath), { recursive: true });
   await writeFile(landingPath, landingPage(lang), "utf8");
   await writeFile(roofPath, roofPage(lang), "utf8");
+  await writeFile(eticsPath, eticsPage(lang), "utf8");
 }
 
-console.log(`Generated ${langs.length} Technical Library landing pages and ${langs.length} roof pages.`);
+console.log(
+  `Generated ${langs.length} Technical Library landing pages, ${langs.length} roof pages and ${langs.length} ETICS pages.`,
+);
