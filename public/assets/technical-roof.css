@@ -164,6 +164,22 @@ body.roof-page {
   object-fit: contain;
   object-position: center;
 }
+.etics-hero-diagram,
+.thermowood-hero-diagram {
+  contain: layout paint;
+}
+.etics-hero-diagram > svg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 103 / 68.667;
+  overflow: hidden;
+}
+.thermowood-hero-diagram > svg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 105 / 60;
+  overflow: hidden;
+}
 .hero-number { fill: #fff; font: 700 2.3px Arial, sans-serif; }
 .panel {
   min-width: 0;
@@ -330,6 +346,7 @@ body.roof-page {
 .component-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: 16px;
   margin: 24px 0 0;
   padding: 0;
@@ -359,11 +376,17 @@ body.roof-page {
   display: block;
   object-fit: contain;
 }
-.component-image-1 img,
-.component-image-4 img,
-.component-image-5 img { transform: scale(1.05); }
-.component-image-2 img,
-.component-image-3 img { transform: scale(0.96); }
+.etics-page .component-image {
+  box-sizing: border-box;
+  padding: 14px;
+  background: #f6f8f4;
+}
+.etics-page .component-image img { transform-origin: center; }
+.etics-page .component-image-1 img { transform: scale(1.08); }
+.etics-page .component-image-2 img { transform: scale(0.88); }
+.etics-page .component-image-3 img { transform: scale(0.86); }
+.etics-page .component-image-4 img { transform: scale(1.12); }
+.etics-page .component-image-5 img { transform: scale(1.08); }
 .stone-component-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }

@@ -1,5 +1,5 @@
 {
-  "version": "production-v1-from-preview-v6",
+  "version": "production-v1-final-visual-correction",
   "page": {
     "trimWidthMm": 210,
     "trimHeightMm": 297,
@@ -21,7 +21,7 @@
     "requirements": [7, 269, 196, 17]
   },
   "hero": {
-    "asset": "thermowood-hero-annotated-v1.png",
+    "asset": "thermowood-overview-hero-v1.png",
     "baseCropPx": [0, 0, 1190, 1024],
     "approvedScale": 1.05,
     "circleCenterX": 14.4,
@@ -29,11 +29,11 @@
     "lineWidth": 0.34,
     "endpointRadius": 0.68,
     "callouts": [
-      {"number": 1, "circle": [14.4, 47.5], "path": [[16.55, 47.5], [29.0, 47.5], [35.3, 48.2]], "endpoint": [35.3, 48.2]},
-      {"number": 2, "circle": [14.4, 56.0], "path": [[16.55, 56.0], [44.0, 56.0], [50.3, 56.5]], "endpoint": [50.3, 56.5]},
-      {"number": 3, "circle": [14.4, 65.0], "path": [[16.55, 65.0], [47.0, 65.0], [52.6, 64.9]], "endpoint": [52.6, 64.9]},
-      {"number": 4, "circle": [14.4, 74.0], "path": [[16.55, 74.0], [30.5, 74.0], [45.2, 68.5]], "endpoint": [45.2, 68.5]},
-      {"number": 5, "circle": [14.4, 83.0], "path": [[16.55, 83.0], [31.5, 83.0], [70.2, 75.4]], "endpoint": [70.2, 75.4]}
+      {"number": 1, "circle": [14.4, 47.5], "path": [[16.55, 47.5], [29.0, 47.5], [36.94, 48.12]], "endpoint": [36.94, 48.12]},
+      {"number": 2, "circle": [14.4, 56.0], "path": [[16.55, 56.0], [38.0, 56.0], [46.56, 55.32]], "endpoint": [46.56, 55.32]},
+      {"number": 3, "circle": [14.4, 65.0], "path": [[16.55, 65.0], [34.0, 65.0], [41.9, 64.07]], "endpoint": [41.9, 64.07]},
+      {"number": 4, "circle": [14.4, 74.0], "path": [[16.55, 74.0], [30.5, 74.0], [44.76, 72.86]], "endpoint": [44.76, 72.86]},
+      {"number": 5, "circle": [14.4, 83.0], "path": [[16.55, 83.0], [31.5, 83.0], [52.13, 80.45]], "endpoint": [52.13, 80.45]}
     ],
     "airflowArrows": {
       "count": 4,

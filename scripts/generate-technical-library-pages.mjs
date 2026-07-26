@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -25,6 +26,9 @@ const assetRoot = "/assets/technical-library";
 const eticsAssetRoot = `${assetRoot}/etics`;
 const stoneAssetRoot = `${assetRoot}/natural-stone`;
 const thermowoodAssetRoot = `${assetRoot}/thermowood`;
+const thermowoodGeometry = JSON.parse(
+  readFileSync(join(root, "scripts", "thermowood-geometry.json"), "utf8"),
+);
 const roofSlug = "traditional-mallorcan-roof";
 const colourSwatches = ["#D8D1C2", "#CDB995", "#D6BB7A", "#E6DDC8", "#C79B7C", "#8F6A4F"];
 
@@ -311,8 +315,9 @@ ${c.fixings
 `;
 };
 
-const eticsHeroDiagram = (lang) => {
-  const callouts = [
+const eticsHeroGeometry = {
+  viewBox: "7 31 103 68.667",
+  callouts: [
     [1, 36.3, 16, 39, 20, 44],
     [2, 44, 16.5, 46, 38, 51],
     [3, 51.7, 17, 54, 50.5, 57],
@@ -321,15 +326,18 @@ const eticsHeroDiagram = (lang) => {
     [6, 74.8, 18.5, 75.8, 66.5, 77.2],
     [7, 82.5, 19, 82.5, 70.5, 82.8],
     [8, 90.2, 19.5, 90, 92, 87.5],
-  ];
+  ],
+};
+
+const eticsHeroDiagram = (lang) => {
   const c = eticsCopy[lang];
-  return `<figure class="hero-diagram etics-hero-diagram">
-              <svg viewBox="7 31 103 68.667" role="img" aria-labelledby="etics-hero-title-${lang}">
+  return `<figure class="hero-diagram etics-hero-diagram" data-coordinate-system="image-relative-svg">
+              <svg viewBox="${eticsHeroGeometry.viewBox}" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="etics-hero-title-${lang}">
                 <title id="etics-hero-title-${lang}">${escapeHtml(c.heroAlt)}</title>
                 <rect x="7" y="31" width="103" height="68.667" fill="#f4f6f3" stroke="#d9ded8" stroke-width=".45"/>
                 <image href="${eticsAssetRoot}/crepi-hero.png" x="7" y="31" width="103" height="68.667" preserveAspectRatio="xMidYMid meet"/>
                 <g stroke-linecap="round" stroke-linejoin="round">
-${callouts
+${eticsHeroGeometry.callouts
   .map(([number, cy, elbowX, elbowY, targetX, targetY]) => {
     const path = `M13.55 ${cy} L${elbowX} ${elbowY} L${targetX} ${targetY}`;
     return `                  <g>
@@ -438,7 +446,7 @@ ${c.layers
           ${iconCards(c.principles, "etics-principle-grid")}
         </section>
 
-        <section class="panel">
+        <section class="panel" id="etics-components">
           ${sectionTitle(c.componentsTitle)}
           <p>${escapeHtml(c.componentsIntro)}</p>
           <ol class="component-grid">
@@ -446,9 +454,7 @@ ${c.components
   .map(
     ([label, image], index) => `            <li>
               <div class="component-image component-image-${index + 1}">
-                <img src="${eticsAssetRoot}/${image}" width="${index === 3 ? 1086 : 1024}" height="${
-                  index === 3 ? 1448 : 1536
-                }" alt="${escapeHtml(label)}">
+                <img src="${eticsAssetRoot}/${image}?v=20260726-final-visual" width="1200" height="900" alt="${escapeHtml(label)}">
               </div>
               <span><b>${index + 1}.</b> ${escapeHtml(label)}</span>
             </li>`,
@@ -636,6 +642,75 @@ ${stoneSelections
 `;
 };
 
+const airflowArrowSvg = (centerX, tipY) => {
+  const scale = thermowoodGeometry.hero.airflowArrows.overlayScale;
+  const { headOpacity, middleOpacity, tailOpacity } =
+    thermowoodGeometry.hero.airflowArrows;
+  const p = (value) => Number(value.toFixed(3));
+  return `                <g fill="#3e6b20">
+                  <path opacity="${headOpacity}" d="M${centerX} ${tipY} L${p(centerX - 1.8 * scale)} ${p(tipY + 2 * scale)} L${p(centerX - 0.62 * scale)} ${p(tipY + 2 * scale)} L${p(centerX - 0.62 * scale)} ${p(tipY + 3.2 * scale)} L${p(centerX + 0.62 * scale)} ${p(tipY + 3.2 * scale)} L${p(centerX + 0.62 * scale)} ${p(tipY + 2 * scale)} L${p(centerX + 1.8 * scale)} ${p(tipY + 2 * scale)} Z"/>
+                  <rect opacity="${middleOpacity}" x="${p(centerX - 0.52 * scale)}" y="${p(tipY + 3.15 * scale)}" width="${p(1.04 * scale)}" height="${p(1.35 * scale)}"/>
+                  <rect opacity="${tailOpacity}" x="${p(centerX - 0.4 * scale)}" y="${p(tipY + 4.45 * scale)}" width="${p(0.8 * scale)}" height="${p(1.15 * scale)}"/>
+                </g>`;
+};
+
+const thermowoodHeroDiagram = (lang, c) => {
+  const calloutMarkup = thermowoodGeometry.hero.callouts
+    .map(({ number, circle, path, endpoint }) => {
+      const points = path.map(([x, y]) => `${x},${y}`).join(" ");
+      return `                <g>
+                  <polyline points="${points}" fill="none" stroke="#244c1b" stroke-width="${thermowoodGeometry.hero.lineWidth}" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="${endpoint[0]}" cy="${endpoint[1]}" r="${thermowoodGeometry.hero.endpointRadius}" fill="#fff" stroke="#244c1b" stroke-width=".3"/>
+                  <circle cx="${circle[0]}" cy="${circle[1]}" r="${thermowoodGeometry.hero.circleRadius}" fill="#3e6b20"/>
+                  <text x="${circle[0]}" y="${(circle[1] + 0.78).toFixed(2)}" text-anchor="middle" class="hero-number">${number}</text>
+                </g>`;
+    })
+    .join("\n");
+  const arrows = [
+    [54.5, 85],
+    [63.3, 83.8],
+    [71.8, 82.8],
+    [82.7, 80.8],
+  ]
+    .map(([x, y]) => airflowArrowSvg(x, y))
+    .join("\n");
+  const endpoints = thermowoodGeometry.hero.callouts
+    .map(({ endpoint }) => endpoint.join(","))
+    .join(";");
+  const calloutSummary = c.layers
+    .map(([title], index) => `${index + 1}. ${title}`)
+    .join("; ");
+
+  return `<figure
+            class="hero-diagram thermowood-hero-diagram"
+            data-coordinate-system="image-relative-svg"
+            data-callout-count="5"
+            data-leader-line-count="5"
+            data-lower-airflow-arrows="4"
+            data-upper-airflow-arrows="0"
+            data-callout-endpoints="${endpoints}"
+          >
+            <svg viewBox="7 35 105 60" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="thermowood-hero-title-${lang}">
+              <title id="thermowood-hero-title-${lang}">${escapeHtml(c.heroAlt)}</title>
+              <defs>
+                <clipPath id="thermowood-hero-clip-${lang}">
+                  <rect x="7" y="35" width="105" height="60" rx="1.5"/>
+                </clipPath>
+              </defs>
+              <g clip-path="url(#thermowood-hero-clip-${lang})">
+                <rect x="7" y="35" width="105" height="60" fill="#fff"/>
+                <svg x="24.725" y="35.075" width="69.55" height="59.85" viewBox="0 0 1190 1024" preserveAspectRatio="none" overflow="hidden">
+                  <image href="${thermowoodAssetRoot}/thermowood-overview-hero-v1.png" x="0" y="0" width="1535" height="1024" preserveAspectRatio="none"/>
+                </svg>
+${arrows}
+${calloutMarkup}
+              </g>
+              <rect x="7.24" y="35.24" width="104.52" height="59.52" rx="1.5" fill="none" stroke="#3e6b20" stroke-width=".48"/>
+            </svg>
+            <figcaption class="sr-only">${escapeHtml(calloutSummary)}</figcaption>
+          </figure>`;
+};
+
 const thermowoodPage = (lang) => {
   const c = thermowoodCopy[lang];
   const slug = thermowoodSlugByLang[lang];
@@ -666,10 +741,6 @@ const thermowoodPage = (lang) => {
       },
     ],
   }).replaceAll("<", "\\u003c")}</script>`;
-  const calloutSummary = c.layers
-    .map(([title], index) => `${index + 1}. ${title}`)
-    .join("; ");
-
   return `${documentHead({
     lang,
     title: c.metaTitle,
@@ -679,9 +750,9 @@ const thermowoodPage = (lang) => {
     type: "article",
     alt: c.heroAlt,
     alternates: thermowoodAlternateLinks(),
-    ogImage: `${origin}${thermowoodAssetRoot}/thermowood-hero-annotated-v1.png`,
-    ogWidth: 1240,
-    ogHeight: 709,
+    ogImage: `${origin}${thermowoodAssetRoot}/thermowood-overview-hero-v1.png`,
+    ogWidth: 1535,
+    ogHeight: 1024,
     structuredData,
   })}
   <body class="roof-page thermowood-page">
@@ -696,17 +767,7 @@ const thermowoodPage = (lang) => {
 
       <div class="roof-shell content-flow">
         <section class="hero-overview" aria-label="${escapeHtml(c.overviewTitle)}">
-          <figure
-            class="hero-diagram thermowood-hero-diagram"
-            data-callout-count="5"
-            data-leader-line-count="5"
-            data-lower-airflow-arrows="4"
-            data-upper-airflow-arrows="0"
-            data-callout-endpoints="35.3,48.2;50.3,56.5;52.6,64.9;45.2,68.5;70.2,75.4"
-          >
-            <img src="${thermowoodAssetRoot}/thermowood-hero-annotated-v1.png" width="1240" height="709" alt="${escapeHtml(c.heroAlt)}">
-            <figcaption class="sr-only">${escapeHtml(calloutSummary)}</figcaption>
-          </figure>
+          ${thermowoodHeroDiagram(lang, c)}
           <div class="stack">
             <article class="panel overview">
               ${sectionTitle(c.overviewTitle)}

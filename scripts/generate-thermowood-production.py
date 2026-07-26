@@ -267,6 +267,78 @@ def number_circle(c: canvas.Canvas, number: int, cx: float, cy_top: float, radiu
     c.drawCentredString(cx * mm, top_y(cy_top) - 2.45, str(number))
 
 
+def draw_hero_callout(c: canvas.Canvas, callout: dict) -> None:
+    path_points = callout["path"]
+    path = c.beginPath()
+    path.moveTo(path_points[0][0] * mm, top_y(path_points[0][1]))
+    for x_mm, top_mm in path_points[1:]:
+        path.lineTo(x_mm * mm, top_y(top_mm))
+    c.setStrokeColor(DARK_GREEN)
+    c.setLineWidth(GEOMETRY["hero"]["lineWidth"] * mm)
+    c.setLineCap(1)
+    c.setLineJoin(1)
+    c.drawPath(path, fill=0, stroke=1)
+
+    endpoint_x, endpoint_y = callout["endpoint"]
+    c.setFillColor(white)
+    c.setStrokeColor(DARK_GREEN)
+    c.setLineWidth(0.30 * mm)
+    c.circle(
+        endpoint_x * mm,
+        top_y(endpoint_y),
+        GEOMETRY["hero"]["endpointRadius"] * mm,
+        fill=1,
+        stroke=1,
+    )
+    number_circle(
+        c,
+        callout["number"],
+        callout["circle"][0],
+        callout["circle"][1],
+        radius=GEOMETRY["hero"]["circleRadius"],
+    )
+
+
+def draw_airflow_arrow(c: canvas.Canvas, center_x_mm: float, tip_top_mm: float) -> None:
+    scale = GEOMETRY["hero"]["airflowArrows"]["overlayScale"]
+    opacity = GEOMETRY["hero"]["airflowArrows"]
+    c.saveState()
+    c.setFillColor(GREEN)
+    if hasattr(c, "setFillAlpha"):
+        c.setFillAlpha(opacity["headOpacity"])
+    path = c.beginPath()
+    path.moveTo(center_x_mm * mm, top_y(tip_top_mm))
+    path.lineTo((center_x_mm - 1.8 * scale) * mm, top_y(tip_top_mm + 2.0 * scale))
+    path.lineTo((center_x_mm - 0.62 * scale) * mm, top_y(tip_top_mm + 2.0 * scale))
+    path.lineTo((center_x_mm - 0.62 * scale) * mm, top_y(tip_top_mm + 3.2 * scale))
+    path.lineTo((center_x_mm + 0.62 * scale) * mm, top_y(tip_top_mm + 3.2 * scale))
+    path.lineTo((center_x_mm + 0.62 * scale) * mm, top_y(tip_top_mm + 2.0 * scale))
+    path.lineTo((center_x_mm + 1.8 * scale) * mm, top_y(tip_top_mm + 2.0 * scale))
+    path.close()
+    c.drawPath(path, fill=1, stroke=0)
+    if hasattr(c, "setFillAlpha"):
+        c.setFillAlpha(opacity["middleOpacity"])
+    c.rect(
+        (center_x_mm - 0.52 * scale) * mm,
+        top_y(tip_top_mm + 4.5 * scale),
+        1.04 * scale * mm,
+        1.35 * scale * mm,
+        fill=1,
+        stroke=0,
+    )
+    if hasattr(c, "setFillAlpha"):
+        c.setFillAlpha(opacity["tailOpacity"])
+    c.rect(
+        (center_x_mm - 0.40 * scale) * mm,
+        top_y(tip_top_mm + 5.6 * scale),
+        0.80 * scale * mm,
+        1.15 * scale * mm,
+        fill=1,
+        stroke=0,
+    )
+    c.restoreState()
+
+
 def bullet(c: canvas.Canvas, x: float, top: float, radius: float = 0.62) -> None:
     c.setFillColor(GREEN)
     c.circle(x * mm, top_y(top), radius * mm, fill=1, stroke=0)
@@ -312,15 +384,32 @@ def draw_page(c: canvas.Canvas, content: dict) -> None:
     c.setFillColor(white)
     c.drawCentredString(176.2 * mm, top_y(27.7) - 2.55, content["code"])
 
-    # Exact approved V6 annotated hero panel.
-    c.drawImage(
-        ImageReader(hero),
-        7 * mm,
-        top_y(95),
-        width=105 * mm,
-        height=60 * mm,
-        mask="auto",
+    # Preserve the clean approved hero bitmap and draw annotations from the
+    # shared geometry so PDF and responsive HTML remain identical.
+    draw_box(c, 7, 35, 105, 60)
+    hero_crop = hero.crop(tuple(GEOMETRY["hero"]["baseCropPx"]))
+    draw_contained_image_clipped(
+        c,
+        hero_crop,
+        10,
+        36.5,
+        99,
+        57,
+        GEOMETRY["hero"]["approvedScale"],
     )
+    for arrow_x, arrow_top in (
+        (54.5, 85.0),
+        (63.3, 83.8),
+        (71.8, 82.8),
+        (82.7, 80.8),
+    ):
+        draw_airflow_arrow(c, arrow_x, arrow_top)
+    for callout in GEOMETRY["hero"]["callouts"]:
+        draw_hero_callout(c, callout)
+    c.setFillColor(white)
+    c.setStrokeColor(GREEN)
+    c.setLineWidth(0.48 * mm)
+    c.roundRect(7 * mm, top_y(95), 105 * mm, 60 * mm, 1.5 * mm, fill=0, stroke=1)
 
     draw_box(c, 114, 35, 89, 37)
     section_heading(c, content["overviewTitle"], 118, 38.0, 81)

@@ -180,6 +180,16 @@ for (const lang of langs) {
     if (module.name !== "Natural Stone") {
       assert((page.match(/class="hero-number"/g) ?? []).length === 8, `${lang} ${module.name}: hero needs eight callouts`);
     }
+    if (module.name === "ETICS") {
+      assert(
+        page.includes('class="hero-diagram etics-hero-diagram" data-coordinate-system="image-relative-svg"'),
+        `${lang} ETICS: responsive image-relative hero geometry missing`,
+      );
+      assert(
+        (page.match(/class="component-image component-image-/g) ?? []).length === 5,
+        `${lang} ETICS: five component image cards required`,
+      );
+    }
     assert(!page.toLowerCase().includes("qr"), `${lang} ${module.name}: QR reference found in HTML`);
     assert([...page.matchAll(/<img /g)].every((match) => {
       const start = match.index;
@@ -259,9 +269,10 @@ for (const lang of langs) {
     `${lang} ThermoWood: callout endpoints differ from shared geometry`,
   );
   assert(
-    thermowoodPage.includes("thermowood-hero-annotated-v1.png") &&
-      !thermowoodPage.includes("thermowood-overview-hero-v1.png"),
-    `${lang} ThermoWood: annotated detail hero is incorrect`,
+    thermowoodPage.includes("thermowood-overview-hero-v1.png") &&
+      !thermowoodPage.includes("thermowood-hero-annotated-v1.png") &&
+      thermowoodPage.includes('data-coordinate-system="image-relative-svg"'),
+    `${lang} ThermoWood: shared responsive hero geometry is incorrect`,
   );
   assert((thermowoodPage.match(/<span class="number">/g) ?? []).length === 5, `${lang} ThermoWood: build-up needs five numbered layers`);
   assert((thermowoodPage.match(/class="thermowood-component-image"/g) ?? []).length === 6, `${lang} ThermoWood: six unnumbered components required`);
