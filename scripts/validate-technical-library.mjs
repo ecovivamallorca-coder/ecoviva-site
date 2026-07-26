@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { langs } from "./technical-library-content.mjs";
@@ -9,13 +9,42 @@ import {
   stonePdfByLang,
   stoneSlugByLang,
 } from "./technical-library-natural-stone-content.mjs";
+import {
+  thermowoodAgeingImages,
+  thermowoodComponentImages,
+  thermowoodCopy,
+  thermowoodDesignImages,
+  thermowoodDownloadPdfByLang,
+  thermowoodPrintPdfByLang,
+  thermowoodSlugByLang,
+} from "./technical-library-thermowood-content.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const forbidden = ["localhost", "chatgpt.com", "openai.com", "/Users/", "file://", "vercel.app"];
+const thermowoodGeometry = JSON.parse(
+  await readFile(join(root, "scripts", "thermowood-geometry.json"), "utf8"),
+);
 
 const assert = (condition, message) => {
   if (!condition) throw new Error(message);
 };
+const escapeHtml = (value) =>
+  String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+const pdfBox = (data, name) => {
+  const source = data.toString("latin1");
+  const match = source.match(
+    new RegExp(String.raw`/${name} \[ ([0-9.]+) ([0-9.]+) ([0-9.]+) ([0-9.]+) \]`),
+  );
+  assert(match, `PDF ${name} is missing`);
+  return match.slice(1).map(Number);
+};
+const pointsToMm = (points) => points * 25.4 / 72;
+const approximately = (actual, expected, tolerance = 0.05) =>
+  Math.abs(actual - expected) <= tolerance;
 
 const technicalLibraryCss = await readFile(
   join(root, "public", "assets", "technical-roof.css"),
@@ -57,6 +86,7 @@ for (const lang of langs) {
   assert(landing.includes(`/technical-library/${lang}/traditional-mallorcan-roof/`), `${lang}: roof card missing`);
   assert(landing.includes(`/technical-library/${lang}/${eticsSlugByLang[lang]}/`), `${lang}: ETICS card missing`);
   assert(landing.includes(`/technical-library/${lang}/${stoneSlugByLang[lang]}/`), `${lang}: Natural Stone card missing`);
+  assert(landing.includes(`/technical-library/${lang}/${thermowoodSlugByLang[lang]}/`), `${lang}: ThermoWood card missing`);
   assert(
     landing.includes(
       'class="library-card library-card--natural-stone"',
@@ -72,6 +102,18 @@ for (const lang of langs) {
     `${lang}: annotated Natural Stone hero remains on the landing page`,
   );
   assert(!landing.includes("stone-hero.png"), `${lang}: legacy Natural Stone hero remains on the landing page`);
+  assert(
+    landing.includes('class="library-card library-card--thermowood"'),
+    `${lang}: ThermoWood landing card class missing`,
+  );
+  assert(
+    landing.includes("thermowood-overview-hero-v1.png"),
+    `${lang}: ThermoWood landing card does not use the clean overview hero`,
+  );
+  assert(
+    !landing.includes("thermowood-hero-annotated-v1.png"),
+    `${lang}: annotated ThermoWood hero remains on the landing page`,
+  );
   assert((landing.match(/class="tl-button tl-button--secondary"/g) ?? []).length === 2, `${lang}: landing actions are not shared buttons`);
 
   for (const module of [
@@ -131,6 +173,127 @@ for (const lang of langs) {
       assert(!landing.includes(value), `${lang}: forbidden landing reference ${value}`);
     }
   }
+
+  const thermowood = thermowoodCopy[lang];
+  const thermowoodPath = join(
+    root,
+    "public",
+    "technical-library",
+    lang,
+    thermowoodSlugByLang[lang],
+    "index.html",
+  );
+  const thermowoodPage = await readFile(thermowoodPath, "utf8");
+  assert(thermowoodPage.includes(`<html lang="${lang}">`), `${lang} ThermoWood: incorrect html lang`);
+  assert(
+    thermowoodPage.includes(
+      `<link rel="canonical" href="https://www.ecoviva-mallorca.com/technical-library/${lang}/${thermowoodSlugByLang[lang]}/">`,
+    ),
+    `${lang} ThermoWood: canonical missing`,
+  );
+  assert(
+    (thermowoodPage.match(/<link rel="alternate" hreflang="/g) ?? []).length === 4,
+    `${lang} ThermoWood: incomplete hreflang set`,
+  );
+  assert(thermowoodPage.includes('href="#main"'), `${lang} ThermoWood: skip link missing`);
+  assert(thermowoodPage.includes('id="main"'), `${lang} ThermoWood: main landmark missing`);
+  assert((thermowoodPage.match(/<h1>/g) ?? []).length === 1, `${lang} ThermoWood: page needs exactly one h1`);
+  assert(
+    thermowoodPage.includes('data-callout-count="5"') &&
+      thermowoodPage.includes('data-leader-line-count="5"') &&
+      thermowoodPage.includes('data-lower-airflow-arrows="4"') &&
+      thermowoodPage.includes('data-upper-airflow-arrows="0"'),
+    `${lang} ThermoWood: approved hero annotation counts missing`,
+  );
+  assert(
+    thermowoodPage.includes(
+      `data-callout-endpoints="${thermowoodGeometry.hero.callouts
+        .map(({ endpoint }) => endpoint.join(","))
+        .join(";")}"`,
+    ),
+    `${lang} ThermoWood: callout endpoints differ from shared geometry`,
+  );
+  assert(
+    thermowoodPage.includes("thermowood-hero-annotated-v1.png") &&
+      !thermowoodPage.includes("thermowood-overview-hero-v1.png"),
+    `${lang} ThermoWood: annotated detail hero is incorrect`,
+  );
+  assert((thermowoodPage.match(/<span class="number">/g) ?? []).length === 5, `${lang} ThermoWood: build-up needs five numbered layers`);
+  assert((thermowoodPage.match(/class="thermowood-component-image"/g) ?? []).length === 6, `${lang} ThermoWood: six unnumbered components required`);
+  assert(
+    thermowoodPage.includes('data-divider-count="5" data-numbering="none"'),
+    `${lang} ThermoWood: five assembly dividers or unnumbered-component contract missing`,
+  );
+  assert(
+    thermowoodPage.includes('class="thermowood-design-grid" data-numbering="none"'),
+    `${lang} ThermoWood: unnumbered design-option contract missing`,
+  );
+  assert((thermowoodPage.match(/<figure>/g) ?? []).length === 10, `${lang} ThermoWood: six design and four ageing figures required`);
+  assert((thermowoodPage.match(/class="tl-button /g) ?? []).length === 4, `${lang} ThermoWood: four shared action buttons required`);
+  assert(!/preview v6/i.test(thermowoodPage), `${lang} ThermoWood: preview label remains`);
+  assert(!thermowoodPage.toLowerCase().includes("qr"), `${lang} ThermoWood: QR reference found`);
+  assert(
+    [...thermowoodPage.matchAll(/<img /g)].every((match) => {
+      const start = match.index;
+      const end = thermowoodPage.indexOf(">", start);
+      return thermowoodPage.slice(start, end).includes(" alt=");
+    }),
+    `${lang} ThermoWood: image without alt attribute`,
+  );
+  for (const value of [
+    thermowood.title,
+    thermowood.subtitle,
+    thermowood.overview,
+    thermowood.overviewNote,
+    ...thermowood.why,
+    ...thermowood.layers.flatMap(([title, body]) => [title, body]),
+    ...thermowood.principles.flatMap(([title, body]) => [title, body]),
+    ...thermowood.components.flatMap(([title, body]) => [title, body]),
+    ...thermowood.designOptions.flatMap(([title, body]) => [title, body]),
+    ...thermowood.benefits,
+    ...thermowood.applications,
+    ...thermowood.ageingStages,
+    thermowood.ageingNote,
+    thermowood.requirements,
+  ]) {
+    assert(
+      thermowoodPage.includes(escapeHtml(value)),
+      `${lang} ThermoWood: approved shared copy missing: ${value}`,
+    );
+  }
+  for (const value of forbidden) {
+    assert(!thermowoodPage.includes(value), `${lang} ThermoWood: forbidden reference ${value}`);
+  }
+
+  for (const [filename, expectedMedia, expectedTrim, expectedBleed] of [
+    [
+      thermowoodDownloadPdfByLang[lang],
+      [0, 0, 210, 297],
+      [0, 0, 210, 297],
+      [0, 0, 210, 297],
+    ],
+    [
+      thermowoodPrintPdfByLang[lang],
+      [0, 0, 216, 303],
+      [3, 3, 213, 300],
+      [0, 0, 216, 303],
+    ],
+  ]) {
+    const data = await readFile(join(root, "public", "downloads", filename));
+    assert(data.subarray(0, 5).toString("ascii") === "%PDF-", `${lang} ThermoWood: invalid PDF ${filename}`);
+    assert(data.toString("latin1").includes("/OutputIntents"), `${lang} ThermoWood: sRGB output intent missing in ${filename}`);
+    for (const [boxName, expected] of [
+      ["MediaBox", expectedMedia],
+      ["TrimBox", expectedTrim],
+      ["BleedBox", expectedBleed],
+    ]) {
+      const actual = pdfBox(data, boxName).map(pointsToMm);
+      assert(
+        actual.every((value, index) => approximately(value, expected[index])),
+        `${lang} ThermoWood: ${filename} ${boxName} is ${actual.join(", ")} mm`,
+      );
+    }
+  }
 }
 
 for (const asset of [
@@ -169,6 +332,27 @@ for (const asset of [
   await access(join(root, "public", "assets", "technical-library", "natural-stone", asset));
 }
 
+for (const asset of [
+  "thermowood-hero-annotated-v1.png",
+  "thermowood-overview-hero-v1.png",
+  ...thermowoodComponentImages,
+  ...thermowoodDesignImages,
+  ...thermowoodAgeingImages,
+]) {
+  await access(join(root, "public", "assets", "technical-library", "thermowood", asset));
+}
+const publicThermowoodFiles = [
+  ...(await readdir(join(root, "public", "assets", "technical-library", "thermowood"))),
+  ...(await readdir(join(root, "public", "downloads"))).filter((name) =>
+    name.toLowerCase().includes("thermowood"),
+  ),
+];
+for (const filename of publicThermowoodFiles) {
+  assert(!/(^|[-_.])(preview|temp|test|screenshot|untitled)([-_.]|$)/i.test(filename), `Temporary ThermoWood filename is public: ${filename}`);
+  assert(!/final-final|new-final/i.test(filename), `Experimental ThermoWood filename is public: ${filename}`);
+  assert(!/a3/i.test(filename), `Accidental A3 ThermoWood file is public: ${filename}`);
+}
+
 const cleanStoneOverviewHero = await readFile(
   join(
     root,
@@ -203,4 +387,4 @@ for (const legacyAsset of ["stone-hero.png", "stone-veneer-strip.png"]) {
   }
 }
 
-console.log("Validated 3 Roof, 3 ETICS and 3 Natural Stone pages, 3 landing pages, 9 PDFs and all module image assets.");
+console.log("Validated 3 pages each for Roof, ETICS, Natural Stone and ThermoWood, 3 landing pages, 15 PDFs, shared ThermoWood geometry/copy and all module image assets.");

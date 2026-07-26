@@ -1,0 +1,94 @@
+{
+  "version": "production-v1-from-preview-v6",
+  "page": {
+    "trimWidthMm": 210,
+    "trimHeightMm": 297,
+    "bleedMm": 3,
+    "printMediaWidthMm": 216,
+    "printMediaHeightMm": 303,
+    "printTrimOffsetMm": 3,
+    "safeMarginMm": 7
+  },
+  "sections": {
+    "hero": [7, 35, 105, 60],
+    "overview": [114, 35, 89, 37],
+    "why": [114, 74, 89, 21],
+    "buildUp": [7, 97, 196, 37],
+    "principles": [7, 136, 196, 26],
+    "components": [7, 164, 196, 37],
+    "designOptions": [7, 203, 196, 35],
+    "lower": [7, 240, 196, 27],
+    "requirements": [7, 269, 196, 17]
+  },
+  "hero": {
+    "asset": "thermowood-hero-annotated-v1.png",
+    "baseCropPx": [0, 0, 1190, 1024],
+    "approvedScale": 1.05,
+    "circleCenterX": 14.4,
+    "circleRadius": 2.15,
+    "lineWidth": 0.34,
+    "endpointRadius": 0.68,
+    "callouts": [
+      {"number": 1, "circle": [14.4, 47.5], "path": [[16.55, 47.5], [29.0, 47.5], [35.3, 48.2]], "endpoint": [35.3, 48.2]},
+      {"number": 2, "circle": [14.4, 56.0], "path": [[16.55, 56.0], [44.0, 56.0], [50.3, 56.5]], "endpoint": [50.3, 56.5]},
+      {"number": 3, "circle": [14.4, 65.0], "path": [[16.55, 65.0], [47.0, 65.0], [52.6, 64.9]], "endpoint": [52.6, 64.9]},
+      {"number": 4, "circle": [14.4, 74.0], "path": [[16.55, 74.0], [30.5, 74.0], [45.2, 68.5]], "endpoint": [45.2, 68.5]},
+      {"number": 5, "circle": [14.4, 83.0], "path": [[16.55, 83.0], [31.5, 83.0], [70.2, 75.4]], "endpoint": [70.2, 75.4]}
+    ],
+    "airflowArrows": {
+      "count": 4,
+      "overlayScale": 1.125,
+      "headOpacity": 0.8,
+      "middleOpacity": 0.56,
+      "tailOpacity": 0.29,
+      "upperArrowCount": 0
+    }
+  },
+  "buildUp": {
+    "leftIndices": [0, 2, 4],
+    "rightIndices": [1, 3],
+    "leftRowTops": [106.2, 115.5, 124.8],
+    "rightRowTops": [106.2, 115.5]
+  },
+  "components": {
+    "columnStartX": 11,
+    "columnWidth": 31.33,
+    "dividerXs": [42.33, 73.66, 104.99, 136.32, 167.65],
+    "dividerTop": 171.15,
+    "dividerBottom": 198.6,
+    "imageSlotTop": 171.15,
+    "imageSlotHeight": 14.35,
+    "imageSlotWidth": 29.13,
+    "imageSlotLefts": [12.1, 43.43, 74.76, 106.09, 137.42, 168.75],
+    "assets": [
+      {"file": "thermowood-component-cladding-profile.png", "sourceCropPx": [45, 35, 545, 330], "scale": 0.99},
+      {"file": "thermowood-component-timber-batten.png", "sourceCropPx": [610, 45, 1015, 355], "scale": 0.9},
+      {"file": "thermowood-component-stainless-screw.png", "sourceCropPx": [1025, 35, 1515, 350], "scale": 1.03},
+      {"file": "thermowood-component-breather-membrane.png", "sourceCropPx": [55, 480, 530, 820], "scale": 0.96},
+      {"file": "thermowood-component-insect-mesh.png", "sourceCropPx": [600, 490, 1000, 805], "scale": 0.98},
+      {"file": "thermowood-component-pir.png", "sourceCropPx": [1075, 515, 1465, 805], "scale": 1.07}
+    ]
+  },
+  "designOptions": {
+    "files": [
+      "thermowood-design-option-1.png",
+      "thermowood-design-option-2.png",
+      "thermowood-design-option-3.png",
+      "thermowood-design-option-4.png",
+      "thermowood-design-option-5.png",
+      "thermowood-design-option-6.png"
+    ]
+  },
+  "ageing": {
+    "files": [
+      "thermowood-ageing-1.png",
+      "thermowood-ageing-2.png",
+      "thermowood-ageing-3.png",
+      "thermowood-ageing-4.png"
+    ],
+    "lefts": [126.9, 145.25, 163.6, 181.95],
+    "top": 247.5,
+    "width": 18.1,
+    "height": 10
+  }
+}

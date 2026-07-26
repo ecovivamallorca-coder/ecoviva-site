@@ -9,12 +9,22 @@ import {
   stoneSelections,
   stoneSlugByLang,
 } from "./technical-library-natural-stone-content.mjs";
+import {
+  thermowoodAgeingImages,
+  thermowoodComponentImages,
+  thermowoodCopy,
+  thermowoodDesignImages,
+  thermowoodDownloadPdfByLang,
+  thermowoodPrintPdfByLang,
+  thermowoodSlugByLang,
+} from "./technical-library-thermowood-content.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const origin = "https://www.ecoviva-mallorca.com";
 const assetRoot = "/assets/technical-library";
 const eticsAssetRoot = `${assetRoot}/etics`;
 const stoneAssetRoot = `${assetRoot}/natural-stone`;
+const thermowoodAssetRoot = `${assetRoot}/thermowood`;
 const roofSlug = "traditional-mallorcan-roof";
 const colourSwatches = ["#D8D1C2", "#CDB995", "#D6BB7A", "#E6DDC8", "#C79B7C", "#8F6A4F"];
 
@@ -69,6 +79,17 @@ const stoneAlternateLinks = () =>
     )
     .concat(
       `    <link rel="alternate" hreflang="x-default" href="${origin}/technical-library/en/${stoneSlugByLang.en}/">`,
+    )
+    .join("\n");
+
+const thermowoodAlternateLinks = () =>
+  langs
+    .map(
+      (lang) =>
+        `    <link rel="alternate" hreflang="${lang}" href="${origin}/technical-library/${lang}/${thermowoodSlugByLang[lang]}/">`,
+    )
+    .concat(
+      `    <link rel="alternate" hreflang="x-default" href="${origin}/technical-library/en/${thermowoodSlugByLang.en}/">`,
     )
     .join("\n");
 
@@ -615,6 +636,199 @@ ${stoneSelections
 `;
 };
 
+const thermowoodPage = (lang) => {
+  const c = thermowoodCopy[lang];
+  const slug = thermowoodSlugByLang[lang];
+  const canonical = `${origin}/technical-library/${lang}/${slug}/`;
+  const destinations = Object.fromEntries(
+    langs.map((item) => [item, `/technical-library/${item}/${thermowoodSlugByLang[item]}/`]),
+  );
+  const libraryNames = {
+    en: "Technical Library",
+    es: "Biblioteca Técnica",
+    de: "Technische Bibliothek",
+  };
+  const structuredData = `    <script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: libraryNames[lang],
+        item: `${origin}/technical-library/${lang}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: c.cardTitle,
+        item: canonical,
+      },
+    ],
+  }).replaceAll("<", "\\u003c")}</script>`;
+  const calloutSummary = c.layers
+    .map(([title], index) => `${index + 1}. ${title}`)
+    .join("; ");
+
+  return `${documentHead({
+    lang,
+    title: c.metaTitle,
+    description: c.metaDescription,
+    canonical,
+    suffix: `${slug}/`,
+    type: "article",
+    alt: c.heroAlt,
+    alternates: thermowoodAlternateLinks(),
+    ogImage: `${origin}${thermowoodAssetRoot}/thermowood-hero-annotated-v1.png`,
+    ogWidth: 1240,
+    ogHeight: 709,
+    structuredData,
+  })}
+  <body class="roof-page thermowood-page">
+    ${header(lang, "", destinations)}
+    <main id="main">
+      <section class="page-heading roof-shell">
+        <p class="roof-eyebrow">${escapeHtml(c.library)}</p>
+        <h1>${escapeHtml(c.title)}</h1>
+        <p class="technical-subtitle">${escapeHtml(c.subtitle)}</p>
+        <div class="heading-rule" aria-hidden="true"></div>
+      </section>
+
+      <div class="roof-shell content-flow">
+        <section class="hero-overview" aria-label="${escapeHtml(c.overviewTitle)}">
+          <figure
+            class="hero-diagram thermowood-hero-diagram"
+            data-callout-count="5"
+            data-leader-line-count="5"
+            data-lower-airflow-arrows="4"
+            data-upper-airflow-arrows="0"
+            data-callout-endpoints="35.3,48.2;50.3,56.5;52.6,64.9;45.2,68.5;70.2,75.4"
+          >
+            <img src="${thermowoodAssetRoot}/thermowood-hero-annotated-v1.png" width="1240" height="709" alt="${escapeHtml(c.heroAlt)}">
+            <figcaption class="sr-only">${escapeHtml(calloutSummary)}</figcaption>
+          </figure>
+          <div class="stack">
+            <article class="panel overview">
+              ${sectionTitle(c.overviewTitle)}
+              <p>${escapeHtml(c.overview)}</p>
+              <p class="technical-note"><em>${escapeHtml(c.overviewNote)}</em></p>
+            </article>
+            <article class="panel">
+              ${sectionTitle(c.whyTitle)}
+              <ul class="why-list">
+${c.why.map((item) => `                <li>${escapeHtml(item)}</li>`).join("\n")}
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          ${sectionTitle(c.layersTitle)}
+          <ol class="layer-grid">
+${c.layers
+  .map(
+    ([title, body], index) => `            <li>
+              <span class="number">${index + 1}</span>
+              <div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>
+            </li>`,
+  )
+  .join("\n")}
+          </ol>
+        </section>
+
+        <section class="panel">
+          ${sectionTitle(c.principlesTitle)}
+          <div class="thermowood-principle-grid">
+${c.principles
+  .map(
+    ([title, body]) => `            <article class="thermowood-principle">
+              <span aria-hidden="true">✓</span>
+              <div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>
+            </article>`,
+  )
+  .join("\n")}
+          </div>
+        </section>
+
+        <section class="panel">
+          ${sectionTitle(c.componentsTitle)}
+          <ul class="thermowood-component-grid" aria-label="${escapeHtml(c.componentsTitle)}" data-divider-count="5" data-numbering="none">
+${c.components
+  .map(
+    ([title, body], index) => `            <li>
+              <div class="thermowood-component-image">
+                <img src="${thermowoodAssetRoot}/${thermowoodComponentImages[index]}" alt="${escapeHtml(title)}">
+              </div>
+              <h3>${escapeHtml(title)}</h3>
+              <p>${escapeHtml(body)}</p>
+            </li>`,
+  )
+  .join("\n")}
+          </ul>
+        </section>
+
+        <section class="panel">
+          ${sectionTitle(c.designOptionsTitle)}
+          <div class="thermowood-design-grid" data-numbering="none">
+${c.designOptions
+  .map(
+    ([title, body], index) => `            <figure>
+              <img src="${thermowoodAssetRoot}/${thermowoodDesignImages[index]}" alt="">
+              <figcaption><strong>${escapeHtml(title)}</strong><span>${escapeHtml(body)}</span></figcaption>
+            </figure>`,
+  )
+  .join("\n")}
+          </div>
+        </section>
+
+        <section class="panel thermowood-lower-grid">
+          <div>
+            ${sectionTitle(c.benefitsTitle)}
+            <ul class="thermowood-bullet-list">
+${c.benefits.map((item) => `              <li>${escapeHtml(item)}</li>`).join("\n")}
+            </ul>
+          </div>
+          <div>
+            ${sectionTitle(c.applicationsTitle)}
+            <ul class="thermowood-bullet-list">
+${c.applications.map((item) => `              <li>${escapeHtml(item)}</li>`).join("\n")}
+            </ul>
+          </div>
+          <div>
+            ${sectionTitle(c.ageingTitle)}
+            <div class="thermowood-ageing-grid">
+${c.ageingStages
+  .map(
+    (label, index) => `              <figure>
+                <img src="${thermowoodAssetRoot}/${thermowoodAgeingImages[index]}" alt="">
+                <figcaption>${escapeHtml(label)}</figcaption>
+              </figure>`,
+  )
+  .join("\n")}
+            </div>
+            <p>${escapeHtml(c.ageingNote)}</p>
+          </div>
+        </section>
+
+        <aside class="panel compliance">
+          ${sectionTitle(c.requirementsTitle)}
+          <p>${escapeHtml(c.requirements)}</p>
+        </aside>
+
+        <nav class="tl-actions" aria-label="${escapeHtml(copy[lang].actionsLabel)}">
+          <a class="tl-button tl-button--primary" href="/downloads/${thermowoodDownloadPdfByLang[lang]}" download="${thermowoodDownloadPdfByLang[lang]}">${escapeHtml(c.download)}</a>
+          <a class="tl-button tl-button--secondary" href="/downloads/${thermowoodPrintPdfByLang[lang]}" target="_blank" rel="noopener">${escapeHtml(c.print)}</a>
+          <a class="tl-button tl-button--secondary" href="/technical-library/${lang}/">${escapeHtml(c.backLibrary)}</a>
+          <a class="tl-button tl-button--secondary" href="${origin}/">${escapeHtml(c.backHome)}</a>
+        </nav>
+      </div>
+    </main>
+    ${footer(lang)}
+  </body>
+</html>
+`;
+};
+
 const landingPage = (lang) => {
   const c = copy[lang];
   const canonical = `${origin}/technical-library/${lang}/`;
@@ -654,6 +868,13 @@ const landingPage = (lang) => {
             <small>${escapeHtml(c.openSheet)} <span aria-hidden="true">→</span></small>
           </span>
         </a>
+        <a class="library-card library-card--thermowood" href="/technical-library/${lang}/${thermowoodSlugByLang[lang]}/">
+          <img src="${thermowoodAssetRoot}/thermowood-overview-hero-v1.png" width="1535" height="1024" alt="${escapeHtml(thermowoodCopy[lang].cleanHeroAlt)}">
+          <span>
+            <strong>${escapeHtml(thermowoodCopy[lang].cardTitle)}</strong>
+            <small>${escapeHtml(c.openSheet)} <span aria-hidden="true">→</span></small>
+          </span>
+        </a>
       </section>
       <nav class="tl-actions tl-actions--landing" aria-label="${escapeHtml(c.actionsLabel)}">
         <a class="tl-button tl-button--secondary" href="${origin}/">${escapeHtml(c.backHome)}</a>
@@ -687,16 +908,26 @@ for (const lang of langs) {
     stoneSlugByLang[lang],
     "index.html",
   );
+  const thermowoodPath = join(
+    root,
+    "public",
+    "technical-library",
+    lang,
+    thermowoodSlugByLang[lang],
+    "index.html",
+  );
   await mkdir(dirname(landingPath), { recursive: true });
   await mkdir(dirname(roofPath), { recursive: true });
   await mkdir(dirname(eticsPath), { recursive: true });
   await mkdir(dirname(stonePath), { recursive: true });
+  await mkdir(dirname(thermowoodPath), { recursive: true });
   await writeFile(landingPath, landingPage(lang), "utf8");
   await writeFile(roofPath, roofPage(lang), "utf8");
   await writeFile(eticsPath, eticsPage(lang), "utf8");
   await writeFile(stonePath, stonePage(lang), "utf8");
+  await writeFile(thermowoodPath, thermowoodPage(lang), "utf8");
 }
 
 console.log(
-  `Generated ${langs.length} Technical Library landing pages and ${langs.length} pages for each of roof, ETICS and Natural Stone.`,
+  `Generated ${langs.length} Technical Library landing pages and ${langs.length} pages for each of roof, ETICS, Natural Stone and ThermoWood.`,
 );

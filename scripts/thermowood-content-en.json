@@ -1,0 +1,89 @@
+{
+  "lang": "en",
+  "code": "EN",
+  "slug": "ventilated-thermowood-facade-system",
+  "pdfStem": "EcoViva_A4_Ventilated_ThermoWood_Facade_System_EN",
+  "library": "TECHNICAL LIBRARY",
+  "title": "VENTILATED THERMOWOOD® FAÇADE SYSTEM",
+  "titleLines": ["VENTILATED THERMOWOOD®", "FAÇADE SYSTEM"],
+  "subtitle": "VENTILATED TIMBER CLADDING WITH PIR INSULATION",
+  "cardTitle": "Ventilated ThermoWood® Façade System",
+  "metaTitle": "Ventilated ThermoWood® Façade System | EcoViva Mallorca",
+  "metaDescription": "Technical guidance for a ventilated ThermoWood® timber façade with PIR insulation, durable substructure and moisture-managed cavity construction in Mallorca.",
+  "heroAlt": "Ventilated timber façade build-up with five numbered callouts identifying the structural wall, PIR façade insulation, timber battens, ventilated cavity and ThermoWood® cladding.",
+  "cleanHeroAlt": "Clean ventilated timber façade build-up with masonry wall, PIR insulation, timber battens and ThermoWood® cladding.",
+  "overviewTitle": "SYSTEM OVERVIEW",
+  "overview": "The ventilated ThermoWood® façade combines high-performance external insulation with a ventilated timber substructure and durable thermally modified wood cladding. The open cavity supports airflow, helps drain incidental moisture and protects the external wall while creating a warm architectural finish for Mallorca's climate.",
+  "overviewNote": "Final design must be verified for the substrate, façade height, wind exposure, fire requirements, ventilation openings, fixing method and project-specific conditions.",
+  "whyTitle": "WHY ECOVIVA",
+  "why": [
+    "Independent renovation guidance",
+    "Local Mallorca expertise",
+    "Project-specific technical verification",
+    "One point of contact from concept to completion"
+  ],
+  "layersTitle": "FIVE-PART VENTILATED TIMBER FAÇADE BUILD-UP",
+  "layers": [
+    ["Structural wall substrate", "Prepared masonry or concrete wall supporting the complete façade system."],
+    ["PIR façade insulation", "High-performance rigid insulation reducing heat transfer through the external wall."],
+    ["Timber battens", "Durable timber substructure creating the ventilated cavity and supporting the cladding."],
+    ["Ventilated cavity", "Continuous drainage and airflow space behind the external timber finish."],
+    ["ThermoWood® cladding", "Thermally modified timber finish providing stability and natural architectural character."]
+  ],
+  "principlesTitle": "KEY TECHNICAL PRINCIPLES",
+  "principles": [
+    ["VENTILATION AND DRAINAGE", "Keep the base-to-top cavity open for continuous airflow and drainage."],
+    ["MOISTURE MANAGEMENT", "Use a suitable vapour-open breather membrane and correctly detailed openings."],
+    ["DURABLE SUBSTRUCTURE AND FIXINGS", "Select exterior-grade battens and corrosion-resistant fixings for façade loads and coastal exposure."],
+    ["MOVEMENT AND DETAILING", "Allow for timber movement; coordinate openings, corners, interfaces, base and top closures."]
+  ],
+  "componentsTitle": "ASSEMBLY COMPONENTS",
+  "components": [
+    ["ThermoWood® cladding profile", "Thermally modified exterior timber profile."],
+    ["Timber batten", "Substructure forming the ventilation and drainage cavity."],
+    ["Stainless-steel screw", "Corrosion-resistant exterior façade fixing."],
+    ["Breather membrane", "Water-resistant and vapour-open protective layer."],
+    ["Ventilation insect mesh", "Protects cavity openings while maintaining airflow."],
+    ["PIR insulation", "High-performance rigid thermal insulation."]
+  ],
+  "designOptionsTitle": "FAÇADE DESIGN OPTIONS",
+  "designOptions": [
+    ["Classic Horizontal", "Calm horizontal timber appearance."],
+    ["Vertical Shadow Gap", "Modern vertical rhythm with dark joints."],
+    ["Mixed Width", "Varied board widths for a dynamic façade."],
+    ["Triple Profile 3D", "Narrow ribs creating depth and shadow."],
+    ["Block Profile 3D", "Deeper relief and stronger expression."],
+    ["Silver Grey Weathered", "Natural ageing to a soft grey patina."]
+  ],
+  "benefitsTitle": "KEY BENEFITS",
+  "benefits": [
+    "Durable, dimensionally stable timber",
+    "Ventilated moisture-management strategy",
+    "Improved external thermal performance",
+    "Warm natural architectural appearance",
+    "Low-maintenance untreated ageing option",
+    "Renewable wood-based façade material"
+  ],
+  "applicationsTitle": "TYPICAL APPLICATIONS",
+  "applications": [
+    "Residential façades",
+    "Villas and holiday homes",
+    "Entrance features",
+    "Garden and boundary walls",
+    "Pool houses",
+    "Selected commercial buildings"
+  ],
+  "ageingTitle": "NATURAL COLOUR EVOLUTION",
+  "ageingStages": ["Newly installed", "Early weathering", "Developing grey", "Silver-grey patina"],
+  "ageingNote": "Untreated ThermoWood® naturally develops a silver-grey surface. Appearance varies with exposure, detailing and maintenance.",
+  "requirementsTitle": "IMPORTANT TECHNICAL REQUIREMENTS",
+  "requirements": "Use compatible façade components selected for the substrate, insulation, cavity depth, cladding profile, fixing method, façade height, wind exposure and coastal environment. Ventilation openings, insect protection, drainage, fire performance, movement joints and all interfaces must be project-verified. Final design and execution must comply with the CTE, applicable product documentation and project-specific requirements.",
+  "footerWeb": "www.ecoviva-mallorca.com",
+  "footerContact": "EcoViva Mallorca S.L. · Palma de Mallorca · info@ecoviva-mallorca.com",
+  "footerLegal": "Technical information subject to project-specific verification. · © 2026 EcoViva Mallorca S.L.",
+  "download": "Download technical sheet",
+  "print": "Open print PDF",
+  "backLibrary": "Back to Technical Library",
+  "backHome": "Back to EcoViva home",
+  "openSheet": "Open technical sheet"
+}

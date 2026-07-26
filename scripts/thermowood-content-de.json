@@ -1,0 +1,89 @@
+{
+  "lang": "de",
+  "code": "DE",
+  "slug": "hinterlueftetes-thermowood-fassadensystem",
+  "pdfStem": "EcoViva_A4_Hinterlueftetes_ThermoWood_Fassadensystem_DE",
+  "library": "TECHNISCHE BIBLIOTHEK",
+  "title": "HINTERLÜFTETES THERMOWOOD®-FASSADENSYSTEM",
+  "titleLines": ["HINTERLÜFTETES THERMOWOOD®-", "FASSADENSYSTEM"],
+  "subtitle": "HINTERLÜFTETE HOLZBEKLEIDUNG MIT PIR-DÄMMUNG",
+  "cardTitle": "Hinterlüftetes ThermoWood®-Fassadensystem",
+  "metaTitle": "Hinterlüftetes ThermoWood®-Fassadensystem | EcoViva Mallorca",
+  "metaDescription": "Technische Hinweise für eine hinterlüftete ThermoWood®-Holzfassade mit PIR-Dämmung, dauerhafter Unterkonstruktion und Feuchtemanagement auf Mallorca.",
+  "heroAlt": "Hinterlüfteter Holzfassadenaufbau mit fünf nummerierten Hinweisen auf tragenden Wanduntergrund, PIR-Dämmung, Holzunterkonstruktion, Hinterlüftungsebene und ThermoWood®-Bekleidung.",
+  "cleanHeroAlt": "Sauberer hinterlüfteter Holzfassadenaufbau mit Mauerwerk, PIR-Dämmung, Holzlatten und ThermoWood®-Fassadenbekleidung.",
+  "overviewTitle": "SYSTEMÜBERSICHT",
+  "overview": "Die hinterlüftete ThermoWood®-Fassade verbindet eine leistungsfähige Außendämmung mit einer hinterlüfteten Holzunterkonstruktion und einer dauerhaften Bekleidung aus thermisch modifiziertem Holz. Die offene Ebene ermöglicht Luftströmung, führt gelegentlich eindringende Feuchtigkeit ab und schützt die Außenwand. Gleichzeitig entsteht eine warme architektonische Oberfläche für das Klima Mallorcas.",
+  "overviewNote": "Die endgültige Planung ist für Untergrund, Fassadenhöhe, Windbeanspruchung, Brandschutzanforderungen, Lüftungsöffnungen, Befestigungsart und projektspezifische Bedingungen zu prüfen.",
+  "whyTitle": "WARUM ECOVIVA",
+  "why": [
+    "Unabhängige Renovierungsberatung",
+    "Lokale Mallorca-Expertise",
+    "Projektspezifische technische Prüfung",
+    "Ein Ansprechpartner von der Planung bis zur Fertigstellung"
+  ],
+  "layersTitle": "FÜNFTEILIGER AUFBAU DER HINTERLÜFTETEN HOLZFASSADE",
+  "layers": [
+    ["Tragender Wanduntergrund", "Vorbereitetes Mauerwerk oder Beton als tragende Basis des vollständigen Fassadensystems."],
+    ["PIR-Fassadendämmung", "Leistungsfähige starre Dämmung zur Reduzierung des Wärmedurchgangs durch die Außenwand."],
+    ["Holzunterkonstruktion", "Dauerhafte Holzunterkonstruktion zur Bildung der Hinterlüftungsebene und Aufnahme der Bekleidung."],
+    ["Hinterlüftungsebene", "Durchgehender Entwässerungs- und Luftströmungsraum hinter der äußeren Holzbekleidung."],
+    ["ThermoWood®-Fassadenbekleidung", "Thermisch modifizierte Holzoberfläche mit hoher Stabilität und natürlichem architektonischem Charakter."]
+  ],
+  "principlesTitle": "WICHTIGE TECHNISCHE GRUNDSÄTZE",
+  "principles": [
+    ["BELÜFTUNG UND ENTWÄSSERUNG", "Die Ebene von unten bis oben für kontinuierliche Luftströmung und Entwässerung offen halten."],
+    ["FEUCHTEMANAGEMENT", "Eine geeignete diffusionsoffene Fassadenbahn verwenden und Öffnungen fachgerecht ausbilden."],
+    ["DAUERHAFTE UNTERKONSTRUKTION UND BEFESTIGUNG", "Außengeeignete Latten und korrosionsbeständige Befestigungen für Fassadenlasten und Küstenklima wählen."],
+    ["BEWEGUNG UND DETAILAUSBILDUNG", "Holzbewegungen berücksichtigen und Öffnungen, Ecken, Anschlüsse sowie untere und obere Abschlüsse koordinieren."]
+  ],
+  "componentsTitle": "SYSTEMKOMPONENTEN",
+  "components": [
+    ["ThermoWood®-Fassadenprofil", "Thermisch modifiziertes Holzprofil für die Außenbekleidung."],
+    ["Holzlatte", "Unterkonstruktion zur Bildung der Lüftungs- und Entwässerungsebene."],
+    ["Edelstahlschraube", "Korrosionsbeständige Befestigung für die Außenfassade."],
+    ["Diffusionsoffene Fassadenbahn", "Wasserabweisende und diffusionsoffene Schutzlage."],
+    ["Lüftungs- und Insektenschutzprofil", "Schützt Lüftungsöffnungen und erhält den Luftstrom."],
+    ["PIR-Dämmung", "Leistungsfähige starre Wärmedämmung."]
+  ],
+  "designOptionsTitle": "FASSADENGESTALTUNGEN",
+  "designOptions": [
+    ["Klassisch Horizontal", "Ruhige horizontale Holzbekleidung."],
+    ["Vertikale Schattenfuge", "Moderner vertikaler Rhythmus mit dunklen Fugen."],
+    ["Gemischte Breiten", "Variierende Breiten für eine dynamische Fassade."],
+    ["Dreifachprofil 3D", "Schmale Rippen erzeugen Tiefe und Schatten."],
+    ["Blockprofil 3D", "Stärkeres Relief und markanter Ausdruck."],
+    ["Natürlich Silbergrau", "Natürliche Bewitterung zu einer weichen grauen Patina."]
+  ],
+  "benefitsTitle": "WICHTIGE VORTEILE",
+  "benefits": [
+    "Dauerhaftes, formstabiles Holz",
+    "Hinterlüftetes Feuchtemanagement",
+    "Verbesserte thermische Leistung der Außenwand",
+    "Warme natürliche Architekturwirkung",
+    "Pflegearme unbehandelte Bewitterung",
+    "Erneuerbarer holzbasierter Fassadenwerkstoff"
+  ],
+  "applicationsTitle": "TYPISCHE ANWENDUNGEN",
+  "applications": [
+    "Wohnfassaden",
+    "Villen und Ferienhäuser",
+    "Eingangsbereiche",
+    "Garten- und Grundstücksmauern",
+    "Poolhäuser",
+    "Ausgewählte Gewerbebauten"
+  ],
+  "ageingTitle": "NATÜRLICHE FARBENTWICKLUNG",
+  "ageingStages": ["Neu montiert", "Beginnende Bewitterung", "Zunehmende Vergrauung", "Silbergraue Patina"],
+  "ageingNote": "Unbehandeltes ThermoWood® entwickelt natürlich eine silbergraue Oberfläche. Das Erscheinungsbild hängt von Exposition, Ausrichtung, Detailausbildung und Pflege ab.",
+  "requirementsTitle": "WICHTIGE TECHNISCHE ANFORDERUNGEN",
+  "requirements": "Kompatible Fassadenkomponenten sind passend zu Untergrund, Dämmung, Tiefe der Hinterlüftung, Bekleidungsprofil, Befestigungsart, Fassadenhöhe, Windbeanspruchung und Küstenklima auszuwählen. Lüftungsöffnungen, Insektenschutz, Entwässerung, Brandverhalten, Bewegungsfugen und sämtliche Anschlüsse sind projektspezifisch zu prüfen. Planung und Ausführung müssen dem spanischen Código Técnico de la Edificación (CTE), der anwendbaren Produktdokumentation und den projektspezifischen technischen Anforderungen entsprechen.",
+  "footerWeb": "www.ecoviva-mallorca.com",
+  "footerContact": "EcoViva Mallorca S.L. · Palma de Mallorca · info@ecoviva-mallorca.com",
+  "footerLegal": "Technische Informationen vorbehaltlich projektspezifischer Prüfung. · © 2026 EcoViva Mallorca S.L.",
+  "download": "Technisches Datenblatt herunterladen",
+  "print": "Druck-PDF öffnen",
+  "backLibrary": "Zurück zur Technischen Bibliothek",
+  "backHome": "Zurück zur EcoViva-Startseite",
+  "openSheet": "Technisches Datenblatt öffnen"
+}
