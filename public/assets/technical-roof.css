@@ -306,7 +306,16 @@ body.roof-page {
 }
 .stone-component-grid .component-image img {
   object-fit: contain;
-  transform: none;
+  transform-origin: center;
+}
+.stone-component-grid li:nth-child(5) .component-image img {
+  transform: scale(1.12);
+}
+.stone-component-grid li:nth-child(6) .component-image img {
+  transform: scale(0.65);
+}
+.stone-component-grid li:nth-child(8) .component-image img {
+  transform: scale(0.62);
 }
 .stone-selection-panel {
   display: grid;

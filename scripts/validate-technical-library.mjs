@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { langs } from "./technical-library-content.mjs";
 import { eticsPdfByLang, eticsSlugByLang } from "./technical-library-etics-content.mjs";
 import {
+  stoneCopy,
   stonePdfByLang,
   stoneSlugByLang,
 } from "./technical-library-natural-stone-content.mjs";
@@ -15,12 +16,37 @@ const assert = (condition, message) => {
   if (!condition) throw new Error(message);
 };
 
+const technicalLibraryCss = await readFile(
+  join(root, "public", "assets", "technical-roof.css"),
+  "utf8",
+);
+assert(
+  !/\.stone-component-grid \.component-image img\s*\{[^}]*transform:\s*none/s.test(
+    technicalLibraryCss,
+  ),
+  "Natural Stone component scaling is globally disabled",
+);
+for (const [component, scale] of [
+  [5, "1.12"],
+  [6, "0.65"],
+  [8, "0.62"],
+]) {
+  assert(
+    technicalLibraryCss.includes(
+      `.stone-component-grid li:nth-child(${component}) .component-image img {\n  transform: scale(${scale});`,
+    ),
+    `Natural Stone component ${component} does not use the approved V1.2 optical scale`,
+  );
+}
+
 for (const lang of langs) {
   const landingPath = join(root, "public", "technical-library", lang, "index.html");
   const landing = await readFile(landingPath, "utf8");
   assert(landing.includes(`/technical-library/${lang}/traditional-mallorcan-roof/`), `${lang}: roof card missing`);
   assert(landing.includes(`/technical-library/${lang}/${eticsSlugByLang[lang]}/`), `${lang}: ETICS card missing`);
   assert(landing.includes(`/technical-library/${lang}/${stoneSlugByLang[lang]}/`), `${lang}: Natural Stone card missing`);
+  assert(landing.includes("natural-stone-hero-v1-2.png"), `${lang}: Natural Stone landing card does not use the approved V1.2 hero`);
+  assert(!landing.includes("stone-hero.png"), `${lang}: legacy Natural Stone hero remains on the landing page`);
   assert((landing.match(/class="tl-button tl-button--secondary"/g) ?? []).length === 2, `${lang}: landing actions are not shared buttons`);
 
   for (const module of [
@@ -57,6 +83,19 @@ for (const lang of langs) {
     if (module.name === "Natural Stone") {
       assert((page.match(/class="component-image"/g) ?? []).length === 8, `${lang}: Natural Stone needs eight components`);
       assert(page.includes("natural-stone-hero-v1-2.png"), `${lang}: approved V1.2 web hero missing`);
+      assert(!page.includes("stone-hero.png"), `${lang}: legacy Natural Stone hero referenced`);
+      assert(!page.includes("stone-veneer-strip.png"), `${lang}: legacy Natural Stone strip referenced`);
+      const c = stoneCopy[lang];
+      for (const value of [
+        c.overview,
+        ...c.layers.flatMap(([title, body]) => [title, body]),
+        ...c.principles.flatMap(([title, body]) => [title, body]),
+        ...c.benefits.flatMap(([title, body]) => [title, body]),
+        c.compliance,
+        c.stripNote,
+      ]) {
+        assert(page.includes(value), `${lang}: approved V1.2 Natural Stone copy missing: ${value}`);
+      }
       assert((page.match(/<figure>/g) ?? []).length >= 10, `${lang}: ten named stone textures missing`);
       for (const name of ["Heras", "Mantiel", "Coria", "Calonge", "Cadaqués", "Mansilla", "Toix Blanca", "Cuarcita Multicolor", "Tor Terra", "Toril Gris"]) {
         assert(page.includes(`<figcaption>${name}</figcaption>`), `${lang}: stone texture ${name} missing`);
@@ -81,7 +120,6 @@ for (const asset of [
 }
 
 for (const asset of [
-  "stone-hero.png",
   "natural-stone-hero-v1-2.png",
   "component_01_natural_stone_veneers.png",
   "component_02_corner_stones.png",
@@ -103,6 +141,24 @@ for (const asset of [
   "stone_10_toril_gris.png",
 ]) {
   await access(join(root, "public", "assets", "technical-library", "natural-stone", asset));
+}
+
+for (const legacyAsset of ["stone-hero.png", "stone-veneer-strip.png"]) {
+  try {
+    await access(
+      join(
+        root,
+        "public",
+        "assets",
+        "technical-library",
+        "natural-stone",
+        legacyAsset,
+      ),
+    );
+    throw new Error(`Legacy Natural Stone asset still exists: ${legacyAsset}`);
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+  }
 }
 
 console.log("Validated 3 Roof, 3 ETICS and 3 Natural Stone pages, 3 landing pages, 9 PDFs and all module image assets.");
