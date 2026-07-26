@@ -21,6 +21,19 @@ const componentImages = [
   "component_08_support_system.png",
 ];
 
+export const stoneSelections = [
+  ["Heras", "stone_01_heras.png"],
+  ["Mantiel", "stone_02_mantiel.png"],
+  ["Coria", "stone_03_coria.png"],
+  ["Calonge", "stone_04_calonge.png"],
+  ["Cadaqués", "stone_05_cadaques.png"],
+  ["Mansilla", "stone_06_mansilla.png"],
+  ["Toix Blanca", "stone_07_toix_blanca.png"],
+  ["Cuarcita Multicolor", "stone_08_cuarcita_multicolor.png"],
+  ["Tor Terra", "stone_09_tor_terra.png"],
+  ["Toril Gris", "stone_10_toril_gris.png"],
+];
+
 export const stoneCopy = {
   en: {
     title: "Natural Stone Façade System",
@@ -70,7 +83,7 @@ export const stoneCopy = {
     complianceTitle: "Important / Compliance",
     compliance: "Use complete, mutually compatible components selected for the substrate, insulation, stone type, stone weight, façade height, exposure and project conditions. Mechanical support, waterproofing, movement joints, drainage, fire performance and connection details must be verified where applicable. Final execution and compliance must follow the Spanish Building Code and project-specific technical requirements.",
     stripTitle: "Selected Mallorca Natural Stone Veneers",
-    stripAlt: "Compact selection strip showing eight natural stone veneer textures from Mallorca in warm beige, cream and muted grey tones.",
+    stripAlt: "Ten named Mallorca natural stone veneer textures: Heras, Mantiel, Coria, Calonge, Cadaqués, Mansilla, Toix Blanca, Cuarcita Multicolor, Tor Terra and Toril Gris.",
     stripNote: "Indicative selection only. Final colour, texture, joint appearance and availability must be confirmed using physical samples.",
     download: "Download technical sheet",
   },
@@ -122,7 +135,7 @@ export const stoneCopy = {
     complianceTitle: "Importante / Cumplimiento",
     compliance: "Deben utilizarse componentes completos y compatibles, seleccionados según el soporte, el aislamiento, el tipo y peso de la piedra, la altura, la exposición y las condiciones del proyecto. Cuando proceda, deberán verificarse el soporte mecánico, la impermeabilización, las juntas de movimiento, el drenaje, el comportamiento frente al fuego y los encuentros. La ejecución final debe cumplir el Código Técnico de la Edificación y los requisitos específicos del proyecto.",
     stripTitle: "Selección de Revestimientos de Piedra Natural de Mallorca",
-    stripAlt: "Franja compacta con ocho texturas de revestimiento de piedra natural de Mallorca en tonos beige, crema y gris suave.",
+    stripAlt: "Diez texturas de piedra natural de Mallorca: Heras, Mantiel, Coria, Calonge, Cadaqués, Mansilla, Toix Blanca, Cuarcita Multicolor, Tor Terra y Toril Gris.",
     stripNote: "Selección orientativa. El color, la textura, el aspecto de las juntas y la disponibilidad finales deben confirmarse mediante muestras físicas.",
     download: "Descargar ficha técnica",
   },
@@ -174,7 +187,7 @@ export const stoneCopy = {
     complianceTitle: "Wichtig / Normen",
     compliance: "Es sind vollständige, abgestimmte Komponenten für Untergrund, Dämmung, Steinart und -gewicht, Fassadenhöhe, Witterung und Projektbedingungen zu verwenden. Mechanische Sicherung, Abdichtung, Bewegungsfugen, Entwässerung, Brandverhalten und Anschlüsse sind gegebenenfalls zu prüfen. Ausführung und Konformität müssen dem spanischen Baurecht und den projektspezifischen Anforderungen entsprechen.",
     stripTitle: "Ausgewählte Natursteinverblendungen aus Mallorca",
-    stripAlt: "Kompakter Streifen mit acht mallorquinischen Natursteintexturen in warmen Beige-, Creme- und dezenten Grautönen.",
+    stripAlt: "Zehn benannte Natursteintexturen aus Mallorca: Heras, Mantiel, Coria, Calonge, Cadaqués, Mansilla, Toix Blanca, Cuarcita Multicolor, Tor Terra und Toril Gris.",
     stripNote: "Unverbindliche Auswahl. Endgültige Farbe, Textur, Fugenbild und Verfügbarkeit sind anhand physischer Muster zu bestätigen.",
     download: "Technisches Datenblatt herunterladen",
   },

@@ -6,6 +6,7 @@ import { eticsCopy, eticsPdfByLang, eticsSlugByLang } from "./technical-library-
 import {
   stoneCopy,
   stonePdfByLang,
+  stoneSelections,
   stoneSlugByLang,
 } from "./technical-library-natural-stone-content.mjs";
 
@@ -276,10 +277,10 @@ ${c.fixings
           </section>
         </div>
 
-        <nav class="actions" aria-label="${escapeHtml(c.actionsLabel)}">
-          <a class="button primary" href="/downloads/${pdfByLang[lang]}" download="${pdfByLang[lang]}">${escapeHtml(c.download)}</a>
-          <a class="button secondary" href="/technical-library/${lang}/">${escapeHtml(c.backLibrary)}</a>
-          <a class="button text-button" href="${origin}/">${escapeHtml(c.backHome)}</a>
+        <nav class="tl-actions" aria-label="${escapeHtml(c.actionsLabel)}">
+          <a class="tl-button tl-button--primary" href="/downloads/${pdfByLang[lang]}" download="${pdfByLang[lang]}">${escapeHtml(c.download)}</a>
+          <a class="tl-button tl-button--secondary" href="/technical-library/${lang}/">${escapeHtml(c.backLibrary)}</a>
+          <a class="tl-button tl-button--secondary" href="${origin}/">${escapeHtml(c.backHome)}</a>
         </nav>
       </div>
     </main>
@@ -454,10 +455,10 @@ ${colourSwatches.map((colour) => `            <span style="background-color:${co
           <p>${escapeHtml(c.coloursDisclaimer)}</p>
         </section>
 
-        <nav class="actions" aria-label="${escapeHtml(copy[lang].actionsLabel)}">
-          <a class="button primary" href="/downloads/${eticsPdfByLang[lang]}" download="${eticsPdfByLang[lang]}">${escapeHtml(c.download)}</a>
-          <a class="button secondary" href="/technical-library/${lang}/">${escapeHtml(copy[lang].backLibrary)}</a>
-          <a class="button text-button" href="${origin}/">${escapeHtml(copy[lang].backHome)}</a>
+        <nav class="tl-actions" aria-label="${escapeHtml(copy[lang].actionsLabel)}">
+          <a class="tl-button tl-button--primary" href="/downloads/${eticsPdfByLang[lang]}" download="${eticsPdfByLang[lang]}">${escapeHtml(c.download)}</a>
+          <a class="tl-button tl-button--secondary" href="/technical-library/${lang}/">${escapeHtml(copy[lang].backLibrary)}</a>
+          <a class="tl-button tl-button--secondary" href="${origin}/">${escapeHtml(copy[lang].backHome)}</a>
         </nav>
       </div>
     </main>
@@ -465,41 +466,6 @@ ${colourSwatches.map((colour) => `            <span style="background-color:${co
   </body>
 </html>
 `;
-};
-
-const stoneHeroDiagram = (lang) => {
-  const callouts = [
-    [1, 38, 17.2, 40.2, 25, 48],
-    [2, 45.5, 17.7, 47.5, 36, 54],
-    [3, 53, 18.2, 55, 48, 59],
-    [4, 60.5, 18.7, 62, 55.2, 63],
-    [5, 68, 19.2, 69.5, 59, 67],
-    [6, 75.5, 19.7, 76.5, 66, 72],
-    [7, 83, 20.2, 83.2, 73, 77],
-    [8, 90.5, 20.7, 89.5, 90, 83],
-  ];
-  const c = stoneCopy[lang];
-  return `<figure class="hero-diagram stone-hero-diagram">
-              <svg viewBox="7 31 103 68.667" role="img" aria-labelledby="stone-hero-title-${lang}">
-                <title id="stone-hero-title-${lang}">${escapeHtml(c.heroAlt)}</title>
-                <rect x="7" y="31" width="103" height="68.667" fill="#f4f6f3" stroke="#d9ded8" stroke-width=".45"/>
-                <image href="${stoneAssetRoot}/stone-hero.png" x="7" y="31" width="103" height="68.667" preserveAspectRatio="xMidYMid meet"/>
-                <g stroke-linecap="round" stroke-linejoin="round">
-${callouts
-  .map(([number, cy, elbowX, elbowY, targetX, targetY]) => {
-    const line = `M13.55 ${cy} L${elbowX} ${elbowY} L${targetX} ${targetY}`;
-    return `                  <g>
-                    <path d="${line}" fill="none" stroke="#fff" stroke-width="1"/>
-                    <path d="${line}" fill="none" stroke="#0b0d0b" stroke-width=".34"/>
-                    <circle cx="${targetX}" cy="${targetY}" r=".65" fill="#fff" stroke="#0b0d0b" stroke-width=".34"/>
-                    <circle cx="11.4" cy="${cy}" r="2.15" fill="#3e6b20" stroke="#fff" stroke-width=".35"/>
-                    <text x="11.4" y="${(cy + 0.78).toFixed(2)}" text-anchor="middle" class="hero-number">${number}</text>
-                  </g>`;
-  })
-  .join("\n")}
-                </g>
-              </svg>
-            </figure>`;
 };
 
 const stonePage = (lang) => {
@@ -541,9 +507,9 @@ const stonePage = (lang) => {
     type: "article",
     alt: c.heroAlt,
     alternates: stoneAlternateLinks(),
-    ogImage: `${origin}${stoneAssetRoot}/stone-hero.png`,
-    ogWidth: 1535,
-    ogHeight: 1024,
+    ogImage: `${origin}${stoneAssetRoot}/natural-stone-hero-v1-2.png`,
+    ogWidth: 1860,
+    ogHeight: 1100,
     structuredData,
   })}
   <body class="roof-page stone-page">
@@ -558,7 +524,9 @@ const stonePage = (lang) => {
 
       <div class="roof-shell content-flow">
         <section class="hero-overview" aria-label="${escapeHtml(c.overviewTitle)}">
-          ${stoneHeroDiagram(lang)}
+          <figure class="hero-diagram stone-hero-diagram">
+            <img src="${stoneAssetRoot}/natural-stone-hero-v1-2.png" width="1860" height="1100" alt="${escapeHtml(c.heroAlt)}">
+          </figure>
           <div class="stack">
             <article class="panel overview">
               ${sectionTitle(c.overviewTitle)}
@@ -621,14 +589,23 @@ ${c.components
 
         <section class="panel stone-selection-panel">
           ${sectionTitle(c.stripTitle)}
-          <img src="${stoneAssetRoot}/stone-veneer-strip.png" width="1464" height="280" alt="${escapeHtml(c.stripAlt)}">
+          <div class="stone-selection-grid" aria-label="${escapeHtml(c.stripAlt)}">
+${stoneSelections
+  .map(
+    ([name, image]) => `            <figure>
+              <img src="${stoneAssetRoot}/${image}" width="1024" height="768" alt="${escapeHtml(name)} natural stone veneer texture">
+              <figcaption>${escapeHtml(name)}</figcaption>
+            </figure>`,
+  )
+  .join("\n")}
+          </div>
           <p>${escapeHtml(c.stripNote)}</p>
         </section>
 
-        <nav class="actions" aria-label="${escapeHtml(copy[lang].actionsLabel)}">
-          <a class="button primary" href="/downloads/${stonePdfByLang[lang]}" download="${stonePdfByLang[lang]}">${escapeHtml(c.download)}</a>
-          <a class="button secondary" href="/technical-library/${lang}/">${escapeHtml(copy[lang].backLibrary)}</a>
-          <a class="button text-button" href="${origin}/">${escapeHtml(copy[lang].backHome)}</a>
+        <nav class="tl-actions" aria-label="${escapeHtml(copy[lang].actionsLabel)}">
+          <a class="tl-button tl-button--primary" href="/downloads/${stonePdfByLang[lang]}" download="${stonePdfByLang[lang]}">${escapeHtml(c.download)}</a>
+          <a class="tl-button tl-button--secondary" href="/technical-library/${lang}/">${escapeHtml(copy[lang].backLibrary)}</a>
+          <a class="tl-button tl-button--secondary" href="${origin}/">${escapeHtml(copy[lang].backHome)}</a>
         </nav>
       </div>
     </main>
@@ -678,9 +655,9 @@ const landingPage = (lang) => {
           </span>
         </a>
       </section>
-      <nav class="landing-links" aria-label="${escapeHtml(c.actionsLabel)}">
-        <a href="${origin}/">${escapeHtml(c.backHome)}</a>
-        <a href="/technical-library/start/">${escapeHtml(
+      <nav class="tl-actions tl-actions--landing" aria-label="${escapeHtml(c.actionsLabel)}">
+        <a class="tl-button tl-button--secondary" href="${origin}/">${escapeHtml(c.backHome)}</a>
+        <a class="tl-button tl-button--secondary" href="/technical-library/start/">${escapeHtml(
           lang === "en" ? "Choose another language" : lang === "es" ? "Elegir otro idioma" : "Andere Sprache wählen",
         )}</a>
       </nav>

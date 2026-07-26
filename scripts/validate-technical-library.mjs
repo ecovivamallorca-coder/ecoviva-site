@@ -21,8 +21,10 @@ for (const lang of langs) {
   assert(landing.includes(`/technical-library/${lang}/traditional-mallorcan-roof/`), `${lang}: roof card missing`);
   assert(landing.includes(`/technical-library/${lang}/${eticsSlugByLang[lang]}/`), `${lang}: ETICS card missing`);
   assert(landing.includes(`/technical-library/${lang}/${stoneSlugByLang[lang]}/`), `${lang}: Natural Stone card missing`);
+  assert((landing.match(/class="tl-button tl-button--secondary"/g) ?? []).length === 2, `${lang}: landing actions are not shared buttons`);
 
   for (const module of [
+    { name: "Roof", slug: "traditional-mallorcan-roof", pdf: `EcoViva_A4_Traditional_Mallorcan_Roof_${lang.toUpperCase()}_Download.pdf` },
     { name: "ETICS", slug: eticsSlugByLang[lang], pdf: eticsPdfByLang[lang] },
     { name: "Natural Stone", slug: stoneSlugByLang[lang], pdf: stonePdfByLang[lang] },
   ]) {
@@ -37,7 +39,9 @@ for (const lang of langs) {
     assert(page.includes('href="#main"'), `${lang} ${module.name}: skip link missing`);
     assert(page.includes('id="main"'), `${lang} ${module.name}: main landmark missing`);
     assert((page.match(/<h1>/g) ?? []).length === 1, `${lang} ${module.name}: page needs exactly one h1`);
-    assert((page.match(/class="hero-number"/g) ?? []).length === 8, `${lang} ${module.name}: hero needs eight callouts`);
+    if (module.name !== "Natural Stone") {
+      assert((page.match(/class="hero-number"/g) ?? []).length === 8, `${lang} ${module.name}: hero needs eight callouts`);
+    }
     assert(!page.toLowerCase().includes("qr"), `${lang} ${module.name}: QR reference found in HTML`);
     assert([...page.matchAll(/<img /g)].every((match) => {
       const start = match.index;
@@ -47,10 +51,16 @@ for (const lang of langs) {
     assert(page.includes(`/downloads/${module.pdf}`), `${lang} ${module.name}: download link missing`);
     assert(page.includes(`/technical-library/${lang}/`), `${lang} ${module.name}: library return link missing`);
     assert(page.includes("https://www.ecoviva-mallorca.com/"), `${lang} ${module.name}: home link missing`);
+    assert((page.match(/class="tl-button /g) ?? []).length === 3, `${lang} ${module.name}: three shared action buttons required`);
+    assert(!page.includes("text-button"), `${lang} ${module.name}: plain-text home action remains`);
     assert(pdfHeader === "%PDF-", `${lang} ${module.name}: invalid PDF header`);
     if (module.name === "Natural Stone") {
       assert((page.match(/class="component-image"/g) ?? []).length === 8, `${lang}: Natural Stone needs eight components`);
-      assert(page.includes("stone-veneer-strip.png"), `${lang}: stone-selection strip missing`);
+      assert(page.includes("natural-stone-hero-v1-2.png"), `${lang}: approved V1.2 web hero missing`);
+      assert((page.match(/<figure>/g) ?? []).length >= 10, `${lang}: ten named stone textures missing`);
+      for (const name of ["Heras", "Mantiel", "Coria", "Calonge", "Cadaqués", "Mansilla", "Toix Blanca", "Cuarcita Multicolor", "Tor Terra", "Toril Gris"]) {
+        assert(page.includes(`<figcaption>${name}</figcaption>`), `${lang}: stone texture ${name} missing`);
+      }
     }
     for (const value of forbidden) {
       assert(!page.includes(value), `${lang} ${module.name}: forbidden reference ${value}`);
@@ -72,7 +82,7 @@ for (const asset of [
 
 for (const asset of [
   "stone-hero.png",
-  "stone-veneer-strip.png",
+  "natural-stone-hero-v1-2.png",
   "component_01_natural_stone_veneers.png",
   "component_02_corner_stones.png",
   "component_03_stone_adhesive.png",
@@ -81,8 +91,18 @@ for (const asset of [
   "component_06_mechanical_anchor.png",
   "component_07_waterproofing_membrane.png",
   "component_08_support_system.png",
+  "stone_01_heras.png",
+  "stone_02_mantiel.png",
+  "stone_03_coria.png",
+  "stone_04_calonge.png",
+  "stone_05_cadaques.png",
+  "stone_06_mansilla.png",
+  "stone_07_toix_blanca.png",
+  "stone_08_cuarcita_multicolor.png",
+  "stone_09_tor_terra.png",
+  "stone_10_toril_gris.png",
 ]) {
   await access(join(root, "public", "assets", "technical-library", "natural-stone", asset));
 }
 
-console.log("Validated 3 ETICS pages, 3 Natural Stone pages, 3 landing pages, 6 PDFs and all module image assets.");
+console.log("Validated 3 Roof, 3 ETICS and 3 Natural Stone pages, 3 landing pages, 9 PDFs and all module image assets.");
