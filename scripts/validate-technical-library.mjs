@@ -612,6 +612,12 @@ for (const asset of [
     join(root, "public", "assets", "technical-library", "universal-insulated-flat-roof", asset),
   );
 }
+assert(
+  (await readFile(join(root, "public", "assets", "technical-flat-roof.css"))).equals(
+    await readFile(join(root, "public", "assets", "technical-roof.css")),
+  ),
+  "Flat Roof standalone stylesheet has drifted from the approved shared layout rules",
+);
 
 for (const asset of [
   "natural-stone-hero-v1-2.png",

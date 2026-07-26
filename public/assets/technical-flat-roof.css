@@ -1,9 +1,728 @@
+:root {
+  --roof-green: #3e6b20;
+  --roof-green-deep: #31551a;
+  --roof-ink: #171a16;
+  --roof-muted: #5f655e;
+  --roof-line: #d9ded8;
+  --roof-paper: #f7f8f4;
+  --roof-white: #ffffff;
+  --roof-radius: 12px;
+  --roof-shadow: 0 15px 42px rgba(34, 59, 23, 0.08);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body.roof-page {
+  min-width: 320px;
+  margin: 0;
+  color: var(--roof-ink);
+  background: var(--roof-white);
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  line-height: 1.55;
+}
+.roof-page a { color: inherit; }
+.roof-page img,
+.roof-page svg { max-width: 100%; height: auto; }
+.roof-shell { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+.skip-link {
+  position: fixed;
+  top: -80px;
+  left: 16px;
+  z-index: 100;
+  padding: 10px 14px;
+  background: var(--roof-green-deep);
+  color: white;
+}
+.skip-link:focus { top: 16px; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.roof-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--roof-line);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+}
+.roof-header-inner {
+  width: min(1180px, calc(100% - 40px));
+  min-height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-inline: auto;
+}
+.roof-brand { width: 224px; min-height: 44px; display: inline-flex; align-items: center; }
+.roof-brand img { width: 100%; display: block; }
+.language-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px;
+  border: 1px solid var(--roof-line);
+  border-radius: 999px;
+}
+.language-switch a {
+  min-width: 44px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.language-switch a[aria-current="page"] {
+  color: white;
+  background: var(--roof-green);
+}
+
+.page-heading { padding-block: clamp(44px, 7vw, 82px) 32px; }
+.roof-eyebrow {
+  margin: 0 0 12px;
+  color: var(--roof-green);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.roof-page h1 {
+  max-width: 850px;
+  margin: 0;
+  font-size: clamp(2.25rem, 5vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.thermowood-page h1 { overflow-wrap: anywhere; }
+.heading-rule {
+  width: 82px;
+  height: 4px;
+  margin-top: 28px;
+  background: var(--roof-green);
+}
+.technical-subtitle {
+  max-width: 850px;
+  margin: 18px 0 0;
+  color: var(--roof-muted);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+.content-flow { display: grid; gap: 20px; padding-bottom: 70px; }
+.hero-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(330px, 0.82fr);
+  gap: 20px;
+}
+.stack { min-width: 0; display: grid; align-content: start; gap: 20px; }
+.hero-diagram {
+  min-width: 0;
+  align-self: start;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid var(--roof-line);
+  background: var(--roof-paper);
+}
+.hero-diagram svg { width: 100%; display: block; }
+.hero-diagram > img { width: 100%; display: block; }
+.stone-hero-diagram {
+  overflow: hidden;
+  border-color: var(--roof-green);
+  border-radius: var(--roof-radius);
+  background: #f4f6f3;
+}
+.stone-hero-diagram > img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+}
+.thermowood-hero-diagram {
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--roof-radius);
+  background: #fff;
+}
+.thermowood-hero-diagram > img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+.etics-hero-diagram,
+.thermowood-hero-diagram {
+  contain: layout paint;
+}
+.etics-hero-diagram > svg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 103 / 68.667;
+  overflow: hidden;
+}
+.thermowood-hero-diagram > svg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 105 / 60;
+  overflow: hidden;
+}
+.hero-number { fill: #fff; font: 700 2.3px Arial, sans-serif; }
+.panel {
+  min-width: 0;
+  padding: clamp(20px, 3vw, 30px);
+  border: 2px solid var(--roof-green);
+  border-radius: var(--roof-radius);
+  background: white;
+}
+.panel h2,
+.panel h3,
+.panel p,
+.panel li { overflow-wrap: anywhere; }
+.panel p { margin: 0; color: var(--roof-muted); }
+.section-title {
+  margin: 0 0 20px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid var(--roof-line);
+  color: var(--roof-green);
+  font-size: clamp(1rem, 1.6vw, 1.22rem);
+  line-height: 1.2;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+}
+.overview p { font-size: clamp(1rem, 1.4vw, 1.12rem); }
+.technical-note {
+  margin-top: 14px !important;
+  font-size: 0.92em !important;
+}
+.why-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.why-list li {
+  position: relative;
+  padding-left: 18px;
+  color: #4e554d;
+  font-weight: 700;
+}
+.why-list li::before {
+  position: absolute;
+  top: 0.57em;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--roof-green);
+  content: "";
+}
+.layer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.layer-grid li {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 14px;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--roof-line);
+}
+.layer-grid li:nth-child(odd) { border-right: 1px solid var(--roof-line); }
+.layer-grid li:nth-last-child(-n + 2) { border-bottom: 0; }
+.number {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: white;
+  background: var(--roof-green);
+  font-weight: 700;
+}
+.roof-page h3 { margin: 0 0 5px; font-size: 1rem; line-height: 1.3; }
+.layer-grid p,
+.icon-card p { font-size: 0.93rem; line-height: 1.45; }
+.principle-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
+.principle-grid .icon-card { grid-column: span 2; }
+.principle-grid .icon-card:nth-last-child(-n + 2) {
+  grid-column: span 3;
+  border-top: 1px solid var(--roof-line);
+}
+.icon-card {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 15px;
+  padding: 20px;
+}
+.principle-grid .icon-card:not(:nth-child(3)):not(:last-child) {
+  border-right: 1px solid var(--roof-line);
+}
+.icon-card img { width: 42px; height: 42px; object-fit: contain; }
+.lower-grid {
+  display: grid;
+  grid-template-columns: 1.06fr 0.94fr;
+  gap: 20px;
+  align-items: start;
+}
+.fixing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.fixing-grid li {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 105px auto;
+  align-items: end;
+  color: var(--roof-muted);
+  font-size: 0.84rem;
+  line-height: 1.25;
+  text-align: center;
+}
+.fixing-grid img { width: 100%; height: 95px; object-fit: contain; }
+.benefit-list { display: grid; }
+.benefit-list .icon-card { padding: 11px 0; }
+.benefit-list .icon-card + .icon-card { border-top: 1px solid var(--roof-line); }
+.compliance { background: var(--roof-paper); }
+.etics-principle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.etics-principle-grid .icon-card:nth-child(odd) {
+  border-right: 1px solid var(--roof-line);
+}
+.etics-principle-grid .icon-card:nth-child(n + 3) {
+  border-top: 1px solid var(--roof-line);
+}
+.thermowood-principle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.thermowood-principle {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  padding: 22px 24px;
+}
+.thermowood-principle:nth-child(odd) { border-right: 1px solid var(--roof-line); }
+.thermowood-principle:nth-child(n + 3) { border-top: 1px solid var(--roof-line); }
+.thermowood-principle > span {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--roof-green);
+  border-radius: 50%;
+  color: var(--roof-green);
+  font-weight: 700;
+}
+.thermowood-principle p { font-size: 0.93rem; line-height: 1.45; }
+.universal-facade-page .layer-grid .number { transform: translateY(3px); }
+.universal-facade-page .thermowood-principle { padding-block: 23px; }
+.universal-facade-page .thermowood-principle h3 { margin-bottom: 7px; }
+.universal-section-intro {
+  margin: 0 0 20px;
+  color: var(--roof-muted);
+}
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 16px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.component-grid li {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 180px auto;
+  gap: 12px;
+  color: var(--roof-muted);
+  font-size: 0.86rem;
+  line-height: 1.3;
+  text-align: center;
+}
+.component-image {
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--roof-paper);
+}
+.component-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+.universal-component-grid li {
+  grid-template-rows: 180px auto auto;
+  align-content: start;
+}
+.universal-component-grid .component-image {
+  padding: 4px;
+  background: var(--roof-paper);
+}
+.universal-component-grid li:nth-child(1) img { transform: scale(1.18); }
+.universal-component-grid li:nth-child(2) img { transform: scale(1.12); }
+.universal-component-grid li:nth-child(3) img { transform: scale(1.18); }
+.universal-component-grid li:nth-child(4) img { transform: scale(1.16); }
+.universal-component-grid li:nth-child(5) img { transform: scale(1.14); }
+.universal-component-grid small {
+  color: var(--roof-muted);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+.universal-material-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 18px;
+}
+.universal-material-card {
+  min-width: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border: 1px solid var(--roof-line);
+  border-radius: 12px;
+  background: var(--roof-paper);
+}
+.universal-material-card > img {
+  width: 100%;
+  aspect-ratio: 1.6 / 1;
+  display: block;
+  object-fit: cover;
+}
+.universal-material-card > div { padding: 18px 18px 20px; }
+.universal-material-card h3 {
+  margin: 0 0 10px;
+  color: var(--roof-green);
+  font-size: 1.03rem;
+  line-height: 1.15;
+}
+.universal-material-card p { margin: 0; }
+.etics-page .component-image {
+  box-sizing: border-box;
+  padding: 14px;
+  background: #f6f8f4;
+}
+.etics-page .component-image img { transform-origin: center; }
+.etics-page .component-image-1 img { transform: scale(1.08); }
+.etics-page .component-image-2 img { transform: scale(0.88); }
+.etics-page .component-image-3 img { transform: scale(0.86); }
+.etics-page .component-image-4 img { transform: scale(1.12); }
+.etics-page .component-image-5 img { transform: scale(1.08); }
+.stone-component-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.stone-component-grid li {
+  grid-template-rows: 150px auto;
+}
+.stone-component-grid .component-image img {
+  object-fit: contain;
+  transform-origin: center;
+}
+.stone-component-grid li:nth-child(5) .component-image img {
+  transform: scale(1.12);
+}
+.stone-component-grid li:nth-child(6) .component-image img {
+  transform: scale(0.65);
+}
+.stone-component-grid li:nth-child(8) .component-image img {
+  transform: scale(0.62);
+}
+.stone-selection-panel {
+  display: grid;
+  gap: 18px;
+}
+.thermowood-component-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.thermowood-component-grid li {
+  min-width: 0;
+  padding: 0 15px;
+  color: var(--roof-muted);
+}
+.thermowood-component-grid li + li { border-left: 1px solid var(--roof-line); }
+.thermowood-component-grid h3 { margin-top: 12px; }
+.thermowood-component-grid p { font-size: 0.86rem; line-height: 1.35; }
+.thermowood-component-image {
+  height: 145px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.thermowood-component-image img {
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+.thermowood-design-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+}
+.thermowood-design-grid figure,
+.thermowood-ageing-grid figure { min-width: 0; margin: 0; }
+.thermowood-design-grid img {
+  width: 100%;
+  aspect-ratio: 1.55 / 1;
+  display: block;
+  object-fit: cover;
+}
+.thermowood-design-grid figcaption {
+  display: grid;
+  gap: 4px;
+  padding-top: 10px;
+  text-align: center;
+}
+.thermowood-design-grid figcaption strong { line-height: 1.25; }
+.thermowood-design-grid figcaption span {
+  color: var(--roof-muted);
+  font-size: 0.84rem;
+  line-height: 1.3;
+}
+.thermowood-lower-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 0.95fr 1.5fr;
+  gap: 0;
+}
+.thermowood-lower-grid > div {
+  min-width: 0;
+  padding: 0 20px;
+}
+.thermowood-lower-grid > div:first-child { padding-left: 0; }
+.thermowood-lower-grid > div:last-child { padding-right: 0; }
+.thermowood-lower-grid > div + div { border-left: 1px solid var(--roof-line); }
+.thermowood-bullet-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.thermowood-bullet-list li {
+  position: relative;
+  padding-left: 16px;
+  color: var(--roof-muted);
+}
+.thermowood-bullet-list li::before {
+  position: absolute;
+  top: 0.6em;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--roof-green);
+  content: "";
+}
+.thermowood-ageing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 13px;
+}
+.thermowood-ageing-grid img {
+  width: 100%;
+  aspect-ratio: 1 / 1.15;
+  display: block;
+  object-fit: cover;
+}
+.thermowood-ageing-grid figcaption {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  text-align: center;
+}
+.stone-selection-panel .section-title { margin-bottom: 0; }
+.stone-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+.stone-selection-grid figure { min-width: 0; margin: 0; text-align: center; }
+.stone-selection-grid img {
+  width: 100%;
+  aspect-ratio: 17 / 4.4;
+  display: block;
+  border: 1px solid var(--roof-line);
+  border-radius: 6px;
+  object-fit: cover;
+}
+.stone-selection-grid figcaption {
+  margin-top: 7px;
+  color: var(--roof-ink);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+.colour-panel { display: grid; gap: 18px; }
+.colour-panel .section-title { margin-bottom: 0; }
+.colour-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+.colour-row span {
+  min-height: 64px;
+  border: 1px solid rgba(23, 26, 22, 0.18);
+  border-radius: 8px;
+}
+.tl-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 16px;
+}
+.tl-actions--landing { justify-content: flex-start; padding-top: 0; }
+.tl-button {
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  line-height: 1.2;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+.tl-button:hover { transform: translateY(-2px); }
+.roof-page .tl-button--primary { color: white; background: var(--roof-green); }
+.tl-button--primary:hover { background: var(--roof-green-deep); }
+.roof-page .tl-button--secondary {
+  border-color: var(--roof-green);
+  color: var(--roof-green-deep);
+  background: var(--roof-white);
+}
+.roof-page .tl-button--secondary:hover { color: white; background: var(--roof-green-deep); }
+
+.roof-site-footer { border-top: 1px solid var(--roof-line); background: var(--roof-paper); }
+.roof-footer-inner { display: grid; gap: 10px; padding-block: 34px; text-align: center; }
+.roof-footer-inner p { margin: 0; }
+.roof-footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; }
+.roof-footer-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--roof-green-deep);
+}
+.roof-disclaimer { color: var(--roof-green); font-size: 0.88rem; }
+
+.library-landing {
+  min-height: calc(100vh - 170px);
+  display: grid;
+  align-content: center;
+  gap: 20px;
+  padding-block: 70px;
+}
+.library-landing h1 { max-width: 980px; }
+.landing-intro {
+  max-width: 620px;
+  margin: 0;
+  color: var(--roof-muted);
+  font-size: 1.15rem;
+}
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+.library-card {
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 245px 1fr;
+  border: 2px solid var(--roof-green);
+  border-radius: var(--roof-radius);
+  color: inherit;
+  background: white;
+  box-shadow: var(--roof-shadow);
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.library-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 48px rgba(34, 59, 23, 0.13);
+}
+.library-card > img { width: 100%; height: 245px; display: block; object-fit: cover; }
+.library-card--natural-stone > img {
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+}
+.library-card--thermowood > img {
+  padding: 12px;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+}
+.library-card--universal-facade > img {
+  padding: 12px;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+}
+.library-card--flat-roof > img {
+  padding: 12px;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+}
+.library-card > span { display: grid; align-content: center; gap: 8px; padding: 26px; }
+.library-card strong { font-size: 1.35rem; line-height: 1.2; }
+.library-card small { color: var(--roof-green); font-weight: 700; }
+.roof-page a:focus-visible {
+  outline: 3px solid #c66f24;
+  outline-offset: 4px;
+}
+
 .flat-roof-section-intro {
   max-width: 940px;
   margin: 0 0 22px;
   color: var(--roof-muted);
 }
-
 .flat-roof-component-grid {
   display: grid;
   grid-template-columns: repeat(8, minmax(0, 1fr));
@@ -11,49 +730,39 @@
   padding: 0;
   list-style: none;
 }
-
 .flat-roof-component-grid li {
   min-width: 0;
   padding: 0 10px;
   color: var(--roof-muted);
 }
-
-.flat-roof-component-grid li + li {
-  border-left: 1px solid var(--roof-line);
-}
-
+.flat-roof-component-grid li + li { border-left: 1px solid var(--roof-line); }
 .flat-roof-component-grid h3 {
   margin: 10px 0 6px;
   font-size: 0.95rem;
   line-height: 1.18;
 }
-
 .flat-roof-component-grid p {
   margin: 0;
   font-size: 0.78rem;
   line-height: 1.32;
 }
-
 .flat-roof-component-image {
   height: 128px;
   display: grid;
   place-items: center;
   overflow: hidden;
 }
-
 .flat-roof-component-image img {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: contain;
 }
-
 .flat-roof-options-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
-
 .flat-roof-option-card {
   min-width: 0;
   overflow: hidden;
@@ -64,32 +773,24 @@
   border-radius: 12px;
   background: var(--roof-paper);
 }
-
 .flat-roof-option-card img {
   width: 100%;
   aspect-ratio: 1.875 / 1;
   display: block;
   object-fit: contain;
 }
-
 .flat-roof-option-card figcaption {
   display: grid;
   align-content: start;
   gap: 7px;
   padding: 16px 18px 19px;
 }
-
-.flat-roof-option-card strong {
-  color: var(--roof-green);
-  line-height: 1.2;
-}
-
+.flat-roof-option-card strong { color: var(--roof-green); line-height: 1.2; }
 .flat-roof-option-card span {
   color: var(--roof-muted);
   font-size: 0.86rem;
   line-height: 1.35;
 }
-
 .reference-tag {
   width: fit-content;
   padding: 4px 7px;
@@ -100,7 +801,6 @@
   font-weight: 700;
   letter-spacing: 0.025em;
 }
-
 .flat-roof-requirements {
   columns: 2;
   column-gap: 34px;
@@ -108,60 +808,163 @@
   padding-left: 20px;
   color: var(--roof-muted);
 }
-
 .flat-roof-requirements li {
   break-inside: avoid;
   margin-bottom: 7px;
 }
 
 @media (max-width: 940px) {
-  .flat-roof-component-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .hero-overview,
+  .lower-grid { grid-template-columns: 1fr; }
+  .hero-diagram { width: 100%; max-width: 760px; margin-inline: auto; }
+  .principle-grid { grid-template-columns: 1fr 1fr; }
+  .principle-grid .icon-card,
+  .principle-grid .icon-card:nth-last-child(-n + 2) {
+    grid-column: span 1;
+    border: 0;
   }
-
-  .flat-roof-component-grid li:nth-child(5) {
-    border-left: 0;
+  .principle-grid .icon-card:nth-child(odd) { border-right: 1px solid var(--roof-line); }
+  .principle-grid .icon-card:nth-child(n + 3) { border-top: 1px solid var(--roof-line); }
+  .component-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .universal-material-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stone-component-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stone-selection-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .thermowood-component-grid,
+  .thermowood-design-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .thermowood-component-grid li:nth-child(4) { border-left: 0; }
+  .thermowood-component-grid li:nth-child(n + 4) {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--roof-line);
   }
-
+  .flat-roof-component-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .flat-roof-component-grid li:nth-child(5) { border-left: 0; }
   .flat-roof-component-grid li:nth-child(n + 5) {
     margin-top: 20px;
     padding-top: 20px;
     border-top: 1px solid var(--roof-line);
   }
-
-  .flat-roof-options-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .flat-roof-options-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .thermowood-lower-grid { grid-template-columns: 1fr 1fr; }
+  .thermowood-lower-grid > div:last-child {
+    grid-column: 1 / -1;
+    margin-top: 24px;
+    padding: 24px 0 0;
+    border-top: 1px solid var(--roof-line);
+    border-left: 0;
   }
+  .library-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 680px) {
-  .flat-roof-component-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .roof-shell,
+  .roof-header-inner { width: min(100% - 28px, 1180px); }
+  .roof-header-inner { min-height: 72px; }
+  .roof-brand { width: 150px; }
+  .language-switch a { min-width: 44px; min-height: 44px; }
+  .page-heading { padding-top: 34px; }
+  .roof-page h1 { font-size: clamp(2.15rem, 11vw, 3.4rem); }
+  .thermowood-page h1 { font-size: clamp(2rem, 9vw, 3.4rem); }
+  .panel { padding: 18px; }
+  .why-list,
+  .layer-grid,
+  .principle-grid { grid-template-columns: 1fr; }
+  .layer-grid li,
+  .layer-grid li:nth-child(odd) {
+    padding: 18px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--roof-line);
   }
-
+  .layer-grid li:last-child { border-bottom: 0; }
+  .principle-grid .icon-card,
+  .principle-grid .icon-card:nth-child(odd),
+  .principle-grid .icon-card:nth-child(n + 3) {
+    padding-inline: 0;
+    border: 0;
+    border-bottom: 1px solid var(--roof-line);
+  }
+  .principle-grid .icon-card:last-child { border-bottom: 0; }
+  .etics-principle-grid { grid-template-columns: 1fr; }
+  .etics-principle-grid .icon-card,
+  .etics-principle-grid .icon-card:nth-child(odd),
+  .etics-principle-grid .icon-card:nth-child(n + 3) {
+    padding-inline: 0;
+    border: 0;
+    border-bottom: 1px solid var(--roof-line);
+  }
+  .etics-principle-grid .icon-card:last-child { border-bottom: 0; }
+  .thermowood-principle-grid { grid-template-columns: 1fr; }
+  .thermowood-principle,
+  .thermowood-principle:nth-child(odd),
+  .thermowood-principle:nth-child(n + 3) {
+    padding: 18px 0;
+    border: 0;
+    border-bottom: 1px solid var(--roof-line);
+  }
+  .thermowood-principle:last-child { border-bottom: 0; }
+  .component-grid { grid-template-columns: 1fr 1fr; }
+  .universal-material-grid { grid-template-columns: 1fr; }
+  .stone-component-grid { grid-template-columns: 1fr 1fr; }
+  .thermowood-component-grid,
+  .thermowood-design-grid { grid-template-columns: 1fr 1fr; }
+  .thermowood-component-grid li {
+    margin: 0;
+    padding: 16px 12px;
+    border-top: 1px solid var(--roof-line);
+  }
+  .thermowood-component-grid li:nth-child(odd) { border-left: 0; }
+  .thermowood-component-grid li:nth-child(-n + 2) { border-top: 0; }
+  .thermowood-component-image { height: 125px; }
+  .flat-roof-component-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .flat-roof-component-grid li {
     margin: 0;
     padding: 16px 12px;
     border-top: 1px solid var(--roof-line);
   }
-
-  .flat-roof-component-grid li:nth-child(odd) {
-    border-left: 0;
+  .flat-roof-component-grid li:nth-child(odd) { border-left: 0; }
+  .flat-roof-component-grid li:nth-child(-n + 2) { border-top: 0; }
+  .flat-roof-component-image { height: 120px; }
+  .flat-roof-options-grid { grid-template-columns: 1fr; }
+  .flat-roof-requirements { columns: 1; }
+  .thermowood-lower-grid { grid-template-columns: 1fr; }
+  .thermowood-lower-grid > div,
+  .thermowood-lower-grid > div:first-child,
+  .thermowood-lower-grid > div:last-child {
+    grid-column: auto;
+    margin: 0;
+    padding: 20px 0;
+    border: 0;
+    border-bottom: 1px solid var(--roof-line);
   }
-
-  .flat-roof-component-grid li:nth-child(-n + 2) {
-    border-top: 0;
+  .thermowood-lower-grid > div:first-child { padding-top: 0; }
+  .thermowood-lower-grid > div:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
   }
-
-  .flat-roof-component-image {
-    height: 120px;
+  .component-grid li { grid-template-rows: 160px auto; }
+  .universal-component-grid li { grid-template-rows: 160px auto auto; }
+  .colour-row { grid-template-columns: repeat(3, 1fr); }
+  .colour-row span { min-height: 54px; }
+  .fixing-grid { grid-template-columns: 1fr; }
+  .fixing-grid li {
+    grid-template-rows: 120px auto;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--roof-line);
   }
+  .fixing-grid li:last-child { border-bottom: 0; }
+  .tl-actions { flex-direction: column; align-items: stretch; }
+  .tl-button { width: 100%; }
+  .library-grid { grid-template-columns: 1fr; }
+  .library-card { grid-template-rows: auto 1fr; }
+  .library-card > img { height: auto; aspect-ratio: 3 / 2; }
+}
 
-  .flat-roof-options-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .flat-roof-requirements {
-    columns: 1;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }
