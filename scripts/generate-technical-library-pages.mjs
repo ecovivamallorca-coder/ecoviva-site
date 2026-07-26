@@ -27,6 +27,14 @@ import {
   universalPrintPdfByLang,
   universalSlugByLang,
 } from "./technical-library-universal-facade-content.mjs";
+import {
+  flatRoofComponentImages,
+  flatRoofCopy,
+  flatRoofDownloadPdfByLang,
+  flatRoofOptionImages,
+  flatRoofPrintPdfByLang,
+  flatRoofSlugByLang,
+} from "./technical-library-flat-roof-content.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const origin = "https://www.ecoviva-mallorca.com";
@@ -35,11 +43,15 @@ const eticsAssetRoot = `${assetRoot}/etics`;
 const stoneAssetRoot = `${assetRoot}/natural-stone`;
 const thermowoodAssetRoot = `${assetRoot}/thermowood`;
 const universalAssetRoot = `${assetRoot}/universal-ventilated-facade`;
+const flatRoofAssetRoot = `${assetRoot}/universal-insulated-flat-roof`;
 const thermowoodGeometry = JSON.parse(
   readFileSync(join(root, "scripts", "thermowood-geometry.json"), "utf8"),
 );
 const universalGeometry = JSON.parse(
   readFileSync(join(root, "scripts", "universal-facade-geometry.json"), "utf8"),
+);
+const flatRoofGeometry = JSON.parse(
+  readFileSync(join(root, "scripts", "flat-roof-geometry.json"), "utf8"),
 );
 const roofSlug = "traditional-mallorcan-roof";
 const colourSwatches = ["#D8D1C2", "#CDB995", "#D6BB7A", "#E6DDC8", "#C79B7C", "#8F6A4F"];
@@ -117,6 +129,17 @@ const universalAlternateLinks = () =>
     )
     .concat(
       `    <link rel="alternate" hreflang="x-default" href="${origin}/technical-library/en/${universalSlugByLang.en}/">`,
+    )
+    .join("\n");
+
+const flatRoofAlternateLinks = () =>
+  langs
+    .map(
+      (lang) =>
+        `    <link rel="alternate" hreflang="${lang}" href="${origin}/technical-library/${lang}/${flatRoofSlugByLang[lang]}/">`,
+    )
+    .concat(
+      `    <link rel="alternate" hreflang="x-default" href="${origin}/technical-library/en/${flatRoofSlugByLang.en}/">`,
     )
     .join("\n");
 
@@ -1133,6 +1156,129 @@ ${c.applications.map((item) => `              <li>${escapeHtml(item)}</li>`).joi
 `;
 };
 
+const flatRoofHeroDiagram = (lang, c) => {
+  const calloutMarkup = flatRoofGeometry.hero.callouts
+    .map(({ number, circle, path, endpoint }) => {
+      const points = path.map(([x, y]) => `${x},${y}`).join(" ");
+      return `                <g class="flat-roof-callout">
+                  <polyline points="${points}" fill="none" stroke="#0b0d0b" stroke-width=".82" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="${points}" fill="none" stroke="#fff" stroke-width=".38" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="${endpoint[0]}" cy="${endpoint[1]}" r=".68" fill="#fff" stroke="#0b0d0b" stroke-width=".34"/>
+                  <circle cx="${circle[0]}" cy="${circle[1]}" r="2.15" fill="#3e6b20"/>
+                  <text x="${circle[0]}" y="${(circle[1] + 0.78).toFixed(2)}" text-anchor="middle" class="hero-number">${number}</text>
+                </g>`;
+    })
+    .join("\n");
+  const endpoints = flatRoofGeometry.hero.callouts
+    .map(({ endpoint }) => endpoint.join(","))
+    .join(";");
+  const image = flatRoofGeometry.hero.image;
+  const heroLabels = [c.layers[4][0], c.layers[3][0], c.layers[2][0], c.layers[1][0], c.layers[0][0]];
+
+  return `<figure
+            class="hero-diagram thermowood-hero-diagram flat-roof-hero-diagram"
+            data-coordinate-system="image-relative-svg"
+            data-callout-count="5"
+            data-leader-line-count="5"
+            data-callout-endpoints="${endpoints}"
+          >
+            <svg viewBox="7 35 105 60" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="flat-roof-hero-title-${lang}">
+              <title id="flat-roof-hero-title-${lang}">${escapeHtml(c.heroAlt)}</title>
+              <defs><clipPath id="flat-roof-hero-clip-${lang}"><rect x="7" y="35" width="105" height="60" rx="1.5"/></clipPath></defs>
+              <g clip-path="url(#flat-roof-hero-clip-${lang})">
+                <rect x="7" y="35" width="105" height="60" fill="#fff"/>
+                <svg x="${image.x}" y="${image.y}" width="${image.width}" height="${image.height}" viewBox="0 0 ${image.cropWidth} ${image.cropHeight}" preserveAspectRatio="xMidYMid meet" overflow="hidden">
+                  <image href="${flatRoofAssetRoot}/flat-roof-hero.png" x="0" y="0" width="${image.cropWidth}" height="${image.cropHeight}" preserveAspectRatio="xMidYMid meet"/>
+                </svg>
+${calloutMarkup}
+              </g>
+              <rect x="7.24" y="35.24" width="104.52" height="59.52" rx="1.5" fill="none" stroke="#3e6b20" stroke-width=".48"/>
+            </svg>
+            <figcaption class="sr-only">${escapeHtml(heroLabels.map((title, index) => `${index + 1}. ${title}`).join("; "))}</figcaption>
+          </figure>`;
+};
+
+const flatRoofPage = (lang) => {
+  const c = flatRoofCopy[lang];
+  const slug = flatRoofSlugByLang[lang];
+  const canonical = `${origin}/technical-library/${lang}/${slug}/`;
+  const destinations = Object.fromEntries(
+    langs.map((item) => [item, `/technical-library/${item}/${flatRoofSlugByLang[item]}/`]),
+  );
+  const structuredData = `    <script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: c.cardTitle,
+    description: c.metaDescription,
+    inLanguage: lang,
+    url: canonical,
+    publisher: { "@type": "Organization", name: "EcoViva Mallorca S.L." },
+  }).replaceAll("<", "\\u003c")}</script>`;
+  return `${documentHead({
+    lang,
+    title: c.metaTitle,
+    description: c.metaDescription,
+    canonical,
+    suffix: `${slug}/`,
+    type: "article",
+    alt: c.cleanHeroAlt,
+    alternates: flatRoofAlternateLinks(),
+    ogImage: `${origin}${flatRoofAssetRoot}/flat-roof-hero.png`,
+    ogWidth: 1536,
+    ogHeight: 1024,
+    structuredData,
+  })}
+  <body class="roof-page thermowood-page flat-roof-page">
+    ${header(lang, "", destinations)}
+    <main id="main">
+      <section class="page-heading roof-shell">
+        <p class="roof-eyebrow">${escapeHtml(c.library)}</p>
+        <h1>${escapeHtml(c.title)}</h1>
+        <p class="technical-subtitle">${escapeHtml(c.subtitle)}</p>
+        <div class="heading-rule" aria-hidden="true"></div>
+      </section>
+      <div class="roof-shell content-flow">
+        <section class="hero-overview" aria-label="${escapeHtml(c.overviewTitle)}">
+          ${flatRoofHeroDiagram(lang, c)}
+          <div class="stack">
+            <article class="panel overview">${sectionTitle(c.overviewTitle)}<p>${escapeHtml(c.overview)}</p><p class="technical-note"><em>${escapeHtml(c.overviewNote)}</em></p></article>
+            <article class="panel">${sectionTitle(c.whyTitle)}<ul class="why-list">${c.why.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></article>
+          </div>
+        </section>
+        <section class="panel">${sectionTitle(c.layersTitle)}
+          <ol class="layer-grid">${c.layers.map(([title, body], index) => `<li><span class="number">${index + 1}</span><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div></li>`).join("")}</ol>
+        </section>
+        <section class="panel">${sectionTitle(c.principlesTitle)}
+          <div class="thermowood-principle-grid">${c.principles.map(([title, body]) => `<article class="thermowood-principle"><span aria-hidden="true">✓</span><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div></article>`).join("")}</div>
+        </section>
+        <section class="panel" id="components">${sectionTitle(c.componentsTitle)}
+          <p class="flat-roof-section-intro">${escapeHtml(c.componentsIntro)}</p>
+          <ul class="flat-roof-component-grid" aria-label="${escapeHtml(c.componentsTitle)}">${c.components.map(([title, body], index) => `<li><div class="flat-roof-component-image"><img src="${flatRoofAssetRoot}/${flatRoofComponentImages[index]}" alt="${escapeHtml(title)}"></div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></li>`).join("")}</ul>
+        </section>
+        <section class="panel" id="waterproofing-options">${sectionTitle(c.optionsTitle)}
+          <p class="flat-roof-section-intro">${escapeHtml(c.optionsIntro)}</p>
+          <div class="flat-roof-options-grid">${c.options.map(([title, body, tag], index) => `<figure class="flat-roof-option-card"><img src="${flatRoofAssetRoot}/${flatRoofOptionImages[index]}" alt="${escapeHtml(title)}"><figcaption><strong>${escapeHtml(title)}</strong><span>${escapeHtml(body)}</span>${tag ? `<span class="reference-tag">${escapeHtml(tag)}</span>` : ""}</figcaption></figure>`).join("")}</div>
+        </section>
+        <section class="panel thermowood-lower-grid">
+          <div>${sectionTitle(c.benefitsTitle)}<ul class="thermowood-bullet-list">${c.benefits.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>
+          <div>${sectionTitle(c.applicationsTitle)}<ul class="thermowood-bullet-list">${c.applications.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>
+          <div>${sectionTitle(c.serviceLifeTitle)}<p>${escapeHtml(c.serviceLife)}</p></div>
+        </section>
+        <aside class="panel compliance">${sectionTitle(c.requirementsTitle)}<ul class="flat-roof-requirements">${c.requirements.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></aside>
+        <nav class="tl-actions" aria-label="${escapeHtml(copy[lang].actionsLabel)}">
+          <a class="tl-button tl-button--primary" href="/downloads/${flatRoofDownloadPdfByLang[lang]}" download="${flatRoofDownloadPdfByLang[lang]}">${escapeHtml(c.download)}</a>
+          <a class="tl-button tl-button--secondary" href="/downloads/${flatRoofPrintPdfByLang[lang]}" target="_blank" rel="noopener">${escapeHtml(c.print)}</a>
+          <a class="tl-button tl-button--secondary" href="/technical-library/${lang}/">${escapeHtml(c.backLibrary)}</a>
+          <a class="tl-button tl-button--secondary" href="${origin}/">${escapeHtml(c.backHome)}</a>
+        </nav>
+      </div>
+    </main>
+    ${footer(lang)}
+  </body>
+</html>
+`;
+};
+
 const landingPage = (lang) => {
   const c = copy[lang];
   const canonical = `${origin}/technical-library/${lang}/`;
@@ -1186,6 +1332,13 @@ const landingPage = (lang) => {
             <small>${escapeHtml(c.openSheet)} <span aria-hidden="true">→</span></small>
           </span>
         </a>
+        <a class="library-card library-card--flat-roof" href="/technical-library/${lang}/${flatRoofSlugByLang[lang]}/">
+          <img src="${flatRoofAssetRoot}/flat-roof-hero.png" width="1536" height="1024" alt="${escapeHtml(flatRoofCopy[lang].cleanHeroAlt)}">
+          <span>
+            <strong>${escapeHtml(flatRoofCopy[lang].cardTitle)}</strong>
+            <small>${escapeHtml(c.openSheet)} <span aria-hidden="true">→</span></small>
+          </span>
+        </a>
       </section>
       <nav class="tl-actions tl-actions--landing" aria-label="${escapeHtml(c.actionsLabel)}">
         <a class="tl-button tl-button--secondary" href="${origin}/">${escapeHtml(c.backHome)}</a>
@@ -1235,20 +1388,30 @@ for (const lang of langs) {
     universalSlugByLang[lang],
     "index.html",
   );
+  const flatRoofPath = join(
+    root,
+    "public",
+    "technical-library",
+    lang,
+    flatRoofSlugByLang[lang],
+    "index.html",
+  );
   await mkdir(dirname(landingPath), { recursive: true });
   await mkdir(dirname(roofPath), { recursive: true });
   await mkdir(dirname(eticsPath), { recursive: true });
   await mkdir(dirname(stonePath), { recursive: true });
   await mkdir(dirname(thermowoodPath), { recursive: true });
   await mkdir(dirname(universalPath), { recursive: true });
+  await mkdir(dirname(flatRoofPath), { recursive: true });
   await writeFile(landingPath, landingPage(lang), "utf8");
   await writeFile(roofPath, roofPage(lang), "utf8");
   await writeFile(eticsPath, eticsPage(lang), "utf8");
   await writeFile(stonePath, stonePage(lang), "utf8");
   await writeFile(thermowoodPath, thermowoodPage(lang), "utf8");
   await writeFile(universalPath, universalPage(lang), "utf8");
+  await writeFile(flatRoofPath, flatRoofPage(lang), "utf8");
 }
 
 console.log(
-  `Generated ${langs.length} Technical Library landing pages and ${langs.length} pages for each of roof, ETICS, Natural Stone, ThermoWood and Universal Ventilated Façade.`,
+  `Generated ${langs.length} Technical Library landing pages and ${langs.length} pages for each of roof, ETICS, Natural Stone, ThermoWood, Universal Ventilated Façade and Universal Insulated Flat Roof.`,
 );

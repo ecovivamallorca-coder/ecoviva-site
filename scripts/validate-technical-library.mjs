@@ -26,6 +26,14 @@ import {
   universalPrintPdfByLang,
   universalSlugByLang,
 } from "./technical-library-universal-facade-content.mjs";
+import {
+  flatRoofComponentImages,
+  flatRoofCopy,
+  flatRoofDownloadPdfByLang,
+  flatRoofOptionImages,
+  flatRoofPrintPdfByLang,
+  flatRoofSlugByLang,
+} from "./technical-library-flat-roof-content.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const forbidden = ["localhost", "chatgpt.com", "openai.com", "/Users/", "file://", "vercel.app"];
@@ -41,6 +49,13 @@ const universalGeometry = JSON.parse(
 );
 const universalGenerator = await readFile(
   join(root, "scripts", "generate-universal-facade-production.py"),
+  "utf8",
+);
+const flatRoofGeometry = JSON.parse(
+  await readFile(join(root, "scripts", "flat-roof-geometry.json"), "utf8"),
+);
+const flatRoofGenerator = await readFile(
+  join(root, "scripts", "generate-flat-roof-production.py"),
   "utf8",
 );
 
@@ -147,6 +162,10 @@ for (const lang of langs) {
     universalGenerator.includes(`"${lang}": "${expectedUniversalUrl}"`),
     `${lang} Universal Façade: language-specific overview PDF QR destination is missing`,
   );
+  assert(
+    flatRoofGenerator.includes('f"qr-{lang}.svg"'),
+    `${lang} Flat Roof: language-specific QR matrix selection is missing`,
+  );
   const landingPath = join(root, "public", "technical-library", lang, "index.html");
   const landing = await readFile(landingPath, "utf8");
   assert(landing.includes(`/technical-library/${lang}/traditional-mallorcan-roof/`), `${lang}: roof card missing`);
@@ -154,6 +173,7 @@ for (const lang of langs) {
   assert(landing.includes(`/technical-library/${lang}/${stoneSlugByLang[lang]}/`), `${lang}: Natural Stone card missing`);
   assert(landing.includes(`/technical-library/${lang}/${thermowoodSlugByLang[lang]}/`), `${lang}: ThermoWood card missing`);
   assert(landing.includes(`/technical-library/${lang}/${universalSlugByLang[lang]}/`), `${lang}: Universal Façade card missing`);
+  assert(landing.includes(`/technical-library/${lang}/${flatRoofSlugByLang[lang]}/`), `${lang}: Flat Roof card missing`);
   assert(
     landing.includes(
       'class="library-card library-card--natural-stone"',
@@ -188,6 +208,11 @@ for (const lang of langs) {
   assert(
     landing.includes("universal-facade-hero.png"),
     `${lang}: Universal Façade landing card does not use the clean hero`,
+  );
+  assert(
+    landing.includes('class="library-card library-card--flat-roof"') &&
+      landing.includes("/assets/technical-library/universal-insulated-flat-roof/flat-roof-hero.png"),
+    `${lang}: Flat Roof landing card does not use the clean approved hero`,
   );
   assert((landing.match(/class="tl-button tl-button--secondary"/g) ?? []).length === 2, `${lang}: landing actions are not shared buttons`);
 
@@ -489,6 +514,76 @@ for (const lang of langs) {
       );
     }
   }
+
+  const flatRoof = flatRoofCopy[lang];
+  const flatRoofPath = join(
+    root,
+    "public",
+    "technical-library",
+    lang,
+    flatRoofSlugByLang[lang],
+    "index.html",
+  );
+  const flatRoofPage = await readFile(flatRoofPath, "utf8");
+  assert(flatRoofPage.includes(`<html lang="${lang}">`), `${lang} Flat Roof: incorrect html lang`);
+  assert(
+    flatRoofPage.includes(
+      `<link rel="canonical" href="https://www.ecoviva-mallorca.com/technical-library/${lang}/${flatRoofSlugByLang[lang]}/">`,
+    ),
+    `${lang} Flat Roof: canonical missing`,
+  );
+  assert((flatRoofPage.match(/<link rel="alternate" hreflang="/g) ?? []).length === 4, `${lang} Flat Roof: incomplete hreflang set`);
+  assert((flatRoofPage.match(/<h1>/g) ?? []).length === 1, `${lang} Flat Roof: page needs exactly one h1`);
+  assert(
+    flatRoofPage.includes('data-callout-count="5"') &&
+      flatRoofPage.includes('data-leader-line-count="5"') &&
+      (flatRoofPage.match(/class="hero-number"/g) ?? []).length === 5,
+    `${lang} Flat Roof: five-callout contract missing`,
+  );
+  assert(
+    flatRoofPage.includes(
+      `data-callout-endpoints="${flatRoofGeometry.hero.callouts
+        .map(({ endpoint }) => endpoint.join(","))
+        .join(";")}"`,
+    ),
+    `${lang} Flat Roof: callout endpoints differ from shared geometry`,
+  );
+  assert((flatRoofPage.match(/<span class="number">/g) ?? []).length === 6, `${lang} Flat Roof: written build-up needs six layers`);
+  assert((flatRoofPage.match(/class="flat-roof-component-image"/g) ?? []).length === 8, `${lang} Flat Roof: eight components required`);
+  assert((flatRoofPage.match(/class="flat-roof-option-card"/g) ?? []).length === 6, `${lang} Flat Roof: six waterproofing options required`);
+  assert((flatRoofPage.match(/class="tl-button /g) ?? []).length === 4, `${lang} Flat Roof: four shared action buttons required`);
+  assert(!/preview|not for publication/i.test(flatRoofPage), `${lang} Flat Roof: preview label remains`);
+  assert(!flatRoofPage.toLowerCase().includes("qr"), `${lang} Flat Roof: QR reference found in HTML`);
+  for (const value of [
+    flatRoof.title,
+    flatRoof.subtitle,
+    flatRoof.overview,
+    flatRoof.overviewNote,
+    ...flatRoof.why,
+    ...flatRoof.layers.flatMap(([title, body]) => [title, body]),
+    ...flatRoof.principles.flatMap(([title, body]) => [title, body]),
+    ...flatRoof.components.flatMap(([title, body]) => [title, body]),
+    ...flatRoof.options.flatMap(([title, body, tag]) => [title, body, tag]).filter(Boolean),
+    ...flatRoof.benefits,
+    ...flatRoof.applications,
+    flatRoof.serviceLife,
+    ...flatRoof.requirements,
+  ]) {
+    assert(flatRoofPage.includes(escapeHtml(value)), `${lang} Flat Roof: approved copy missing: ${value}`);
+  }
+  for (const [filename, expectedMedia, expectedTrim, expectedBleed] of [
+    [flatRoofDownloadPdfByLang[lang], [0, 0, 210, 297], [0, 0, 210, 297], [0, 0, 210, 297]],
+    [flatRoofPrintPdfByLang[lang], [0, 0, 216, 303], [3, 3, 213, 300], [0, 0, 216, 303]],
+  ]) {
+    const data = await readFile(join(root, "public", "downloads", filename));
+    assert(data.subarray(0, 5).toString("ascii") === "%PDF-", `${lang} Flat Roof: invalid PDF ${filename}`);
+    assert(data.toString("latin1").includes("/OutputIntents"), `${lang} Flat Roof: sRGB output intent missing in ${filename}`);
+    assert(!/PREVIEW|NOT FOR PUBLICATION/i.test(data.toString("latin1")), `${lang} Flat Roof: preview text remains in ${filename}`);
+    for (const [boxName, expected] of [["MediaBox", expectedMedia], ["TrimBox", expectedTrim], ["BleedBox", expectedBleed]]) {
+      const actual = pdfBox(data, boxName).map(pointsToMm);
+      assert(actual.every((value, index) => approximately(value, expected[index])), `${lang} Flat Roof: ${filename} ${boxName} is ${actual.join(", ")} mm`);
+    }
+  }
 }
 
 for (const asset of [
@@ -500,6 +595,18 @@ for (const asset of [
   "component-5-starter-profile.png",
 ]) {
   await access(join(root, "public", "assets", "technical-library", "etics", asset));
+}
+for (const asset of [
+  "flat-roof-hero.png",
+  "qr-en.svg",
+  "qr-es.svg",
+  "qr-de.svg",
+  ...flatRoofComponentImages,
+  ...flatRoofOptionImages,
+]) {
+  await access(
+    join(root, "public", "assets", "technical-library", "universal-insulated-flat-roof", asset),
+  );
 }
 
 for (const asset of [
@@ -591,4 +698,4 @@ for (const legacyAsset of ["stone-hero.png", "stone-veneer-strip.png"]) {
   }
 }
 
-console.log("Validated the Technical Library start page, 3 pages each for Roof, ETICS, Natural Stone, ThermoWood and Universal Façade, 3 landing pages, 21 PDFs, shared module geometry/copy and all image assets.");
+console.log("Validated the Technical Library start page, 3 pages each for Roof, ETICS, Natural Stone, ThermoWood, Universal Façade and Flat Roof, 3 landing pages, 27 PDFs, shared module geometry/copy and all image assets.");

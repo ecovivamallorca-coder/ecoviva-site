@@ -1,0 +1,16 @@
+{
+  "version": "production-v1",
+  "hero": {
+    "viewBox": [7, 35, 105, 60],
+    "image": {"x": 22.25, "y": 36.5, "width": 85.5, "height": 57, "cropWidth": 1536, "cropHeight": 1024},
+    "callouts": [
+      {"number": 1, "circle": [14.4, 45.5], "path": [[16.55, 45.5], [31.0, 45.5], [69.7, 48.2]], "endpoint": [69.7, 48.2]},
+      {"number": 2, "circle": [14.4, 53.5], "path": [[16.55, 53.5], [34.0, 53.5], [65.7, 65.7]], "endpoint": [65.7, 65.7]},
+      {"number": 3, "circle": [14.4, 61.5], "path": [[16.55, 61.5], [34.0, 61.5], [65.1, 71.0]], "endpoint": [65.1, 71.0]},
+      {"number": 4, "circle": [14.4, 69.5], "path": [[16.55, 69.5], [31.0, 69.5], [59.4, 75.5]], "endpoint": [59.4, 75.5]},
+      {"number": 5, "circle": [14.4, 77.5], "path": [[16.55, 77.5], [30.0, 77.5], [44.5, 89.0]], "endpoint": [44.5, 89.0]}
+    ]
+  },
+  "componentFiles": ["component-waterproofing.png", "component-v3-vapour-barrier.png", "component-pir-aluminium.png", "component-roof-drain.png", "component-aluminium-edge.png", "component-zinc-flashing.png", "component-stainless-fixings.png", "component-timber-joist.png"],
+  "optionFiles": ["option-bituminous.png", "option-resitrix.png", "option-epdm.png", "option-pvc.png", "option-tpo.png", "option-liquid.png"]
+}
