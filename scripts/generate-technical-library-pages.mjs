@@ -44,6 +44,13 @@ const stoneAssetRoot = `${assetRoot}/natural-stone`;
 const thermowoodAssetRoot = `${assetRoot}/thermowood`;
 const universalAssetRoot = `${assetRoot}/universal-ventilated-facade`;
 const flatRoofAssetRoot = `${assetRoot}/universal-insulated-flat-roof`;
+const printLabelByLang = {
+  en: "Open print PDF",
+  es: "Abrir PDF de impresión",
+  de: "Druck-PDF öffnen",
+};
+const printPdfFor = (downloadPdf) =>
+  downloadPdf.replace(/_Download\.pdf$/, "_Print_3mmBleed.pdf");
 const thermowoodGeometry = JSON.parse(
   readFileSync(join(root, "scripts", "thermowood-geometry.json"), "utf8"),
 );
@@ -351,6 +358,7 @@ ${c.fixings
 
         <nav class="tl-actions" aria-label="${escapeHtml(c.actionsLabel)}">
           <a class="tl-button tl-button--primary" href="/downloads/${pdfByLang[lang]}" download="${pdfByLang[lang]}">${escapeHtml(c.download)}</a>
+          <a class="tl-button tl-button--secondary" href="/downloads/${printPdfFor(pdfByLang[lang])}" target="_blank" rel="noopener">${escapeHtml(printLabelByLang[lang])}</a>
           <a class="tl-button tl-button--secondary" href="/technical-library/${lang}/">${escapeHtml(c.backLibrary)}</a>
           <a class="tl-button tl-button--secondary" href="${origin}/">${escapeHtml(c.backHome)}</a>
         </nav>
@@ -531,6 +539,7 @@ ${colourSwatches.map((colour) => `            <span style="background-color:${co
 
         <nav class="tl-actions" aria-label="${escapeHtml(copy[lang].actionsLabel)}">
           <a class="tl-button tl-button--primary" href="/downloads/${eticsPdfByLang[lang]}" download="${eticsPdfByLang[lang]}">${escapeHtml(c.download)}</a>
+          <a class="tl-button tl-button--secondary" href="/downloads/${printPdfFor(eticsPdfByLang[lang])}" target="_blank" rel="noopener">${escapeHtml(printLabelByLang[lang])}</a>
           <a class="tl-button tl-button--secondary" href="/technical-library/${lang}/">${escapeHtml(copy[lang].backLibrary)}</a>
           <a class="tl-button tl-button--secondary" href="${origin}/">${escapeHtml(copy[lang].backHome)}</a>
         </nav>
@@ -678,6 +687,7 @@ ${stoneSelections
 
         <nav class="tl-actions" aria-label="${escapeHtml(copy[lang].actionsLabel)}">
           <a class="tl-button tl-button--primary" href="/downloads/${stonePdfByLang[lang]}" download="${stonePdfByLang[lang]}">${escapeHtml(c.download)}</a>
+          <a class="tl-button tl-button--secondary" href="/downloads/${printPdfFor(stonePdfByLang[lang])}" target="_blank" rel="noopener">${escapeHtml(printLabelByLang[lang])}</a>
           <a class="tl-button tl-button--secondary" href="/technical-library/${lang}/">${escapeHtml(copy[lang].backLibrary)}</a>
           <a class="tl-button tl-button--secondary" href="${origin}/">${escapeHtml(copy[lang].backHome)}</a>
         </nav>
@@ -1174,13 +1184,13 @@ const flatRoofHeroDiagram = (lang, c) => {
     .map(({ endpoint }) => endpoint.join(","))
     .join(";");
   const image = flatRoofGeometry.hero.image;
-  const heroLabels = [c.layers[4][0], c.layers[3][0], c.layers[2][0], c.layers[1][0], c.layers[0][0]];
+  const heroLabels = c.layers.map(([title]) => title);
 
   return `<figure
             class="hero-diagram thermowood-hero-diagram flat-roof-hero-diagram"
             data-coordinate-system="image-relative-svg"
-            data-callout-count="5"
-            data-leader-line-count="5"
+            data-callout-count="6"
+            data-leader-line-count="6"
             data-callout-endpoints="${endpoints}"
           >
             <svg viewBox="7 35 105 60" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="flat-roof-hero-title-${lang}">

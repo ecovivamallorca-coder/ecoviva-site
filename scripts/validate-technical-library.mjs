@@ -79,6 +79,8 @@ const pdfBox = (data, name) => {
 const pointsToMm = (points) => points * 25.4 / 72;
 const approximately = (actual, expected, tolerance = 0.05) =>
   Math.abs(actual - expected) <= tolerance;
+const printPdfFor = (downloadPdf) =>
+  downloadPdf.replace(/_Download\.pdf$/, "_Print_3mmBleed.pdf");
 
 const technicalLibraryCss = await readFile(
   join(root, "public", "assets", "technical-roof.css"),
@@ -223,8 +225,11 @@ for (const lang of langs) {
   ]) {
     const pagePath = join(root, "public", "technical-library", lang, module.slug, "index.html");
     const pdfPath = join(root, "public", "downloads", module.pdf);
+    const printPdf = printPdfFor(module.pdf);
+    const printPdfPath = join(root, "public", "downloads", printPdf);
     const page = await readFile(pagePath, "utf8");
     const pdfHeader = (await readFile(pdfPath)).subarray(0, 5).toString("ascii");
+    const printPdfHeader = (await readFile(printPdfPath)).subarray(0, 5).toString("ascii");
 
     assert(page.includes(`<html lang="${lang}">`), `${lang} ${module.name}: incorrect html lang`);
     assert(page.includes(`<link rel="canonical" href="https://www.ecoviva-mallorca.com/technical-library/${lang}/${module.slug}/">`), `${lang} ${module.name}: canonical missing`);
@@ -252,11 +257,13 @@ for (const lang of langs) {
       return page.slice(start, end).includes(" alt=");
     }), `${lang} ${module.name}: image without alt attribute`);
     assert(page.includes(`/downloads/${module.pdf}`), `${lang} ${module.name}: download link missing`);
+    assert(page.includes(`/downloads/${printPdf}`), `${lang} ${module.name}: print link missing`);
     assert(page.includes(`/technical-library/${lang}/`), `${lang} ${module.name}: library return link missing`);
     assert(page.includes("https://www.ecoviva-mallorca.com/"), `${lang} ${module.name}: home link missing`);
-    assert((page.match(/class="tl-button /g) ?? []).length === 3, `${lang} ${module.name}: three shared action buttons required`);
+    assert((page.match(/class="tl-button /g) ?? []).length === 4, `${lang} ${module.name}: four shared action buttons required`);
     assert(!page.includes("text-button"), `${lang} ${module.name}: plain-text home action remains`);
     assert(pdfHeader === "%PDF-", `${lang} ${module.name}: invalid PDF header`);
+    assert(printPdfHeader === "%PDF-", `${lang} ${module.name}: invalid print PDF header`);
     if (module.name === "Natural Stone") {
       assert((page.match(/class="component-image"/g) ?? []).length === 8, `${lang}: Natural Stone needs eight components`);
       assert(page.includes("natural-stone-hero-v1-2.png"), `${lang}: approved V1.2 web hero missing`);
@@ -539,10 +546,10 @@ for (const lang of langs) {
   );
   assert((flatRoofPage.match(/<h1>/g) ?? []).length === 1, `${lang} Flat Roof: page needs exactly one h1`);
   assert(
-    flatRoofPage.includes('data-callout-count="5"') &&
-      flatRoofPage.includes('data-leader-line-count="5"') &&
-      (flatRoofPage.match(/class="hero-number"/g) ?? []).length === 5,
-    `${lang} Flat Roof: five-callout contract missing`,
+    flatRoofPage.includes('data-callout-count="6"') &&
+      flatRoofPage.includes('data-leader-line-count="6"') &&
+      (flatRoofPage.match(/class="hero-number"/g) ?? []).length === 6,
+    `${lang} Flat Roof: six-callout contract missing`,
   );
   assert(
     flatRoofPage.includes(
@@ -708,4 +715,4 @@ for (const legacyAsset of ["stone-hero.png", "stone-veneer-strip.png"]) {
   }
 }
 
-console.log("Validated the Technical Library start page, 3 pages each for Roof, ETICS, Natural Stone, ThermoWood, Universal Façade and Flat Roof, 3 landing pages, 27 PDFs, shared module geometry/copy and all image assets.");
+console.log("Validated the Technical Library start page, 3 pages each for Roof, ETICS, Natural Stone, ThermoWood, Universal Façade and Flat Roof, 3 landing pages, 36 PDFs, shared module geometry/copy and all image assets.");

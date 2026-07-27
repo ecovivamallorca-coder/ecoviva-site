@@ -13,8 +13,8 @@
   "heroAlt": "Fachada ventilada de madera con cinco llamadas numeradas que identifican el muro estructural, el aislamiento PIR, los rastreles, la cámara ventilada y el revestimiento ThermoWood®.",
   "cleanHeroAlt": "Composición limpia de fachada ventilada de madera con muro de fábrica, aislamiento PIR, rastreles y revestimiento ThermoWood®.",
   "overviewTitle": "DESCRIPCIÓN DEL SISTEMA",
-  "overview": "La fachada ventilada ThermoWood® combina aislamiento exterior de altas prestaciones con una subestructura ventilada de madera y un revestimiento duradero de madera termomodificada. La cámara abierta favorece la circulación de aire, ayuda a evacuar la humedad ocasional y protege el muro exterior, creando al mismo tiempo un acabado arquitectónico cálido para el clima de Mallorca.",
-  "overviewNote": "El diseño final debe verificarse según el soporte, la altura de la fachada, la exposición al viento, las exigencias de incendio, las aberturas de ventilación, el método de fijación y las condiciones específicas del proyecto.",
+  "overview": "La fachada ThermoWood® combina aislamiento exterior, subestructura de madera y revestimiento termomodificado. La cámara drenada protege el muro y favorece el aire.",
+  "overviewNote": "Verificar soporte, altura, viento, fuego, aberturas y fijaciones del proyecto.",
   "whyTitle": "POR QUÉ ECOVIVA",
   "why": [
     "Asesoramiento independiente en reformas",
@@ -34,8 +34,8 @@
   "principles": [
     ["VENTILACIÓN Y DRENAJE", "Mantener abierta la cámara de abajo arriba para garantizar la circulación continua de aire y el drenaje."],
     ["GESTIÓN DE LA HUMEDAD", "Utilizar una membrana transpirable adecuada y ejecutar correctamente las aberturas."],
-    ["SUBESTRUCTURA Y FIJACIONES DURADERAS", "Seleccionar rastreles para exterior y fijaciones resistentes a la corrosión según las cargas y la exposición costera."],
-    ["MOVIMIENTO Y DETALLES", "Prever el movimiento de la madera y coordinar huecos, esquinas, encuentros y cierres inferior y superior."]
+    ["SUBESTRUCTURA Y FIJACIONES DURADERAS", "Usar rastreles de exterior y fijaciones anticorrosión según cargas y exposición."],
+    ["MOVIMIENTO Y DETALLES", "Prever el movimiento de la madera y coordinar huecos, esquinas y cierres."]
   ],
   "componentsTitle": "COMPONENTES DEL SISTEMA",
   "components": [
@@ -77,7 +77,7 @@
   "ageingStages": ["Recién instalado", "Envejecimiento inicial", "Desarrollo del tono gris", "Pátina gris plateada"],
   "ageingNote": "ThermoWood® sin tratar desarrolla de forma natural una superficie gris plateada. El aspecto varía según la exposición, la orientación, los detalles y el mantenimiento.",
   "requirementsTitle": "REQUISITOS TÉCNICOS IMPORTANTES",
-  "requirements": "Utilizar componentes de fachada compatibles y seleccionados según el soporte, el aislamiento, la profundidad de la cámara, el perfil de revestimiento, el método de fijación, la altura, la exposición al viento y el ambiente costero. Las aberturas de ventilación, la protección antiinsectos, el drenaje, el comportamiento frente al fuego, las juntas de movimiento y todos los encuentros deben verificarse para cada proyecto. El diseño y la ejecución finales deben cumplir el Código Técnico de la Edificación (CTE), la documentación aplicable de los productos y los requisitos específicos del proyecto.",
+  "requirements": "Seleccionar componentes compatibles según soporte, aislamiento, cámara, revestimiento, fijaciones, altura y exposición. Verificar aberturas, malla antiinsectos, drenaje, fuego, juntas y encuentros. Cumplir el CTE, la documentación y el proyecto.",
   "footerWeb": "www.ecoviva-mallorca.com",
   "footerContact": "EcoViva Mallorca S.L. · Palma de Mallorca · info@ecoviva-mallorca.com",
   "footerLegal": "Información técnica sujeta a verificación específica del proyecto. · © 2026 EcoViva Mallorca S.L.",

@@ -13,8 +13,8 @@
   "heroAlt": "Ventilated timber façade build-up with five numbered callouts identifying the structural wall, PIR façade insulation, timber battens, ventilated cavity and ThermoWood® cladding.",
   "cleanHeroAlt": "Clean ventilated timber façade build-up with masonry wall, PIR insulation, timber battens and ThermoWood® cladding.",
   "overviewTitle": "SYSTEM OVERVIEW",
-  "overview": "The ventilated ThermoWood® façade combines high-performance external insulation with a ventilated timber substructure and durable thermally modified wood cladding. The open cavity supports airflow, helps drain incidental moisture and protects the external wall while creating a warm architectural finish for Mallorca's climate.",
-  "overviewNote": "Final design must be verified for the substrate, façade height, wind exposure, fire requirements, ventilation openings, fixing method and project-specific conditions.",
+  "overview": "The ventilated ThermoWood® façade combines external insulation, a timber substructure and durable thermally modified cladding. The drained cavity protects the wall and supports airflow.",
+  "overviewNote": "Verify substrate, height, wind, fire, openings and fixings for the project.",
   "whyTitle": "WHY ECOVIVA",
   "why": [
     "Independent renovation guidance",
@@ -34,8 +34,8 @@
   "principles": [
     ["VENTILATION AND DRAINAGE", "Keep the base-to-top cavity open for continuous airflow and drainage."],
     ["MOISTURE MANAGEMENT", "Use a suitable vapour-open breather membrane and correctly detailed openings."],
-    ["DURABLE SUBSTRUCTURE AND FIXINGS", "Select exterior-grade battens and corrosion-resistant fixings for façade loads and coastal exposure."],
-    ["MOVEMENT AND DETAILING", "Allow for timber movement; coordinate openings, corners, interfaces, base and top closures."]
+    ["DURABLE SUBSTRUCTURE AND FIXINGS", "Select exterior-grade battens and corrosion-resistant fixings for loads and coastal exposure."],
+    ["MOVEMENT AND DETAILING", "Allow timber movement; coordinate openings, corners and closures."]
   ],
   "componentsTitle": "ASSEMBLY COMPONENTS",
   "components": [
@@ -77,7 +77,7 @@
   "ageingStages": ["Newly installed", "Early weathering", "Developing grey", "Silver-grey patina"],
   "ageingNote": "Untreated ThermoWood® naturally develops a silver-grey surface. Appearance varies with exposure, detailing and maintenance.",
   "requirementsTitle": "IMPORTANT TECHNICAL REQUIREMENTS",
-  "requirements": "Use compatible façade components selected for the substrate, insulation, cavity depth, cladding profile, fixing method, façade height, wind exposure and coastal environment. Ventilation openings, insect protection, drainage, fire performance, movement joints and all interfaces must be project-verified. Final design and execution must comply with the CTE, applicable product documentation and project-specific requirements.",
+  "requirements": "Select compatible components for substrate, insulation, cavity, cladding, fixings, height and exposure. Verify openings, insect protection, drainage, fire, movement joints and interfaces. Comply with the CTE, product documentation and project requirements.",
   "footerWeb": "www.ecoviva-mallorca.com",
   "footerContact": "EcoViva Mallorca S.L. · Palma de Mallorca · info@ecoviva-mallorca.com",
   "footerLegal": "Technical information subject to project-specific verification. · © 2026 EcoViva Mallorca S.L.",

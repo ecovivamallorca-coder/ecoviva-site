@@ -13,8 +13,8 @@
   "heroAlt": "Hinterlüfteter Holzfassadenaufbau mit fünf nummerierten Hinweisen auf tragenden Wanduntergrund, PIR-Dämmung, Holzunterkonstruktion, Hinterlüftungsebene und ThermoWood®-Bekleidung.",
   "cleanHeroAlt": "Sauberer hinterlüfteter Holzfassadenaufbau mit Mauerwerk, PIR-Dämmung, Holzlatten und ThermoWood®-Fassadenbekleidung.",
   "overviewTitle": "SYSTEMÜBERSICHT",
-  "overview": "Die hinterlüftete ThermoWood®-Fassade verbindet eine leistungsfähige Außendämmung mit einer hinterlüfteten Holzunterkonstruktion und einer dauerhaften Bekleidung aus thermisch modifiziertem Holz. Die offene Ebene ermöglicht Luftströmung, führt gelegentlich eindringende Feuchtigkeit ab und schützt die Außenwand. Gleichzeitig entsteht eine warme architektonische Oberfläche für das Klima Mallorcas.",
-  "overviewNote": "Die endgültige Planung ist für Untergrund, Fassadenhöhe, Windbeanspruchung, Brandschutzanforderungen, Lüftungsöffnungen, Befestigungsart und projektspezifische Bedingungen zu prüfen.",
+  "overview": "Die ThermoWood®-Fassade verbindet Außendämmung, Holzunterkonstruktion und thermisch modifizierte Bekleidung. Die entwässerte Ebene schützt die Wand und führt Luft.",
+  "overviewNote": "Untergrund, Höhe, Wind, Brand, Öffnungen und Befestigung projektspezifisch prüfen.",
   "whyTitle": "WARUM ECOVIVA",
   "why": [
     "Unabhängige Renovierungsberatung",
@@ -34,8 +34,8 @@
   "principles": [
     ["BELÜFTUNG UND ENTWÄSSERUNG", "Die Ebene von unten bis oben für kontinuierliche Luftströmung und Entwässerung offen halten."],
     ["FEUCHTEMANAGEMENT", "Eine geeignete diffusionsoffene Fassadenbahn verwenden und Öffnungen fachgerecht ausbilden."],
-    ["DAUERHAFTE UNTERKONSTRUKTION UND BEFESTIGUNG", "Außengeeignete Latten und korrosionsbeständige Befestigungen für Fassadenlasten und Küstenklima wählen."],
-    ["BEWEGUNG UND DETAILAUSBILDUNG", "Holzbewegungen berücksichtigen und Öffnungen, Ecken, Anschlüsse sowie untere und obere Abschlüsse koordinieren."]
+    ["DAUERHAFTE UNTERKONSTRUKTION UND BEFESTIGUNG", "Außenlatten und korrosionsbeständige Befestigungen nach Last und Exposition wählen."],
+    ["BEWEGUNG UND DETAILAUSBILDUNG", "Holzbewegung berücksichtigen; Öffnungen, Ecken und Abschlüsse koordinieren."]
   ],
   "componentsTitle": "SYSTEMKOMPONENTEN",
   "components": [
@@ -77,7 +77,7 @@
   "ageingStages": ["Neu montiert", "Beginnende Bewitterung", "Zunehmende Vergrauung", "Silbergraue Patina"],
   "ageingNote": "Unbehandeltes ThermoWood® entwickelt natürlich eine silbergraue Oberfläche. Das Erscheinungsbild hängt von Exposition, Ausrichtung, Detailausbildung und Pflege ab.",
   "requirementsTitle": "WICHTIGE TECHNISCHE ANFORDERUNGEN",
-  "requirements": "Kompatible Fassadenkomponenten sind passend zu Untergrund, Dämmung, Tiefe der Hinterlüftung, Bekleidungsprofil, Befestigungsart, Fassadenhöhe, Windbeanspruchung und Küstenklima auszuwählen. Lüftungsöffnungen, Insektenschutz, Entwässerung, Brandverhalten, Bewegungsfugen und sämtliche Anschlüsse sind projektspezifisch zu prüfen. Planung und Ausführung müssen dem spanischen Código Técnico de la Edificación (CTE), der anwendbaren Produktdokumentation und den projektspezifischen technischen Anforderungen entsprechen.",
+  "requirements": "Komponenten nach Untergrund, Dämmung, Hinterlüftung, Bekleidung, Befestigung, Höhe und Exposition wählen. Öffnungen, Insektenschutz, Entwässerung, Brand, Fugen und Anschlüsse prüfen. CTE, Produktunterlagen und Projektanforderungen einhalten.",
   "footerWeb": "www.ecoviva-mallorca.com",
   "footerContact": "EcoViva Mallorca S.L. · Palma de Mallorca · info@ecoviva-mallorca.com",
   "footerLegal": "Technische Informationen vorbehaltlich projektspezifischer Prüfung. · © 2026 EcoViva Mallorca S.L.",
