@@ -223,7 +223,9 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 .process-step:nth-child(n+4) { border-top: 1px solid rgba(255,255,255,.18); }
 .process-step:nth-child(4) { padding-left: 0; border-left: 0; }
 .process-step b { color: var(--green-on-dark); font-size: .72rem; letter-spacing: .14em; }
-.process-step h3 { max-width: 300px; margin: 2.5rem 0 .8rem; font-family: Georgia, serif; font-size: clamp(1.55rem, 2.2vw, 2rem); line-height: 1.08; font-weight: 400; }
+.step-top { display: flex; align-items: center; justify-content: space-between; }
+.step-top svg { width: 34px; height: 34px; fill: none; stroke: var(--green-on-dark); stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
+.process-step h3 { max-width: 300px; margin: 1.8rem 0 .8rem; font-family: Georgia, serif; font-size: clamp(1.55rem, 2.2vw, 2rem); line-height: 1.08; font-weight: 400; }
 .process-step p { max-width: 320px; color: rgba(255,255,255,.68); font-size: .94rem; line-height: 1.65; }
 .process-line { margin-top: 54px; color: var(--green); font-size: .72rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
 
@@ -257,6 +259,8 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 .cta-grid p:not(.eyebrow) { max-width: 680px; margin: 1.2rem 0 0; line-height: 1.65; }
 .cta-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; min-width: 250px; }
 .cta-actions .text-link::after { color: var(--ink); }
+.professional-link { margin-top: 1.5rem; font-size: .9rem; }
+.professional-link a { font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
 
 .site-footer { padding: 60px 0 28px; background: #0b0b15; color: rgba(255,255,255,.72); }
 .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 50px; }

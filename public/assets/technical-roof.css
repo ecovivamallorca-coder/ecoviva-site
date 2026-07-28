@@ -65,7 +65,7 @@ body.roof-page {
 }
 .roof-brand {
   position: relative;
-  width: 232px;
+  width: 270px;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
@@ -73,24 +73,18 @@ body.roof-page {
 .roof-brand img {
   width: 100%;
   display: block;
-  content: url("/assets/logos/ecoviva_mallorca_horizontal_darkgreen.svg");
+  content: url("/assets/logos/ecoviva-horizontal-header.png");
 }
-.roof-brand::after {
-  position: absolute;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  background: url("/assets/logos/ecoviva_mallorca_horizontal_darkgreen.svg") left center / 100% auto no-repeat;
-  filter: brightness(0) invert(1);
-  clip-path: inset(13% 0 39% 26%);
-}
+.roof-main-nav { display: flex; align-items: center; gap: 22px; margin-left: auto; color: #f6f6f4; }
+.roof-main-nav a { font-size: .82rem; font-weight: 650; letter-spacing: .04em; text-decoration: none; }
+.roof-main-nav a:hover, .roof-main-nav a[aria-current="page"] { color: #91b879; }
 .language-switch {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 5px;
   border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 999px;
+  border-radius: 0;
 }
 .language-switch a {
   min-width: 44px;
@@ -857,6 +851,7 @@ body.roof-page {
 }
 
 @media (max-width: 940px) {
+  .roof-main-nav { display: none; }
   .hero-overview,
   .lower-grid { grid-template-columns: 1fr; }
   .hero-diagram { width: 100%; max-width: 760px; margin-inline: auto; }
