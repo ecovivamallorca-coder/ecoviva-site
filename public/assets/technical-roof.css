@@ -639,7 +639,7 @@ body.roof-page {
   justify-content: center;
   padding: 12px 20px;
   border: 2px solid transparent;
-  border-radius: 999px;
+  border-radius: 0;
   line-height: 1.2;
   font-weight: 700;
   text-align: center;
