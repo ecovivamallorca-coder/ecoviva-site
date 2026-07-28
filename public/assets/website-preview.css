@@ -1,8 +1,9 @@
 :root {
   --ink: #11111f;
   --ink-soft: #181827;
-  --green: #8fde65;
-  --green-dark: #315b36;
+  --green: #3e6b20;
+  --green-dark: #31551a;
+  --green-on-dark: #91b879;
   --paper: #f4f1e9;
   --paper-deep: #e8e3d7;
   --white: #fff;
@@ -52,14 +53,23 @@ button { font: inherit; }
   align-items: center;
   gap: 34px;
 }
-.brand { display: flex; align-items: center; margin-right: auto; }
-.brand img { width: 205px; height: 50px; object-fit: contain; object-position: left center; }
+.brand { position: relative; display: flex; align-items: center; margin-right: auto; }
+.brand img { width: 232px; height: 62px; object-fit: contain; object-position: left center; }
+.brand::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background: url("/assets/logos/ecoviva_mallorca_horizontal_darkgreen.svg") left center / 232px 62px no-repeat;
+  filter: brightness(0) invert(1);
+  clip-path: inset(13% 0 39% 26%);
+}
 .main-nav { display: flex; align-items: center; gap: 22px; color: #f6f6f4; }
 .main-nav a:not(.button) { font-size: .82rem; font-weight: 650; letter-spacing: .04em; }
-.main-nav a:not(.button):hover { color: var(--green); }
+.main-nav a:not(.button):hover { color: var(--green-on-dark); }
 .language-nav { display: flex; gap: 4px; color: #fff; font-size: .72rem; font-weight: 750; }
 .language-nav a { padding: .38rem .42rem; opacity: .55; }
-.language-nav a[aria-current="page"], .language-nav a:hover { opacity: 1; color: var(--green); }
+.language-nav a[aria-current="page"], .language-nav a:hover { opacity: 1; color: var(--green-on-dark); }
 .menu-toggle {
   display: none;
   border: 0;
@@ -79,14 +89,14 @@ button { font: inherit; }
   padding: .8rem 1.2rem;
   border: 1px solid transparent;
   background: var(--green);
-  color: var(--ink);
+  color: var(--white);
   font-size: .76rem;
   font-weight: 800;
   letter-spacing: .07em;
   text-transform: uppercase;
   transition: transform .2s ease, background .2s ease;
 }
-.button:hover { transform: translateY(-2px); background: #a2ec7d; }
+.button:hover { transform: translateY(-2px); background: var(--green-dark); }
 .button-outline { border-color: rgba(255,255,255,.45); background: transparent; color: white; }
 .button-dark { background: var(--ink); color: white; }
 .text-link { display: inline-flex; gap: .45rem; align-items: center; font-weight: 750; }
@@ -146,6 +156,7 @@ h1, h2 {
 }
 h1 { max-width: 900px; margin-bottom: 1.45rem; font-size: clamp(3.6rem, 6.8vw, 6.7rem); line-height: .94; }
 h1 em, h2 em { color: var(--green); font-weight: inherit; }
+.hero h1 em, .section-dark h2 em, .feature-story h2 em { color: var(--green-on-dark); }
 .hero-lead { max-width: 650px; color: rgba(255,255,255,.78); font-size: clamp(1rem, 1.7vw, 1.28rem); line-height: 1.65; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 2rem; }
 .promise-card { align-self: end; margin-bottom: 72px; border-left: 1px solid rgba(255,255,255,.25); padding: 1rem 0 1rem 2rem; }
@@ -155,12 +166,13 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 .section { padding: 110px 0; }
 .section-dark { background: var(--ink); color: white; }
 .section-white { background: #fff; }
-.section-green { background: var(--green); }
+.section-green { background: #e7eee2; }
 .shell { width: min(calc(100% - 40px), var(--max)); margin: auto; }
 .section-heading { max-width: 760px; margin-bottom: 52px; }
 .section-heading h2 { margin-bottom: 1.3rem; font-size: clamp(2.6rem, 5vw, 5rem); line-height: 1; }
 .section-heading p { max-width: 700px; color: var(--muted); font-size: 1.08rem; line-height: 1.7; }
 .section-dark .section-heading p { color: rgba(255,255,255,.68); }
+.section-dark .eyebrow, .feature-story .eyebrow, .hero .eyebrow { color: var(--green-on-dark); }
 .split-intro { display: grid; grid-template-columns: .9fr 1.1fr; gap: 8vw; align-items: start; }
 .split-intro h2 { font-size: clamp(2.6rem, 5vw, 5rem); line-height: 1; }
 .split-copy { max-width: 640px; }
@@ -184,7 +196,7 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 .feature-copy h2 { margin-bottom: 1.8rem; font-size: clamp(2.8rem, 4.4vw, 5rem); line-height: 1; }
 .feature-copy p { color: rgba(255,255,255,.7); font-size: 1.04rem; line-height: 1.72; }
 .feature-copy .text-link { margin-top: 1rem; color: white; }
-.feature-copy .text-link::after { color: var(--green); }
+.feature-copy .text-link::after { color: var(--green-on-dark); }
 
 .solutions-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .solution-card {
