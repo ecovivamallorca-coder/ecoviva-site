@@ -164,12 +164,20 @@ ${langs
         </nav>`;
 };
 
+const headerNavigation = {
+  en: { work: "What We Do", process: "How We Work", areas: "Areas", professionals: "Work with us", about: "Who We Are", cta: "Discuss your project" },
+  es: { work: "Qué hacemos", process: "Cómo trabajamos", areas: "Zonas", professionals: "Trabaja con nosotros", about: "Quiénes somos", cta: "Habla de tu proyecto" },
+  de: { work: "Leistungen", process: "Unser Ablauf", areas: "Regionen", professionals: "Mit uns arbeiten", about: "Über uns", cta: "Projekt besprechen" },
+};
+
 const header = (lang, suffix = "", destinations = null) => `<a class="skip-link" href="#main">${escapeHtml(copy[lang].skip)}</a>
     <header class="roof-site-header">
       <div class="roof-header-inner">
-        <a class="roof-brand" href="${origin}/" aria-label="EcoViva Mallorca">
+        <a class="roof-brand" href="/website-preview/en/" aria-label="EcoViva Mallorca">
           <img src="${assetRoot}/ecoviva-logo.svg" width="2420" height="690" alt="EcoViva Mallorca">
         </a>
+        <nav class="roof-main-nav" aria-label="Main navigation"><a href="/website-preview/en/#what-we-do">${headerNavigation[lang].work}</a><a href="/website-preview/en/#process">${headerNavigation[lang].process}</a><a href="/technical-library/${lang}/" aria-current="page">Technical Library</a><a href="/website-preview/en/#areas">${headerNavigation[lang].areas}</a><a href="/website-preview/en/#professionals">${headerNavigation[lang].professionals}</a><a href="/website-preview/en/#about">${headerNavigation[lang].about}</a></nav>
+        <a class="roof-header-cta" href="/${lang === "en" ? "en/intake" : lang === "es" ? "es/intake" : "de/intake"}">${headerNavigation[lang].cta}</a>
         ${languageSwitch(lang, suffix, destinations)}
       </div>
     </header>`;
