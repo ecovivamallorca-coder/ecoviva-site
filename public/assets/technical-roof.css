@@ -50,8 +50,8 @@ body.roof-page {
   position: sticky;
   top: 0;
   z-index: 20;
-  border-bottom: 1px solid var(--roof-line);
-  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(17, 17, 31, 0.96);
   backdrop-filter: blur(12px);
 }
 .roof-header-inner {
@@ -63,14 +63,33 @@ body.roof-page {
   gap: 24px;
   margin-inline: auto;
 }
-.roof-brand { width: 224px; min-height: 44px; display: inline-flex; align-items: center; }
-.roof-brand img { width: 100%; display: block; }
+.roof-brand {
+  position: relative;
+  width: 232px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.roof-brand img {
+  width: 100%;
+  display: block;
+  content: url("/assets/logos/ecoviva_mallorca_horizontal_darkgreen.svg");
+}
+.roof-brand::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background: url("/assets/logos/ecoviva_mallorca_horizontal_darkgreen.svg") left center / 100% auto no-repeat;
+  filter: brightness(0) invert(1);
+  clip-path: inset(13% 0 39% 26%);
+}
 .language-switch {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 5px;
-  border: 1px solid var(--roof-line);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
 }
 .language-switch a {
@@ -82,6 +101,7 @@ body.roof-page {
   font-size: 0.82rem;
   font-weight: 700;
   text-decoration: none;
+  color: white;
 }
 .language-switch a[aria-current="page"] {
   color: white;
