@@ -243,6 +243,14 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 }
 .studio-shot figcaption span { color: var(--green-on-dark); font-size: .68rem; font-weight: 850; letter-spacing: .14em; }
 .studio-shot figcaption strong { font-family: Georgia, serif; font-size: 1.2rem; font-weight: 400; }
+.material-detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+.material-detail-grid figure { position: relative; min-height: 270px; margin: 0; overflow: hidden; background: var(--ink); }
+.material-detail-grid figure::after { position: absolute; inset: 35% 0 0; content: ""; background: linear-gradient(transparent, rgba(17,17,31,.88)); pointer-events: none; }
+.material-detail-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform .55s ease; }
+.material-detail-grid figure:hover img { transform: scale(1.02); }
+.material-detail-grid figcaption { position: absolute; z-index: 1; inset: auto 22px 20px; color: white; }
+.material-detail-grid small { display: block; margin-bottom: .45rem; color: var(--green-on-dark); font-size: .65rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+.material-detail-grid strong { display: block; font-family: Georgia, serif; font-size: 1.18rem; font-weight: 400; line-height: 1.25; }
 
 .section-benefits { background: var(--paper); }
 .benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
@@ -339,6 +347,7 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 .about-photo figcaption span { color: var(--green); font-size: .7rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
 .about-photo figcaption strong { font-family: Georgia, serif; font-size: 1.35rem; font-weight: 400; }
 .about-copy h2 { font-size: clamp(2.8rem, 5vw, 5rem); line-height: 1; }
+.about-copy h2 em { color: var(--green-on-dark); }
 .about-copy p { color: rgba(255,255,255,.68); font-size: 1.05rem; line-height: 1.72; }
 .about-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 2.2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.16); }
 .about-facts span { color: rgba(255,255,255,.58); font-size: .76rem; line-height: 1.45; }
@@ -390,6 +399,8 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   .studio-story-grid { grid-template-columns: 1.2fr .8fr; }
   .studio-shot-wide { grid-column: 1 / -1; min-height: 520px; }
   .studio-shot { min-height: 440px; }
+  .material-detail-grid { grid-template-columns: 1fr 1fr; }
+  .material-detail-grid figure:first-child { grid-column: 1 / -1; }
   .benefits-grid { grid-template-columns: repeat(2, 1fr); }
   .professional-grid { grid-template-columns: 1fr; }
   .benefits-grid article:nth-child(3) { padding-left: 0; border-left: 0; }
@@ -425,6 +436,9 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   .studio-story-grid { grid-template-columns: 1fr; gap: 10px; }
   .studio-shot,
   .studio-shot-wide { min-height: 410px; }
+  .material-detail-grid { grid-template-columns: 1fr; gap: 10px; }
+  .material-detail-grid figure,
+  .material-detail-grid figure:first-child { grid-column: auto; min-height: 310px; }
   .process-grid { grid-template-columns: 1fr; }
   .process-step,
   .process-step + .process-step,
