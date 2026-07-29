@@ -197,7 +197,7 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   color: white;
 }
 .feature-image { min-height: 620px; overflow: hidden; }
-.feature-image img { width: 100%; height: 100%; object-fit: cover; }
+.feature-image img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
 .feature-copy {
   align-self: center;
   max-width: 650px;
@@ -243,7 +243,7 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 }
 .studio-shot figcaption span { color: var(--green-on-dark); font-size: .68rem; font-weight: 850; letter-spacing: .14em; }
 .studio-shot figcaption strong { font-family: Georgia, serif; font-size: 1.2rem; font-weight: 400; }
-.material-detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+.material-detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 14px; }
 .material-detail-grid figure { position: relative; min-height: 270px; margin: 0; overflow: hidden; background: var(--ink); }
 .material-detail-grid figure::after { position: absolute; inset: 35% 0 0; content: ""; background: linear-gradient(transparent, rgba(17,17,31,.88)); pointer-events: none; }
 .material-detail-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform .55s ease; }
@@ -294,9 +294,10 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 .library-tile span { position: absolute; inset: auto 0 0; padding: 16px; color: white; background: linear-gradient(transparent, rgba(17,17,31,.85)); font-weight: 750; }
 
 .professional-section { background: var(--paper); }
+.section-compact { padding-top: 86px; padding-bottom: 86px; }
 .professional-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .professional-card {
-  min-height: 310px;
+  min-height: 280px;
   display: grid;
   grid-template-columns: 58px 1fr;
   gap: 28px;
@@ -353,7 +354,7 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 .about-facts span { color: rgba(255,255,255,.58); font-size: .76rem; line-height: 1.45; }
 .about-facts strong { display: block; margin-bottom: .35rem; color: white; font-family: Georgia, serif; font-size: 1.35rem; font-weight: 400; }
 
-.cta-section { padding: 90px 0; }
+.cta-section { padding: 70px 0; }
 .cta-grid { display: grid; grid-template-columns: 1fr auto; gap: 5rem; align-items: center; }
 .cta-grid h2 { max-width: 790px; margin: 0; font-size: clamp(2.7rem, 5.6vw, 5.6rem); line-height: .98; }
 .cta-grid p:not(.eyebrow) { max-width: 680px; margin: 1.2rem 0 0; line-height: 1.65; }
@@ -400,7 +401,6 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   .studio-shot-wide { grid-column: 1 / -1; min-height: 520px; }
   .studio-shot { min-height: 440px; }
   .material-detail-grid { grid-template-columns: 1fr 1fr; }
-  .material-detail-grid figure:first-child { grid-column: 1 / -1; }
   .benefits-grid { grid-template-columns: repeat(2, 1fr); }
   .professional-grid { grid-template-columns: 1fr; }
   .benefits-grid article:nth-child(3) { padding-left: 0; border-left: 0; }
@@ -437,8 +437,7 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   .studio-shot,
   .studio-shot-wide { min-height: 410px; }
   .material-detail-grid { grid-template-columns: 1fr; gap: 10px; }
-  .material-detail-grid figure,
-  .material-detail-grid figure:first-child { grid-column: auto; min-height: 310px; }
+  .material-detail-grid figure { grid-column: auto; min-height: 310px; }
   .process-grid { grid-template-columns: 1fr; }
   .process-step,
   .process-step + .process-step,
