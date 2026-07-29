@@ -57,6 +57,11 @@ h1 { max-width: 18ch; margin: 0 0 1.2rem; font-family: Georgia, "Times New Roman
 .route-card p { margin: 0 0 1.15rem; color: var(--muted); line-height: 1.55; }
 .route-card a { display: inline-flex; min-height: 44px; align-items: center; padding: .7rem 1rem; color: #fff; background: var(--green); text-decoration: none; font-size: .76rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
 .route-card a:hover { background: #31551a; }
+.professional-route { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1.6fr) auto; align-items: center; gap: 1rem; width: min(calc(100% - 2.5rem), var(--max)); margin: 2rem auto 0; padding: 1.1rem 1.35rem; border: 1px solid rgba(143,222,101,.32); color: #fff; background: var(--ink); }
+.professional-route strong { font-family: Georgia, serif; font-size: 1.05rem; font-weight: 400; }
+.professional-route span { color: rgba(255,255,255,.68); font-size: .9rem; line-height: 1.45; }
+.professional-route a { color: var(--green-on-dark); font-size: .82rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
+.professional-route a:hover { text-decoration: underline; }
 .form-shell { width: min(calc(100% - 2.5rem), var(--max)); margin: 2rem auto 4rem; padding: clamp(.4rem, 2vw, 1rem); border: 1px solid var(--line); background: #fff; overflow: clip; }
 .fillout-standard-embed { min-height: 39rem; width: 100%; }
 .fallback { margin: .8rem 1rem 1rem; color: #334155; text-align: center; }
@@ -85,4 +90,6 @@ footer { color: rgba(255,255,255,.7); background: #0b0b15; border-top: 1px solid
   .footer-inner { flex-direction: column; }
   .language-choices { grid-template-columns: 1fr; }
   .route-grid { grid-template-columns: 1fr; }
+  .professional-route { grid-template-columns: 1fr; width: calc(100% - 1.5rem); padding: 1.1rem; }
+  .professional-route a { white-space: normal; }
 }
