@@ -417,12 +417,19 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 }
 
 @media (max-width: 650px) {
-  .nav-shell { width: min(calc(100% - 28px), var(--max)); gap: 12px; }
-  .brand img { width: 150px; }
+  .nav-shell { width: min(calc(100% - 24px), var(--max)); gap: 8px; }
+  .brand img { width: 138px; }
   .language-nav a { padding: .35rem .3rem; }
+  .menu-toggle { padding: .4rem .25rem .4rem .4rem; }
   .hero { min-height: auto; }
   .hero-inner { width: min(calc(100% - 32px), var(--max)); min-height: 0; gap: 55px; padding: 72px 0 64px; }
-  h1 { font-size: clamp(3.1rem, 16vw, 5rem); }
+  h1 { font-size: clamp(2.95rem, 15vw, 4.6rem); overflow-wrap: anywhere; }
+  .section-heading h2,
+  .split-intro h2,
+  .studio-story-heading h2,
+  .location-heading h2,
+  .about-copy h2,
+  .cta-grid h2 { font-size: clamp(2.45rem, 12vw, 3.45rem); }
   .hero-actions .button { width: 100%; }
   .promise-card { padding-left: 1.2rem; }
   .hero::before { background: linear-gradient(90deg, rgba(11,11,21,.92), rgba(11,11,21,.63)), linear-gradient(0deg, rgba(11,11,21,.48), transparent 60%); }
@@ -442,7 +449,10 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   .studio-story-heading { margin-bottom: 32px; }
   .studio-story-grid { grid-template-columns: 1fr; gap: 10px; }
   .studio-shot,
-  .studio-shot-wide { min-height: 410px; }
+  .studio-shot-wide { min-height: 0; aspect-ratio: 4 / 3; }
+  .studio-shot:nth-child(2),
+  .studio-shot:nth-child(3) { aspect-ratio: 4 / 3; }
+  .studio-shot img { object-position: center; }
   .material-detail-grid { grid-template-columns: 1fr; gap: 10px; }
   .material-detail-grid figure { grid-column: auto; min-height: 310px; }
   .process-grid { grid-template-columns: 1fr; }
@@ -463,7 +473,10 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   .location-grid { gap: 38px; padding-bottom: 50px; }
   .location-gallery { grid-template-columns: 1fr; gap: 12px; }
   .location-photo { min-height: 0; aspect-ratio: 4 / 3; }
-  .location-photo-meeting { aspect-ratio: 4 / 5; }
+  .location-photo-main img { object-position: 50% 52%; }
+  .location-photo-meeting { aspect-ratio: 3 / 4; }
+  .location-photo-meeting img { object-position: 50% 45%; }
+  .location-photo figcaption { left: 12px; right: 12px; bottom: 12px; width: fit-content; max-width: calc(100% - 24px); }
   .island-coverage { align-items: flex-start; flex-direction: column; gap: 10px; }
   .island-coverage span { line-height: 1.7; }
   .about-photo, .about-photo img { min-height: 390px; }
@@ -472,5 +485,6 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   .about-facts { grid-template-columns: 1fr; }
   .cta-actions { flex-direction: column; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-column a { overflow-wrap: anywhere; }
   .footer-bottom { flex-direction: column; }
 }
