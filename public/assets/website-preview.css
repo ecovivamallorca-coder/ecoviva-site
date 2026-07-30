@@ -58,7 +58,7 @@ button { font: inherit; }
 }
 .brand { position: relative; display: flex; align-items: center; margin-right: auto; }
 .brand img { width: 205px; height: auto; object-fit: contain; object-position: left center; }
-.main-nav { display: flex; align-items: center; gap: 17px; color: #f6f6f4; }
+.main-nav { display: flex; align-items: center; gap: 24px; color: #f6f6f4; }
 .main-nav a:not(.button) { position: relative; padding: 31px 0 28px; font-size: .76rem; font-weight: 650; letter-spacing: .035em; transition: color .2s ease; }
 .main-nav a:not(.button)::after { position: absolute; inset: auto 0 20px; height: 2px; content: ""; background: var(--green-on-dark); transform: scaleX(0); transform-origin: left; transition: transform .22s ease; }
 .main-nav a:not(.button):hover,
@@ -220,8 +220,8 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 .studio-story-heading h2 em { color: var(--green-dark); }
 .studio-story-heading > p { max-width: 620px; margin: 0 0 .4rem; color: var(--muted); font-size: 1.05rem; line-height: 1.72; }
 .studio-story-grid { display: grid; grid-template-columns: 1.45fr .75fr; gap: 14px; }
-.studio-shot { position: relative; min-height: 510px; margin: 0; overflow: hidden; background: #d8d3c8; }
-.studio-shot-wide { min-height: 510px; }
+.studio-shot { position: relative; min-height: 0; aspect-ratio: 4 / 3; margin: 0; overflow: hidden; background: #d8d3c8; }
+.studio-shot-wide { aspect-ratio: 16 / 9; }
 .studio-shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .55s ease; }
 .studio-shot-wide img { object-position: 50% 50%; }
 .studio-shot:hover img { transform: scale(1.018); }
@@ -252,26 +252,15 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 .material-detail-grid small { display: block; margin-bottom: .45rem; color: var(--green-on-dark); font-size: .65rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
 .material-detail-grid strong { display: block; font-family: Georgia, serif; font-size: 1.18rem; font-weight: 400; line-height: 1.25; }
 
-.section-benefits { background: var(--paper); }
-.benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
-.benefits-grid article { padding: 32px 28px 10px 0; }
-.benefits-grid article + article { padding-left: 28px; border-left: 1px solid var(--line); }
-.benefits-grid span { color: var(--green-dark); font-size: .7rem; font-weight: 850; letter-spacing: .14em; }
-.benefits-grid h3 { margin: 3rem 0 .8rem; font-family: Georgia, serif; font-size: 1.65rem; font-weight: 400; }
-.benefits-grid p { color: var(--muted); font-size: .92rem; line-height: 1.65; }
-
 .intake-story { padding: 105px 0; background: #dfe8d9; border-top: 1px solid rgba(62,107,32,.16); border-bottom: 1px solid rgba(62,107,32,.16); }
 .intake-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 9vw; align-items: center; }
 .intake-copy h2 { margin-bottom: 1.5rem; font-size: clamp(2.8rem, 5vw, 5.1rem); line-height: .98; }
 .intake-copy h2 em { color: var(--green-dark); }
 .intake-copy > p { max-width: 570px; color: #4c5946; font-size: 1.05rem; line-height: 1.72; }
 .intake-copy .button { margin-top: 1rem; }
-.intake-path { border-top: 1px solid rgba(62,107,32,.3); }
-.intake-path article { display: grid; grid-template-columns: 48px 1fr; gap: 22px; padding: 25px 0; border-bottom: 1px solid rgba(62,107,32,.24); }
-.intake-path article > span { padding-top: .22rem; color: var(--green-dark); font-size: .68rem; font-weight: 850; letter-spacing: .14em; }
-.intake-path strong { display: block; margin-bottom: .45rem; font-family: Georgia, serif; font-size: 1.45rem; font-weight: 400; }
-.intake-path p { max-width: 580px; margin: 0; color: #53604d; font-size: .91rem; line-height: 1.62; }
-
+.project-start-summary { padding: 34px 0; border-top: 1px solid rgba(62,107,32,.3); border-bottom: 1px solid rgba(62,107,32,.24); }
+.project-start-summary span { display: block; margin-bottom: 1.2rem; color: var(--green-dark); font-size: .68rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+.project-start-summary strong { display: block; max-width: 620px; font-family: Georgia, serif; font-size: clamp(1.7rem, 3vw, 2.6rem); font-weight: 400; line-height: 1.2; }
 .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(255,255,255,.18); }
 .process-step { min-height: 270px; padding: 32px 34px 30px 0; }
 .process-step + .process-step { padding-left: 34px; border-left: 1px solid rgba(255,255,255,.18); }
@@ -406,12 +395,10 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   .feature-image { min-height: 560px; }
   .feature-copy { max-width: none; padding: 80px max(32px, 8vw); }
   .studio-story-grid { grid-template-columns: 1.2fr .8fr; }
-  .studio-shot-wide { min-height: 520px; }
-  .studio-shot { min-height: 440px; }
+  .studio-shot-wide { min-height: 0; }
+  .studio-shot { min-height: 0; }
   .material-detail-grid { grid-template-columns: 1fr 1fr; }
-  .benefits-grid { grid-template-columns: repeat(2, 1fr); }
   .professional-grid { grid-template-columns: 1fr; }
-  .benefits-grid article:nth-child(3) { padding-left: 0; border-left: 0; }
   .process-step { min-height: 250px; }
   .cta-grid { grid-template-columns: 1fr; }
   .cta-actions { flex-direction: row; flex-wrap: wrap; }
@@ -439,9 +426,6 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   .shell { width: min(calc(100% - 32px), var(--max)); }
   .work-grid { grid-template-columns: 1fr; grid-template-rows: 420px 280px 280px; }
   .work-card-large { grid-column: auto; }
-  .benefits-grid { grid-template-columns: 1fr; }
-  .benefits-grid article, .benefits-grid article + article { padding: 26px 0 14px; border-left: 0; border-top: 1px solid var(--line); }
-  .benefits-grid h3 { margin-top: 1.6rem; }
   .intake-story { padding: 74px 0; }
   .intake-grid { gap: 52px; }
   .feature-image { min-height: 420px; }
@@ -449,9 +433,8 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   .studio-story { padding: 72px 0 78px; }
   .studio-story-heading { margin-bottom: 32px; }
   .studio-story-grid { grid-template-columns: 1fr; gap: 10px; }
-  .studio-shot,
-  .studio-shot-wide { min-height: 0; aspect-ratio: 4 / 3; }
-  .studio-shot:nth-child(2) { aspect-ratio: 4 / 3; }
+  .studio-shot { min-height: 0; aspect-ratio: 4 / 3; }
+  .studio-shot-wide { aspect-ratio: 16 / 9; }
   .studio-shot img { object-position: center; }
   .material-detail-grid { grid-template-columns: 1fr; gap: 10px; }
   .material-detail-grid figure { grid-column: auto; min-height: 310px; }

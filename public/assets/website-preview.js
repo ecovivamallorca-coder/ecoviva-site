@@ -17,9 +17,7 @@ if (toggle && nav) {
   });
 }
 
-const sections = sectionLinks
-  .map((link) => document.getElementById(link.dataset.sectionLink))
-  .filter(Boolean);
+const sections = [...document.querySelectorAll("[data-nav-section]")];
 
 const setActiveSection = (id) => {
   sectionLinks.forEach((link) => {
@@ -42,7 +40,7 @@ if (sections.length && "IntersectionObserver" in window) {
       }
     });
     const active = [...visibleSections.entries()].sort((a, b) => b[1] - a[1])[0];
-    if (active) setActiveSection(active[0]);
+    if (active) setActiveSection(active[0].dataset.navSection);
   }, {
     rootMargin: "-18% 0px -58% 0px",
     threshold: [0, .15, .35, .6]
