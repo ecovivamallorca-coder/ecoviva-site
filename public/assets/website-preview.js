@@ -34,9 +34,9 @@ if (sections.length && "IntersectionObserver" in window) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        visibleSections.set(entry.target.id, entry.intersectionRatio);
+        visibleSections.set(entry.target, entry.intersectionRatio);
       } else {
-        visibleSections.delete(entry.target.id);
+        visibleSections.delete(entry.target);
       }
     });
     const active = [...visibleSections.entries()].sort((a, b) => b[1] - a[1])[0];
