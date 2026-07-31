@@ -37,11 +37,23 @@
     direct.href = directUrl.toString();
   }
 
+  document.querySelectorAll(".route-card a").forEach((link) => {
+    const selectedRoute = new URL(link.href, location.origin);
+    const contactType = selectedRoute.searchParams.get("contact_type_code");
+    const requestType = selectedRoute.searchParams.get("request_type_code");
+    const target = new URL(location.href);
+    if (contactType) target.searchParams.set("contact_type_code", contactType);
+    if (requestType) target.searchParams.set("request_type_code", requestType);
+    target.hash = "intake-form";
+    link.href = target.pathname + "?" + target.searchParams.toString() + target.hash;
+  });
+
   document.querySelectorAll("[data-language-link]").forEach((link) => {
     const targetLocale = link.dataset.languageLink;
     const target = new URL(link.href, location.origin);
     allowed.forEach((key) => { if (params.has(key)) target.searchParams.set(key, params.get(key)); });
     target.searchParams.set("locale", targetLocale);
+    target.searchParams.set("language_code", targetLocale.toUpperCase());
     target.searchParams.set("source_url", target.origin + target.pathname);
     link.href = target.pathname + "?" + target.searchParams.toString();
   });
