@@ -3,7 +3,7 @@
   const locale = body.dataset.locale;
   const purpose = body.dataset.purpose;
   const formId = body.dataset.formId;
-  const allowed = ["source", "source_page", "source_url", "form_variant", "locale", "request_context", "request_type_code", "schema_version", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "ref", "campaign"];
+  const allowed = ["source", "source_page", "source_url", "form_variant", "locale", "language_code", "request_context", "contact_type_code", "request_type_code", "schema_version", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "ref", "campaign"];
   const params = new URLSearchParams(location.search);
   const defaults = {
     source: "website",
@@ -11,10 +11,11 @@
     source_url: location.origin + location.pathname,
     form_variant: purpose === "partner" ? "partner" : "project_request",
     locale,
+    language_code: locale.toUpperCase(),
     request_context: purpose,
     schema_version: "1.0"
   };
-  if (purpose === "partner") defaults.request_type_code = "PARTNER";
+  if (purpose !== "partner") defaults.contact_type_code = "CLIENT";
   Object.entries(defaults).forEach(([key, value]) => {
     if (!params.get(key)) params.set(key, value);
   });
