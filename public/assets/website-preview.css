@@ -102,14 +102,13 @@ button { font: inherit; }
 .hero {
   position: relative;
   overflow: hidden;
-  min-height: 780px;
+  min-height: 0;
   color: white;
   background: var(--ink);
 }
 .hero-offer {
-  position: absolute;
+  position: relative;
   z-index: 3;
-  inset: auto 0 0;
   min-height: 82px;
   padding: 0 max(20px, calc((100vw - var(--max)) / 2));
   display: flex;
@@ -158,7 +157,7 @@ button { font: inherit; }
   position: relative;
   z-index: 2;
   width: min(calc(100% - 40px), var(--max));
-  min-height: 698px;
+  min-height: 720px;
   margin: auto;
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(250px, .45fr);
@@ -186,7 +185,7 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 .hero-lead { max-width: 650px; color: rgba(255,255,255,.78); font-size: clamp(1rem, 1.7vw, 1.28rem); line-height: 1.65; }
 .hero-signature { margin: 1.15rem 0 0; color: #fff; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.25rem, 2vw, 1.7rem); font-style: italic; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 2rem; }
-.promise-card { align-self: end; margin-bottom: 72px; border-left: 1px solid rgba(255,255,255,.25); padding: 1rem 0 1rem 2rem; }
+.promise-card { align-self: end; margin-bottom: 68px; border-left: 1px solid rgba(255,255,255,.25); padding: 1rem 0 1rem 2rem; }
 .promise-card small { display: block; margin-bottom: .75rem; color: var(--green-on-dark); font-size: .66rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
 .promise-card strong { display: block; color: #fff; font-family: Georgia, serif; font-size: 1.45rem; font-weight: 400; line-height: 1.35; }
 
@@ -391,7 +390,8 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
 .professional-icon svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; }
 .professional-card small { display: block; margin-bottom: 1rem; color: var(--green-dark); font-size: .68rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
 .professional-card strong { display: block; font-family: Georgia, serif; font-size: clamp(1.8rem, 3vw, 2.65rem); font-weight: 400; line-height: 1.05; }
-.professional-card p { margin: 1rem 0 1.4rem; color: var(--muted); line-height: 1.65; }
+.professional-card p { margin: 1rem 0 1.15rem; color: #3f463b; line-height: 1.65; }
+.professional-benefits { display: block; margin: 0 0 1.45rem; color: var(--ink); font-size: .72rem; font-weight: 800; letter-spacing: .025em; line-height: 1.65; }
 .professional-card em { color: var(--green-dark); font-size: .78rem; font-style: normal; font-weight: 850; letter-spacing: .05em; text-transform: uppercase; }
 
 .studio-location { padding: 96px 0 0; overflow: hidden; background: #e7eee2; border-top: 1px solid rgba(62,107,32,.18); border-bottom: 1px solid rgba(62,107,32,.18); }
@@ -478,8 +478,7 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   .menu-open .main-nav { display: flex; }
   .main-nav a:not(.button) { padding: 0; font-family: Georgia, serif; font-size: 2rem; font-weight: 400; }
   .main-nav a:not(.button)::after { inset: auto 0 -7px; }
-  .hero-inner { grid-template-columns: 1fr; padding: 90px 0 70px; }
-  .hero { padding-bottom: 82px; }
+  .hero-inner { grid-template-columns: 1fr; min-height: 0; padding: 90px 0 70px; }
   .hero-offer { overflow-x: auto; justify-content: flex-start; }
   .hero-offer span { flex: 0 0 160px; }
   .promise-card { align-self: auto; margin: 0; max-width: 480px; }
@@ -506,7 +505,6 @@ h1 em, h2 em { color: var(--green); font-weight: inherit; }
   .language-nav a { padding: .35rem .3rem; }
   .menu-toggle { padding: .4rem .25rem .4rem .4rem; }
   .hero { min-height: auto; }
-  .hero { padding-bottom: 68px; }
   .hero-offer { min-height: 68px; padding: 0; }
   .hero-offer span { flex-basis: 145px; font-size: .63rem; }
   .hero-inner { width: min(calc(100% - 32px), var(--max)); min-height: 0; gap: 55px; padding: 72px 0 64px; }
