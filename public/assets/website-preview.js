@@ -90,6 +90,19 @@ if (requestType && requestCopy[requestType]) {
   if (formLabel) formLabel.textContent = copy.formLabel;
 }
 
+// Force the EcoViva image mark favicon and bypass stale browser favicon caches.
+document.querySelectorAll('link[rel~="icon"], link[rel="shortcut icon"]').forEach((link) => link.remove());
+const favicon = document.createElement("link");
+favicon.rel = "icon";
+favicon.type = "image/png";
+favicon.sizes = "32x32";
+favicon.href = "/favicon/favicon.png?v=20260807-ecoviva-mark";
+document.head.appendChild(favicon);
+const shortcutIcon = document.createElement("link");
+shortcutIcon.rel = "shortcut icon";
+shortcutIcon.href = "/favicon/favicon.png?v=20260807-ecoviva-mark";
+document.head.appendChild(shortcutIcon);
+
 // Final visual corrections for the English website preview.
 const finalVisualFixes = document.createElement("style");
 finalVisualFixes.textContent = `
@@ -101,6 +114,22 @@ finalVisualFixes.textContent = `
   .brand img,
   .footer-brand img {
     filter: none !important;
+  }
+
+  .hero {
+    min-height: 720px !important;
+  }
+
+  .hero-inner {
+    min-height: 638px !important;
+  }
+
+  .hero-copy {
+    padding: 46px 0 !important;
+  }
+
+  .promise-card {
+    margin-bottom: 44px !important;
   }
 
   .hero-copy h1 {
@@ -165,6 +194,22 @@ finalVisualFixes.textContent = `
   }
 
   @media (max-width: 980px) {
+    .hero {
+      min-height: auto !important;
+    }
+
+    .hero-inner {
+      min-height: 0 !important;
+    }
+
+    .hero-copy {
+      padding: 60px 0 20px !important;
+    }
+
+    .promise-card {
+      margin-bottom: 40px !important;
+    }
+
     .request-heading {
       grid-template-columns: 1fr !important;
       gap: 1.25rem !important;
