@@ -90,9 +90,10 @@ if (requestType && requestCopy[requestType]) {
   if (formLabel) formLabel.textContent = copy.formLabel;
 }
 
-// Use the branded Fillout URL for fallback access.
-const requestFallbackLink = document.querySelector(".request-fallback a");
-if (requestFallbackLink) requestFallbackLink.href = "https://ecoviva-mallorca.fillout.com/request";
+// Update the visible Fillout fallback URL to the branded request path.
+document.querySelectorAll('.request-fallback a').forEach((link) => {
+  link.href = 'https://ecoviva-mallorca.fillout.com/request';
+});
 
 // Force the EcoViva image mark favicon and bypass stale browser favicon caches.
 document.querySelectorAll('link[rel~="icon"], link[rel="shortcut icon"]').forEach((link) => link.remove());
@@ -238,12 +239,12 @@ document.head.appendChild(finalVisualFixes);
 
 // Make professional route labels explicit for international visitors.
 document.querySelectorAll('.professional-card small').forEach((label) => {
-  const text = label.textContent.trim();
+  const text = label.textContent.trim().toUpperCase();
   if (text === 'ARCHITECTS · AGENTS · PROPERTY MANAGERS') {
-    label.textContent = 'ARCHITECTS · REAL ESTATE AGENTS · PROPERTY MANAGERS';
+    label.textContent = 'Architects · Real Estate Agents · Property Managers';
   }
   if (text === 'ROOFERS · FAÇADE TEAMS · INSTALLERS · TRADES') {
-    label.textContent = 'ROOFERS · FAÇADE TEAMS · INSTALLERS · SPECIALIST TRADES';
+    label.textContent = 'Roofers · Façade Teams · Installers · Specialist Trades';
   }
 });
 
