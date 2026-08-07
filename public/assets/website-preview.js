@@ -232,6 +232,17 @@ finalVisualFixes.textContent = `
 `;
 document.head.appendChild(finalVisualFixes);
 
+// Make professional route labels explicit for international visitors.
+document.querySelectorAll('.professional-card small').forEach((label) => {
+  const text = label.textContent.trim();
+  if (text === 'ARCHITECTS · AGENTS · PROPERTY MANAGERS') {
+    label.textContent = 'ARCHITECTS · REAL ESTATE AGENTS · PROPERTY MANAGERS';
+  }
+  if (text === 'ROOFERS · FAÇADE TEAMS · INSTALLERS · TRADES') {
+    label.textContent = 'ROOFERS · FAÇADE TEAMS · INSTALLERS · SPECIALIST TRADES';
+  }
+});
+
 const recolorLogoGreen = (img) => {
   const apply = () => {
     if (!img.naturalWidth || !img.naturalHeight || img.dataset.ecovivaGreenAdjusted === "1") return;
