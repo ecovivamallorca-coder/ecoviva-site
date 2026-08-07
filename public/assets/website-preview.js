@@ -58,62 +58,34 @@ const updateProgress = () => {
 updateProgress();
 window.addEventListener("scroll", updateProgress, { passive: true });
 
-const requestExperiences = {
+const requestType = new URLSearchParams(window.location.search).get("request_type_code");
+const requestCopy = {
   PROPERTY_PARTNER: {
     eyebrow: "Partner with EcoViva",
-    title: "Let’s explore how we can<br><em>support your clients.</em>",
-    intro: "Tell us about your business, the clients you support and the kind of renovation partnership you have in mind.",
-    response: "We personally review partnership requests and respond within two working days.",
-    kicker: "A clear first introduction",
-    guideTitle: "The right context helps us identify where we can add value.",
-    reasons: [
-      ["Your organisation", "Your role, market and location help us understand where our services may complement yours."],
-      ["Your clients", "Tell us what kinds of owners and properties you typically support in Mallorca."],
-      ["The opportunity", "Share whether you need technical input, renovation delivery or a dependable referral route."],
-      ["The next conversation", "Choose the most useful way to discuss a first collaboration or client case."]
-    ],
-    next: "We review your information personally and respond within two working days. Submitting the form creates no obligation for either party.",
-    formLabel: "EcoViva property partner enquiry"
+    title: "Let’s explore how we can support your clients.<em>A dependable renovation route.</em>",
+    intro: "Introduce your business and the clients or properties you support. Choose a convenient appointment or send the information first for a personal review.",
+    formLabel: "EcoViva property partner enquiry",
+    guide: `<div class="request-guide-intro"><span>Property partners</span><strong>A dependable renovation partner protects the client relationship.</strong></div><ol class="request-reasons"><li><b>01</b><div><strong>Your business</strong><p>Tell us about your role, market and the owners you support.</p></div></li><li><b>02</b><div><strong>Your clients</strong><p>Explain where renovation guidance could strengthen your service.</p></div></li><li><b>03</b><div><strong>The collaboration</strong><p>Share how you would prefer introductions and project follow-up to work.</p></div></li></ol><div class="request-next"><small>Choose the next step</small><p>Book a suitable time directly or submit the enquiry first. We personally review it and respond within two working days, without obligation.</p></div>`
   },
   SPECIALIST_CONTRACTOR: {
     eyebrow: "Join our specialist network",
-    title: "Good work starts with<br><em>clear expectations.</em>",
+    title: "Good work starts with clear expectations.<em>Tell us about your team.</em>",
     intro: "Introduce your company, specialisation and experience so we can assess where your team may fit within the EcoViva network.",
-    response: "We personally review contractor applications and respond within two working days.",
-    kicker: "Working with EcoViva",
-    guideTitle: "A strong specialist network begins with a clear understanding of each team.",
-    reasons: [
-      ["Your specialisation", "Tell us which trades, systems and types of renovation work your team carries out."],
-      ["Experience and standards", "Relevant projects, qualifications and working methods help us assess technical fit."],
-      ["Coverage and availability", "Your operating area and capacity help us match the right specialists to prepared scopes."],
-      ["Professional alignment", "We look for clear communication, reliable planning and consistent execution quality."]
-    ],
-    next: "We review each application personally and respond within two working days. Applying does not guarantee assignment to a project.",
-    formLabel: "EcoViva specialist contractor application"
+    formLabel: "EcoViva contractor application",
+    guide: `<div class="request-guide-intro"><span>Specialist contractors</span><strong>Quality execution begins with a clear scope and professional coordination.</strong></div><ol class="request-reasons"><li><b>01</b><div><strong>Your specialisation</strong><p>Tell us which works your team performs and where you operate.</p></div></li><li><b>02</b><div><strong>Your experience</strong><p>Share relevant projects, certifications and examples of completed work.</p></div></li><li><b>03</b><div><strong>Your availability</strong><p>Help us understand your capacity and preferred type of project.</p></div></li></ol><div class="request-next"><small>Personal review · Without obligation</small><p>We personally review contractor applications and respond within two working days.</p></div>`
   }
 };
 
-const requestType = new URLSearchParams(window.location.search).get("request_type_code");
-const requestExperience = requestExperiences[requestType];
-
-if (requestExperience) {
-  const setContent = (selector, value, html = false) => {
-    const element = document.querySelector(selector);
-    if (!element) return;
-    if (html) element.innerHTML = value;
-    else element.textContent = value;
-  };
-
-  setContent("[data-request-eyebrow]", requestExperience.eyebrow);
-  setContent("[data-request-title]", requestExperience.title, true);
-  setContent("[data-request-intro]", requestExperience.intro);
-  setContent("[data-request-response]", requestExperience.response);
-  setContent("[data-guide-kicker]", requestExperience.kicker);
-  setContent("[data-guide-title]", requestExperience.guideTitle);
-  setContent("[data-request-next]", requestExperience.next);
-  setContent("[data-form-label]", requestExperience.formLabel);
-  requestExperience.reasons.forEach(([title, copy], index) => {
-    setContent(`[data-reason-title="${index}"]`, title);
-    setContent(`[data-reason-copy="${index}"]`, copy);
-  });
+if (requestType && requestCopy[requestType]) {
+  const copy = requestCopy[requestType];
+  const eyebrow = document.querySelector("#request-eyebrow");
+  const title = document.querySelector("#request-title");
+  const intro = document.querySelector("#request-intro");
+  const guide = document.querySelector("#request-guide");
+  const formLabel = document.querySelector("#request-form-label");
+  if (eyebrow) eyebrow.textContent = copy.eyebrow;
+  if (title) title.innerHTML = copy.title;
+  if (intro) intro.textContent = copy.intro;
+  if (guide) guide.innerHTML = copy.guide;
+  if (formLabel) formLabel.textContent = copy.formLabel;
 }

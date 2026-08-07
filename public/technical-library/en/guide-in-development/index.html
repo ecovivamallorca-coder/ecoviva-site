@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Technical guide in development | EcoViva Mallorca</title>
+  <meta name="description" content="EcoViva Mallorca is developing this technical renovation guide. Request personal advice or explore the systems already available in our Technical Library.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="/favicon/favicon.png">
+  <link rel="stylesheet" href="/assets/website-preview.css?v=20260807-final-layout">
+</head>
+<body class="guide-development-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="/website-preview/en/" aria-label="EcoViva Mallorca home"><img src="/assets/logos/ecoviva-horizontal-header.png" alt="EcoViva Mallorca"></a>
+      <nav class="main-nav" aria-label="Main navigation"><a href="/website-preview/en/#what-we-do">Renovation Solutions</a><a href="/website-preview/en/#how-we-work">How We Work</a><a href="/technical-library/en/">Technical Library</a><a href="/website-preview/en/#renovation-request" class="button">Start Your Renovation</a></nav>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <main id="main" class="development-main">
+    <section class="development-hero">
+      <div class="shell development-grid">
+        <div>
+          <p class="eyebrow">EcoViva Technical Library</p>
+          <h1><span id="service-title">Technical guide</span><br><em>in development.</em></h1>
+        </div>
+        <div class="development-copy">
+          <strong>This technical guide is currently being developed.</strong>
+          <p>Our Technical Library is growing step by step. In the meantime, our team can personally assess your property and advise you on the appropriate solution for your project.</p>
+          <div class="development-actions"><a id="service-request" class="button" href="/website-preview/en/?service_code=RENOVATION#renovation-request">Start your renovation</a><a class="button button-outline" href="/technical-library/en/">Explore the available Technical Library</a></div>
+        </div>
+      </div>
+    </section>
+    <section class="development-note"><div class="shell"><span>Technical clarity · Careful specification · Professional coordination</span><p>The complete guide will be added here as the EcoViva Technical Library continues to expand.</p></div></section>
+  </main>
+  <footer><div class="shell footer-bottom"><span>© 2026 EcoViva Mallorca SL</span><a href="/website-preview/en/">Return to EcoViva Mallorca</a></div></footer>
+  <script src="/assets/website-preview.js?v=20260807-final-layout"></script>
+  <script>
+    (() => {
+      const services = {
+        windows: { title: "Windows & joinery", code: "WINDOWS_JOINERY" },
+        solar: { title: "Solar & energy", code: "SOLAR_ENERGY" },
+        interiors: { title: "Interior renovation", code: "INTERIOR_RENOVATION" },
+        terraces: { title: "Terraces & exteriors", code: "TERRACES_EXTERIORS" }
+      };
+      const key = new URLSearchParams(location.search).get("service") || "windows";
+      const service = services[key] || services.windows;
+      document.getElementById("service-title").textContent = service.title;
+      document.getElementById("service-request").href = `/website-preview/en/?service_code=${encodeURIComponent(service.code)}#renovation-request`;
+      document.title = `${service.title} technical guide in development | EcoViva Mallorca`;
+    })();
+  </script>
+</body>
+</html>
