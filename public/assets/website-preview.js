@@ -90,6 +90,10 @@ if (requestType && requestCopy[requestType]) {
   if (formLabel) formLabel.textContent = copy.formLabel;
 }
 
+// Use the branded Fillout URL for fallback access.
+const requestFallbackLink = document.querySelector(".request-fallback a");
+if (requestFallbackLink) requestFallbackLink.href = "https://ecoviva-mallorca.fillout.com/request";
+
 // Force the EcoViva image mark favicon and bypass stale browser favicon caches.
 document.querySelectorAll('link[rel~="icon"], link[rel="shortcut icon"]').forEach((link) => link.remove());
 const favicon = document.createElement("link");
