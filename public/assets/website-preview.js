@@ -59,23 +59,43 @@ updateProgress();
 window.addEventListener("scroll", updateProgress, { passive: true });
 
 const requestType = new URLSearchParams(window.location.search).get("request_type_code");
-const requestCopy = {
-  PROPERTY_PARTNER: {
-    eyebrow: "Partner with EcoViva",
-    title: "Let’s explore how we can support your clients.<em>A dependable renovation route.</em>",
-    intro: "Introduce your business and the clients or properties you support. Choose a convenient appointment or send the information first for a personal review.",
-    formLabel: "EcoViva property partner enquiry",
-    guide: `<div class="request-guide-intro"><span>Property partners</span><strong>A dependable renovation partner protects the client relationship.</strong></div><ol class="request-reasons"><li><b>01</b><div><strong>Your business</strong><p>Tell us about your role, market and the owners you support.</p></div></li><li><b>02</b><div><strong>Your clients</strong><p>Explain where renovation guidance could strengthen your service.</p></div></li><li><b>03</b><div><strong>The collaboration</strong><p>Share how you would prefer introductions and project follow-up to work.</p></div></li></ol><div class="request-next"><small>Choose the next step</small><p>Book a suitable time directly or submit the enquiry first. We personally review it and respond within two working days, without obligation.</p></div>`
+const pageLanguage = (document.documentElement.lang || "en").toLowerCase().slice(0, 2);
+const requestCopyByLanguage = {
+  en: {
+    PROPERTY_PARTNER: {
+      eyebrow: "Partner with EcoViva",
+      title: "Let’s explore how we can support your clients.<em>A dependable renovation route.</em>",
+      intro: "Introduce your business and the clients or properties you support. Choose a convenient appointment or send the information first for a personal review.",
+      formLabel: "EcoViva property partner enquiry",
+      guide: `<div class="request-guide-intro"><span>Property partners</span><strong>A dependable renovation partner protects the client relationship.</strong></div><ol class="request-reasons"><li><b>01</b><div><strong>Your business</strong><p>Tell us about your role, market and the owners you support.</p></div></li><li><b>02</b><div><strong>Your clients</strong><p>Explain where renovation guidance could strengthen your service.</p></div></li><li><b>03</b><div><strong>The collaboration</strong><p>Share how you would prefer introductions and project follow-up to work.</p></div></li></ol><div class="request-next"><small>Choose the next step</small><p>Book a suitable time directly or submit the enquiry first. We personally review it and respond within two working days, without obligation.</p></div>`
+    },
+    SPECIALIST_CONTRACTOR: {
+      eyebrow: "Join our specialist network",
+      title: "Good work starts with clear expectations.<em>Tell us about your team.</em>",
+      intro: "Introduce your company, specialisation and experience so we can assess where your team may fit within the EcoViva network.",
+      formLabel: "EcoViva contractor application",
+      guide: `<div class="request-guide-intro"><span>Specialist contractors</span><strong>Quality execution begins with a clear scope and professional coordination.</strong></div><ol class="request-reasons"><li><b>01</b><div><strong>Your specialisation</strong><p>Tell us which works your team performs and where you operate.</p></div></li><li><b>02</b><div><strong>Your experience</strong><p>Share relevant projects, certifications and examples of completed work.</p></div></li><li><b>03</b><div><strong>Your availability</strong><p>Help us understand your capacity and preferred type of project.</p></div></li></ol><div class="request-next"><small>Personal review · Without obligation</small><p>We personally review contractor applications and respond within two working days.</p></div>`
+    }
   },
-  SPECIALIST_CONTRACTOR: {
-    eyebrow: "Join our specialist network",
-    title: "Good work starts with clear expectations.<em>Tell us about your team.</em>",
-    intro: "Introduce your company, specialisation and experience so we can assess where your team may fit within the EcoViva network.",
-    formLabel: "EcoViva contractor application",
-    guide: `<div class="request-guide-intro"><span>Specialist contractors</span><strong>Quality execution begins with a clear scope and professional coordination.</strong></div><ol class="request-reasons"><li><b>01</b><div><strong>Your specialisation</strong><p>Tell us which works your team performs and where you operate.</p></div></li><li><b>02</b><div><strong>Your experience</strong><p>Share relevant projects, certifications and examples of completed work.</p></div></li><li><b>03</b><div><strong>Your availability</strong><p>Help us understand your capacity and preferred type of project.</p></div></li></ol><div class="request-next"><small>Personal review · Without obligation</small><p>We personally review contractor applications and respond within two working days.</p></div>`
+  es: {
+    PROPERTY_PARTNER: {
+      eyebrow: "Colabora con EcoViva",
+      title: "Veamos cómo podemos apoyar a tus clientes.<em>Una vía de reforma fiable.</em>",
+      intro: "Preséntanos tu actividad y los clientes o propiedades a los que das soporte. Reserva una cita cuando te convenga o envíanos primero la información para una revisión personal.",
+      formLabel: "Consulta para colaboradores inmobiliarios EcoViva",
+      guide: `<div class="request-guide-intro"><span>Colaboradores inmobiliarios</span><strong>Un socio de reforma fiable protege la relación con tu cliente.</strong></div><ol class="request-reasons"><li><b>01</b><div><strong>Tu actividad</strong><p>Cuéntanos tu función, mercado y el tipo de propietarios a los que das soporte.</p></div></li><li><b>02</b><div><strong>Tus clientes</strong><p>Explícanos dónde el asesoramiento en reformas puede reforzar tu servicio.</p></div></li><li><b>03</b><div><strong>La colaboración</strong><p>Indícanos cómo prefieres gestionar las presentaciones y el seguimiento de los proyectos.</p></div></li></ol><div class="request-next"><small>Elige el siguiente paso</small><p>Reserva directamente un momento adecuado o envía primero la consulta. La revisamos personalmente y respondemos en un plazo de dos días laborables, sin compromiso.</p></div>`
+    },
+    SPECIALIST_CONTRACTOR: {
+      eyebrow: "Únete a nuestra red de especialistas",
+      title: "Un buen trabajo empieza con expectativas claras.<em>Cuéntanos sobre tu equipo.</em>",
+      intro: "Preséntanos tu empresa, especialización y experiencia para que podamos valorar dónde puede encajar tu equipo dentro de la red EcoViva.",
+      formLabel: "Solicitud para contratistas EcoViva",
+      guide: `<div class="request-guide-intro"><span>Contratistas especializados</span><strong>Una ejecución de calidad empieza con un alcance claro y una coordinación profesional.</strong></div><ol class="request-reasons"><li><b>01</b><div><strong>Tu especialización</strong><p>Cuéntanos qué trabajos realiza tu equipo y en qué zonas trabaja.</p></div></li><li><b>02</b><div><strong>Tu experiencia</strong><p>Comparte proyectos relevantes, certificaciones y ejemplos de trabajos realizados.</p></div></li><li><b>03</b><div><strong>Tu disponibilidad</strong><p>Ayúdanos a comprender tu capacidad y el tipo de proyecto que prefieres.</p></div></li></ol><div class="request-next"><small>Revisión personal · Sin compromiso</small><p>Revisamos personalmente las solicitudes de contratistas y respondemos en un plazo de dos días laborables.</p></div>`
+    }
   }
 };
 
+const requestCopy = requestCopyByLanguage[pageLanguage] || requestCopyByLanguage.en;
 if (requestType && requestCopy[requestType]) {
   const copy = requestCopy[requestType];
   const eyebrow = document.querySelector("#request-eyebrow");
@@ -108,7 +128,7 @@ shortcutIcon.rel = "shortcut icon";
 shortcutIcon.href = "/favicon/favicon.png?v=20260807-ecoviva-mark";
 document.head.appendChild(shortcutIcon);
 
-// Final visual corrections for the English website preview.
+// Final visual corrections shared by the multilingual website preview.
 const finalVisualFixes = document.createElement("style");
 finalVisualFixes.textContent = `
   .site-header {
@@ -237,7 +257,7 @@ finalVisualFixes.textContent = `
 `;
 document.head.appendChild(finalVisualFixes);
 
-// Make professional route labels explicit for international visitors.
+// Make English professional route labels explicit for international visitors.
 document.querySelectorAll('.professional-card small').forEach((label) => {
   const text = label.textContent.trim().toUpperCase();
   if (text === 'ARCHITECTS · AGENTS · PROPERTY MANAGERS') {
