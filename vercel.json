@@ -7,16 +7,12 @@
       "permanent": true
     },
     { "source": "/", "destination": "/en/", "permanent": true },
+    { "source": "/favicon.ico", "destination": "/favicon/favicon.png?v=20260807-ecoviva-mark", "permanent": false },
     { "source": "/website-preview/en/", "destination": "/en/", "permanent": true },
     { "source": "/website-preview/es/", "destination": "/es/", "permanent": true },
     { "source": "/website-preview/de/", "destination": "/de/", "permanent": true },
     { "source": "/intake.html", "destination": "/en/intake", "permanent": true },
     { "source": "/intake4.html", "destination": "/en/intake", "permanent": true },
     { "source": "/partners.html", "destination": "/en/partners", "permanent": true }
-  ],
-  "rewrites": [
-    { "source": "/en/", "destination": "/website-preview/en/" },
-    { "source": "/es/", "destination": "/website-preview/es/" },
-    { "source": "/de/", "destination": "/website-preview/de/" }
   ]
 }
