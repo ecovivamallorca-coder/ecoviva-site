@@ -89,3 +89,84 @@ if (requestType && requestCopy[requestType]) {
   if (guide) guide.innerHTML = copy.guide;
   if (formLabel) formLabel.textContent = copy.formLabel;
 }
+
+// Final visual corrections for the English website preview.
+const finalVisualFixes = document.createElement("style");
+finalVisualFixes.textContent = `
+  .brand img,
+  .footer-brand img {
+    filter: none !important;
+  }
+
+  .hero-copy h1 {
+    line-height: 1.01;
+  }
+
+  .hero-copy h1 em {
+    line-height: 1.12;
+  }
+
+  @media (min-width: 651px) {
+    .studio-story-grid {
+      grid-auto-rows: clamp(360px, 32vw, 500px);
+      align-items: stretch;
+    }
+
+    .studio-story-grid .studio-shot,
+    .studio-story-grid .studio-shot-wide {
+      height: 100%;
+      min-height: 0;
+      aspect-ratio: auto;
+    }
+
+    .studio-story-grid .studio-shot:nth-child(2) img {
+      object-position: 50% 50%;
+    }
+  }
+`;
+document.head.appendChild(finalVisualFixes);
+
+const recolorLogoGreen = (img) => {
+  const apply = () => {
+    if (!img.naturalWidth || !img.naturalHeight || img.dataset.ecovivaGreenAdjusted === "1") return;
+
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
+      if (!ctx) return;
+
+      ctx.drawImage(img, 0, 0);
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      const target = { r: 118, g: 164, b: 88 };
+
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const a = data[i + 3];
+
+        if (a > 8 && g > r * 1.12 && g > b * 1.08 && g > 70) {
+          const brightness = Math.max(r, g, b) / 255;
+          const scale = 0.82 + brightness * 0.18;
+          data[i] = Math.round(target.r * scale);
+          data[i + 1] = Math.round(target.g * scale);
+          data[i + 2] = Math.round(target.b * scale);
+        }
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+      img.dataset.ecovivaGreenAdjusted = "1";
+      img.src = canvas.toDataURL("image/png");
+    } catch (_) {
+      // Keep the original logo if canvas processing is unavailable.
+    }
+  };
+
+  if (img.complete) apply();
+  else img.addEventListener("load", apply, { once: true });
+};
+
+document.querySelectorAll('.brand img, .footer-brand img').forEach(recolorLogoGreen);
