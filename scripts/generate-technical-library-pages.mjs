@@ -165,9 +165,9 @@ ${langs
 };
 
 const headerNavigation = {
-  en: { work: "What We Do", process: "How We Work", areas: "Areas", professionals: "Work with us", about: "Who We Are", cta: "Discuss your project" },
-  es: { work: "Qué hacemos", process: "Cómo trabajamos", areas: "Zonas", professionals: "Trabaja con nosotros", about: "Quiénes somos", cta: "Habla de tu proyecto" },
-  de: { work: "Leistungen", process: "Unser Ablauf", areas: "Regionen", professionals: "Mit uns arbeiten", about: "Über uns", cta: "Projekt besprechen" },
+  en: { work: "What We Do", allWork: "All renovation solutions", examples: "Renovation Examples", process: "How We Work", why: "Why EcoViva", areas: "Areas", professionals: "Work with us", about: "Who We Are", team: "Markus & Maritza", studio: "Offices & Studio", contact: "Contact", cta: "Start your renovation" },
+  es: { work: "Qué hacemos", allWork: "Todas las soluciones", examples: "Ejemplos de reforma", process: "Cómo trabajamos", why: "Por qué EcoViva", areas: "Zonas", professionals: "Trabaja con nosotros", about: "Quiénes somos", team: "Markus & Maritza", studio: "Oficinas & Estudio", contact: "Contacto", cta: "Empieza tu reforma" },
+  de: { work: "Leistungen", allWork: "Alle Renovierungslösungen", examples: "Renovierungsbeispiele", process: "Unser Ablauf", why: "Warum EcoViva", areas: "Regionen", professionals: "Mit uns arbeiten", about: "Über uns", team: "Markus & Maritza", studio: "Büro & Studio", contact: "Kontakt", cta: "Renovierung starten" },
 };
 
 const header = (lang, suffix = "", destinations = null) => `<a class="skip-link" href="#main">${escapeHtml(copy[lang].skip)}</a>
@@ -176,7 +176,7 @@ const header = (lang, suffix = "", destinations = null) => `<a class="skip-link"
         <a class="roof-brand" href="/${lang}/" aria-label="EcoViva Mallorca">
           <img src="${assetRoot}/ecoviva-logo.svg" width="2420" height="690" alt="EcoViva Mallorca">
         </a>
-        <nav class="roof-main-nav" aria-label="Main navigation"><a href="/${lang}/#what-we-do">${headerNavigation[lang].work}</a><a href="/${lang}/#how-we-work">${headerNavigation[lang].process}</a><a href="/technical-library/${lang}/" aria-current="page">Technical Library</a><a href="/${lang}/#areas">${headerNavigation[lang].areas}</a><a href="/${lang}/#professionals">${headerNavigation[lang].professionals}</a><a href="/${lang}/#about">${headerNavigation[lang].about}</a></nav>
+        <nav class="roof-main-nav" aria-label="Main navigation"><details class="roof-nav-dropdown"><summary>${headerNavigation[lang].work} <span aria-hidden="true">⌄</span></summary><div class="roof-nav-dropdown-menu"><a href="/${lang}/#what-we-do">${headerNavigation[lang].allWork}</a><a href="/${lang}/#renovation-examples">${headerNavigation[lang].examples}</a></div></details><a href="/${lang}/#how-we-work">${headerNavigation[lang].process}</a><a href="/${lang}/#why-ecoviva">${headerNavigation[lang].why}</a><a href="/technical-library/${lang}/" aria-current="page">Technical Library</a><a href="/${lang}/#areas">${headerNavigation[lang].areas}</a><a href="/${lang}/#professionals">${headerNavigation[lang].professionals}</a><details class="roof-nav-dropdown roof-nav-dropdown-right"><summary>${headerNavigation[lang].about} <span aria-hidden="true">⌄</span></summary><div class="roof-nav-dropdown-menu"><a href="/${lang}/#about">${headerNavigation[lang].team}</a><a href="/${lang}/#areas">${headerNavigation[lang].studio}</a><a href="/${lang}/#contact">${headerNavigation[lang].contact}</a></div></details></nav>
         <a class="roof-header-cta" href="/${lang === "en" ? "en/intake" : lang === "es" ? "es/intake" : "de/intake"}">${headerNavigation[lang].cta}</a>
         ${languageSwitch(lang, suffix, destinations)}
       </div>
@@ -216,6 +216,7 @@ const documentHead = ({
     <title>${escapeHtml(title)}</title>
     <meta name="description" content="${escapeHtml(description)}">
     <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#11111f">
     <link rel="canonical" href="${canonical}">
 ${alternates}
     <meta property="og:type" content="${type}">
@@ -228,7 +229,7 @@ ${alternates}
     <meta property="og:image:height" content="${ogHeight}">
     <meta property="og:image:alt" content="${escapeHtml(alt)}">${structuredData ? `\n${structuredData}` : ""}
     <link rel="icon" href="/favicon/favicon.png" type="image/png">
-    <link rel="stylesheet" href="/assets/technical-roof.css">${extraStylesheet ? `\n    <link rel="stylesheet" href="${extraStylesheet}">` : ""}
+    <link rel="stylesheet" href="/assets/technical-roof.css?v=20260810-navigation-v4">${extraStylesheet ? `\n    <link rel="stylesheet" href="${extraStylesheet}">` : ""}
   </head>`;
 
 const heroDiagram = (lang) => {
