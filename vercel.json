@@ -7,6 +7,8 @@
       "permanent": true
     },
     { "source": "/", "destination": "/en/", "permanent": true },
+    { "source": "/contact/", "destination": "/en/#renovation-request", "permanent": true },
+    { "source": "/contact", "destination": "/en/#renovation-request", "permanent": true },
     { "source": "/favicon.ico", "destination": "/favicon/favicon.png?v=20260807-ecoviva-mark", "permanent": false },
     { "source": "/website-preview/en/", "destination": "/en/", "permanent": true },
     { "source": "/website-preview/es/", "destination": "/es/", "permanent": true },
