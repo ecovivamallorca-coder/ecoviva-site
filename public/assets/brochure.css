@@ -1,0 +1,35 @@
+:root{--ink:#11111f;--green:#4f6f61;--green-dark:#365448;--cream:#f4f0e8;--white:#fff;--line:rgba(17,17,31,.14)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,Arial,sans-serif}
+a{color:inherit}
+.brochure-header{background:var(--white);border-bottom:1px solid var(--line)}
+.brochure-nav{width:min(1180px,calc(100% - 40px));min-height:92px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brochure-brand img{display:block;width:210px;height:auto}
+.brochure-home{font-size:13px;font-weight:700;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}
+.brochure-home:hover{text-decoration:underline}
+.brochure-main{min-height:calc(100vh - 190px)}
+.brochure-hero{padding:88px 20px 56px;text-align:center;background:linear-gradient(145deg,#edf1eb 0%,#f8f5ef 55%,#e8eee9 100%)}
+.brochure-eyebrow{margin:0 0 18px;color:var(--green-dark);font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+.brochure-hero h1{max-width:850px;margin:0 auto 22px;font-family:Georgia,serif;font-size:clamp(43px,6vw,76px);font-weight:400;line-height:1.03}
+.brochure-hero h1 em{display:block;color:var(--green-dark);font-weight:400}
+.brochure-intro{max-width:680px;margin:0 auto;color:#4d4d55;font-size:18px;line-height:1.65}
+.brochure-section{width:min(1180px,calc(100% - 40px));margin:auto;padding:58px 0 84px}
+.brochure-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.brochure-card{min-height:270px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;background:var(--white);border:1px solid var(--line);text-decoration:none;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.brochure-card:hover{transform:translateY(-4px);border-color:var(--green);box-shadow:0 18px 42px rgba(17,17,31,.09)}
+.brochure-code{color:var(--green-dark);font-size:12px;font-weight:800;letter-spacing:.18em}
+.brochure-card h2{margin:30px 0 8px;font-family:Georgia,serif;font-size:32px;font-weight:400}
+.brochure-card p{margin:0;color:#626268;font-size:14px;line-height:1.55}
+.brochure-action{margin-top:32px;color:var(--green-dark);font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.single-brochure{max-width:760px;margin:auto;text-align:center}
+.single-brochure .brochure-card{min-height:auto;padding:42px}
+.brochure-buttons{margin-top:30px;display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.brochure-button{padding:15px 22px;background:var(--green-dark);border:1px solid var(--green-dark);color:#fff;font-size:13px;font-weight:800;letter-spacing:.05em;text-decoration:none;text-transform:uppercase}
+.brochure-button.secondary{background:transparent;color:var(--green-dark)}
+.brochure-languages{margin-top:34px;color:#5d5d64;font-size:14px;line-height:1.8}
+.brochure-languages a{font-weight:700}
+.brochure-footer{padding:32px 20px;background:var(--ink);color:#fff;text-align:center;font-size:13px;line-height:1.7}
+.brochure-footer a{color:#fff}
+@media(max-width:900px){.brochure-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.brochure-nav{min-height:76px}.brochure-brand img{width:170px}.brochure-home{font-size:11px}.brochure-hero{padding:64px 20px 42px}.brochure-grid{grid-template-columns:1fr}.brochure-card{min-height:220px}.single-brochure .brochure-card{padding:28px}.brochure-buttons{flex-direction:column}.brochure-button{width:100%}}
