@@ -13,7 +13,7 @@ for (const locale of pages) {
   const path = resolve(root, `public/${locale}/index.html`);
   let html = await readFile(path, "utf8");
   html = html
-    .replaceAll("/assets/logos/ecoviva-horizontal-header.png", "/assets/logos/ecoviva_mallorca_horizontal_darkgreen.svg")
+    .replaceAll("/assets/logos/ecoviva_mallorca_horizontal_darkgreen.svg", "/assets/logos/ecoviva-horizontal-header.png")
     .replace(/website-preview\.css\?v=[^"]+/, "website-preview.css?v=20260810-final-website-cleanup")
     .replace(/website-preview\.js\?v=[^"]+/, "website-preview.js?v=20260810-final-website-cleanup")
     .replace(navPatterns[locale], match => match.split(/<a href="#about"/)[0])
