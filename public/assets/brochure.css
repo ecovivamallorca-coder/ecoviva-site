@@ -3,10 +3,10 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,Arial,sans-serif}
 a{color:inherit}
-.brochure-header{background:var(--white);border-bottom:1px solid var(--line)}
+.brochure-header{position:sticky;top:0;z-index:50;background:rgba(17,17,31,.96);border-bottom:1px solid rgba(255,255,255,.1);backdrop-filter:blur(16px)}
 .brochure-nav{width:min(1180px,calc(100% - 40px));min-height:92px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.brochure-brand img{display:block;width:210px;height:auto}
-.brochure-home{font-size:13px;font-weight:700;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}
+.brochure-brand{display:flex;align-items:center}.brochure-brand img{display:block;width:205px;height:auto;filter:saturate(.82) brightness(.9) contrast(1.12)}
+.brochure-language-nav{display:flex;align-items:center;gap:8px;margin-left:auto}.brochure-language-nav a{min-width:34px;padding:9px 8px;border:1px solid transparent;color:rgba(255,255,255,.72);font-size:12px;font-weight:800;letter-spacing:.08em;text-align:center;text-decoration:none}.brochure-language-nav a:hover,.brochure-language-nav a[aria-current=page]{border-color:rgba(255,255,255,.28);color:#fff}.brochure-home{padding-left:20px;border-left:1px solid rgba(255,255,255,.18);color:#fff;font-size:12px;font-weight:700;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}
 .brochure-home:hover{text-decoration:underline}
 .brochure-main{min-height:calc(100vh - 190px)}
 .brochure-hero{padding:88px 20px 56px;text-align:center;background:linear-gradient(145deg,#edf1eb 0%,#f8f5ef 55%,#e8eee9 100%)}
@@ -32,4 +32,4 @@ a{color:inherit}
 .brochure-footer{padding:32px 20px;background:var(--ink);color:#fff;text-align:center;font-size:13px;line-height:1.7}
 .brochure-footer a{color:#fff}
 @media(max-width:900px){.brochure-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.brochure-nav{min-height:76px}.brochure-brand img{width:170px}.brochure-home{font-size:11px}.brochure-hero{padding:64px 20px 42px}.brochure-grid{grid-template-columns:1fr}.brochure-card{min-height:220px}.single-brochure .brochure-card{padding:28px}.brochure-buttons{flex-direction:column}.brochure-button{width:100%}}
+@media(max-width:560px){.brochure-nav{width:min(100% - 28px,1180px);min-height:76px;gap:10px;flex-wrap:wrap;padding:12px 0}.brochure-brand img{width:152px}.brochure-language-nav{order:3;width:100%;justify-content:center}.brochure-home{padding-left:12px;font-size:10px}.brochure-hero{padding:64px 20px 42px}.brochure-grid{grid-template-columns:1fr}.brochure-card{min-height:220px}.single-brochure .brochure-card{padding:28px}.brochure-buttons{flex-direction:column}.brochure-button{width:100%}}
