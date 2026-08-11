@@ -23,12 +23,30 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for source in public/assets/guides/damp-moisture/*.webp.b64; do
-            target="${source%.b64}"
-            tr -d '\r\n\t ' < "$source" | base64 --decode --ignore-garbage > "$target"
-            echo "$source -> $(file -b "$target")"
-            file -b "$target" | grep -qi 'Web/P image' || { echo "Invalid WebP: $source"; exit 1; }
-          done
+          python - <<'PY'
+          from pathlib import Path
+          import base64, re, sys
+
+          root = Path('public/assets/guides/damp-moisture')
+          sources = sorted(root.glob('*.webp.b64'))
+          if not sources:
+              raise SystemExit('No .webp.b64 sources found')
+
+          for source in sources:
+              raw = source.read_text(errors='ignore')
+              clean = ''.join(re.findall(r'[A-Za-z0-9+/=]', raw))
+              clean = clean.rstrip('=')
+              clean += '=' * ((4 - len(clean) % 4) % 4)
+              try:
+                  data = base64.b64decode(clean, validate=False)
+              except Exception as exc:
+                  raise SystemExit(f'Cannot decode {source.name}: {exc}')
+              if len(data) < 16 or data[:4] != b'RIFF' or data[8:12] != b'WEBP':
+                  raise SystemExit(f'{source.name} is not a valid WebP payload')
+              target = source.with_suffix('')
+              target.write_bytes(data)
+              print(f'{source.name} -> {target.name} ({len(data)} bytes)')
+          PY
       - name: Commit decoded assets
         shell: bash
         run: |
