@@ -1,0 +1,43 @@
+name: Decode Guide Preview Assets
+
+on:
+  push:
+    branches:
+      - agent/guides-damp-preview
+    paths:
+      - 'public/assets/guides/damp-moisture/*.webp.b64'
+      - '.github/workflows/decode-guide-preview-assets.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/guides-damp-preview
+          fetch-depth: 0
+      - name: Decode WebP assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          for source in public/assets/guides/damp-moisture/*.webp.b64; do
+            target="${source%.b64}"
+            tr -d '\r\n\t ' < "$source" | base64 --decode > "$target"
+            file "$target"
+          done
+      - name: Commit decoded assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "ecovivamallorca-coder"
+          git config user.email "ecovivamallorca@gmail.com"
+          git add public/assets/guides/damp-moisture/*.webp
+          if git diff --cached --quiet; then
+            echo "No decoded asset changes."
+            exit 0
+          fi
+          git commit -m "Decode damp guide WebP assets"
+          git push origin HEAD:agent/guides-damp-preview
