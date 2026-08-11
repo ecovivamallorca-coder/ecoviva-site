@@ -1,75 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url>
-    <loc>https://www.ecoviva-mallorca.com/en/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/es/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/de/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/en/"/>
-  </url>
-  <url>
-    <loc>https://www.ecoviva-mallorca.com/es/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/es/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/de/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/en/"/>
-  </url>
-  <url>
-    <loc>https://www.ecoviva-mallorca.com/de/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/es/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/de/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/en/"/>
-  </url>
-  <url><loc>https://www.ecoviva-mallorca.com/brochure/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/en/brochure/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/es/brochure/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/de/brochure/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/brochure/nl/</loc></url>
+  <url><loc>https://www.ecoviva-mallorca.com/en/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/en/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/es/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/de/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/en/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/es/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/en/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/es/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/de/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/en/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/de/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/en/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/es/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/de/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/en/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/brochure/</loc></url><url><loc>https://www.ecoviva-mallorca.com/en/brochure/</loc></url><url><loc>https://www.ecoviva-mallorca.com/es/brochure/</loc></url><url><loc>https://www.ecoviva-mallorca.com/de/brochure/</loc></url><url><loc>https://www.ecoviva-mallorca.com/brochure/nl/</loc></url>
 
-  <url>
-    <loc>https://www.ecoviva-mallorca.com/technical-library/en/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/technical-library/en/"/>
-  </url>
-  <url>
-    <loc>https://www.ecoviva-mallorca.com/technical-library/es/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/technical-library/en/"/>
-  </url>
-  <url>
-    <loc>https://www.ecoviva-mallorca.com/technical-library/de/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/technical-library/en/"/>
-  </url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/technical-library/en/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/technical-library/en/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/technical-library/en/"/></url>
 
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/traditional-mallorcan-roof/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/traditional-mallorcan-roof/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/traditional-mallorcan-roof/</loc></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/traditional-mallorcan-roof/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/traditional-mallorcan-roof/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/traditional-mallorcan-roof/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/traditional-mallorcan-roof/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.ecoviva-mallorca.com/technical-library/en/traditional-mallorcan-roof/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/traditional-mallorcan-roof/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/traditional-mallorcan-roof/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/traditional-mallorcan-roof/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/traditional-mallorcan-roof/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/traditional-mallorcan-roof/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/traditional-mallorcan-roof/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/traditional-mallorcan-roof/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/traditional-mallorcan-roof/"/></url>
 
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/etics-external-wall-insulation/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/sistema-sate-aislamiento-exterior/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/wdvs-aussendaemmung-putzfassade/</loc></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/etics-external-wall-insulation/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/etics-external-wall-insulation/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-sate-aislamiento-exterior/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/wdvs-aussendaemmung-putzfassade/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/sistema-sate-aislamiento-exterior/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/etics-external-wall-insulation/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-sate-aislamiento-exterior/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/wdvs-aussendaemmung-putzfassade/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/wdvs-aussendaemmung-putzfassade/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/etics-external-wall-insulation/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-sate-aislamiento-exterior/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/wdvs-aussendaemmung-putzfassade/"/></url>
 
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/natural-stone-facade-system/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/sistema-fachada-piedra-natural/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/naturstein-fassadensystem/</loc></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/natural-stone-facade-system/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/natural-stone-facade-system/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-fachada-piedra-natural/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/naturstein-fassadensystem/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/sistema-fachada-piedra-natural/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/natural-stone-facade-system/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-fachada-piedra-natural/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/naturstein-fassadensystem/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/naturstein-fassadensystem/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/natural-stone-facade-system/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-fachada-piedra-natural/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/naturstein-fassadensystem/"/></url>
 
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/ventilated-thermowood-facade-system/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/sistema-fachada-ventilada-thermowood/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/hinterlueftetes-thermowood-fassadensystem/</loc></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/ventilated-thermowood-facade-system/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/ventilated-thermowood-facade-system/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-fachada-ventilada-thermowood/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/hinterlueftetes-thermowood-fassadensystem/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/sistema-fachada-ventilada-thermowood/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/ventilated-thermowood-facade-system/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-fachada-ventilada-thermowood/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/hinterlueftetes-thermowood-fassadensystem/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/hinterlueftetes-thermowood-fassadensystem/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/ventilated-thermowood-facade-system/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-fachada-ventilada-thermowood/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/hinterlueftetes-thermowood-fassadensystem/"/></url>
 
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/universal-ventilated-facade-system/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/sistema-universal-fachada-ventilada/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/universelles-hinterlueftetes-fassadensystem/</loc></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/universal-ventilated-facade-system/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/universal-ventilated-facade-system/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-universal-fachada-ventilada/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/universelles-hinterlueftetes-fassadensystem/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/sistema-universal-fachada-ventilada/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/universal-ventilated-facade-system/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-universal-fachada-ventilada/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/universelles-hinterlueftetes-fassadensystem/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/universelles-hinterlueftetes-fassadensystem/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/universal-ventilated-facade-system/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-universal-fachada-ventilada/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/universelles-hinterlueftetes-fassadensystem/"/></url>
 
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/universal-insulated-flat-roof-system/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/sistema-universal-cubierta-plana-aislada/</loc></url>
-  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/universelles-gedaemmtes-flachdachsystem/</loc></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/en/universal-insulated-flat-roof-system/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/universal-insulated-flat-roof-system/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-universal-cubierta-plana-aislada/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/universelles-gedaemmtes-flachdachsystem/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/es/sistema-universal-cubierta-plana-aislada/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/universal-insulated-flat-roof-system/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-universal-cubierta-plana-aislada/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/universelles-gedaemmtes-flachdachsystem/"/></url>
+  <url><loc>https://www.ecoviva-mallorca.com/technical-library/de/universelles-gedaemmtes-flachdachsystem/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.ecoviva-mallorca.com/technical-library/en/universal-insulated-flat-roof-system/"/><xhtml:link rel="alternate" hreflang="es" href="https://www.ecoviva-mallorca.com/technical-library/es/sistema-universal-cubierta-plana-aislada/"/><xhtml:link rel="alternate" hreflang="de" href="https://www.ecoviva-mallorca.com/technical-library/de/universelles-gedaemmtes-flachdachsystem/"/></url>
 </urlset>
