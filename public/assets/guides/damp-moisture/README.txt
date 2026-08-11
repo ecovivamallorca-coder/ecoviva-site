@@ -1,0 +1,1 @@
+Preview image assets for the damp and moisture guide. The final production branch will use separate optimized WebP files.
