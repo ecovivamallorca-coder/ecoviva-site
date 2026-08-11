@@ -19,14 +19,15 @@ jobs:
         with:
           ref: agent/guides-damp-preview
           fetch-depth: 0
-      - name: Decode WebP assets
+      - name: Decode and validate WebP assets
         shell: bash
         run: |
           set -euo pipefail
           for source in public/assets/guides/damp-moisture/*.webp.b64; do
             target="${source%.b64}"
-            tr -d '\r\n\t ' < "$source" | base64 --decode > "$target"
-            file "$target"
+            tr -d '\r\n\t ' < "$source" | base64 --decode --ignore-garbage > "$target"
+            echo "$source -> $(file -b "$target")"
+            file -b "$target" | grep -qi 'Web/P image' || { echo "Invalid WebP: $source"; exit 1; }
           done
       - name: Commit decoded assets
         shell: bash
