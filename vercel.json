@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node scripts/fetch-seo-hero-assets.mjs && node scripts/sync-shared-header.mjs",
+  "buildCommand": "node scripts/fetch-seo-hero-assets.mjs && node scripts/generate-seo-renovation-cluster.mjs && node scripts/sync-shared-header.mjs",
   "outputDirectory": "public",
   "redirects": [
     {
@@ -27,6 +27,7 @@
     { "source": "/website-preview/en/", "destination": "/en/", "permanent": true },
     { "source": "/website-preview/es/", "destination": "/es/", "permanent": true },
     { "source": "/website-preview/de/", "destination": "/de/", "permanent": true },
+    { "source": "/en/renovation-mallorca-preview/", "destination": "/en/renovation-mallorca/", "permanent": true },
     { "source": "/intake.html", "destination": "/en/intake", "permanent": true },
     { "source": "/intake4.html", "destination": "/en/intake", "permanent": true },
     { "source": "/partners.html", "destination": "/en/partners", "permanent": true }
