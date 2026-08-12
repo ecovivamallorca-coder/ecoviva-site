@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node scripts/sync-shared-header.mjs",
+  "buildCommand": "node scripts/fetch-seo-hero-assets.mjs && node scripts/sync-shared-header.mjs",
   "outputDirectory": "public",
   "redirects": [
     {
