@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const publicDir = join(root, 'public');
-const version = '20260812-chrome-v2';
+const version = '20260812-chrome-v3';
 
 const copy = {
   en: {
@@ -74,6 +74,21 @@ function footerHtml(lang){
   return `<footer class="site-footer shared-site-footer"><div class="shared-footer-shell"><div class="footer-grid"><div class="footer-brand"><img src="/assets/logos/ecoviva-horizontal-header.png" alt="EcoViva Mallorca"><p>${c.footerIntro}</p></div><div class="footer-column"><h3>${c.visit}</h3><strong class="appointment-note">${c.appointment}</strong><span>Passeig de Mallorca, 14-A<br>Entresuelo 2, Puerta E<br>07012 Palma</span><a href="tel:+34871532758">+34 871 53 27 58</a><a href="mailto:info@ecoviva-mallorca.com">info@ecoviva-mallorca.com</a></div><div class="footer-column"><h3>${c.explore}</h3><a href="${rootUrl}#renovation-request">${c.cta}</a><a href="${rootUrl}#professionals">${c.partners}</a><a href="/technical-library/${lang}/">${c.technical}</a><span class="footer-disabled" aria-disabled="true">${c.guides}</span><a href="${rootUrl}brochure/">${c.brochure}</a><a href="${rootUrl}privacy-policy">${c.privacy}</a></div></div><div class="footer-bottom"><span>© 2026 EcoViva Mallorca SL</span><span>${c.footerTag}</span></div></div></footer>`;
 }
 
+function cleanTechnicalActions(file, html, context){
+  if(context !== 'technical') return html;
+  const p = file.replaceAll('\\','/');
+  const isLanding = /\/public\/technical-library\/(en|es|de)\/index\.html$/.test(p);
+  if(isLanding){
+    return html.replace(/<nav\b[^>]*class=["'][^"']*tl-actions--landing[^"']*["'][^>]*>[\s\S]*?<\/nav>/i,'');
+  }
+  return html.replace(/<nav\b([^>]*)class=["']([^"']*\btl-actions\b[^"']*)["']([^>]*)>([\s\S]*?)<\/nav>/i,(full,before,classes,after,inner)=>{
+    const cleaned = inner
+      .replace(/<a\b[^>]*href=["']https:\/\/www\.ecoviva-mallorca\.com\/?["'][^>]*>[\s\S]*?<\/a>/gi,'')
+      .replace(/<a\b[^>]*href=["']\/technical-library\/start\/?["'][^>]*>[\s\S]*?<\/a>/gi,'');
+    return `<nav${before}class="${classes}"${after}>${cleaned}</nav>`;
+  });
+}
+
 function shouldProcess(file, html){
   const p = file.replaceAll('\\','/');
   const inScope = /\/public\/(en|es|de)\//.test(p) || p.includes('/public/technical-library/') || p.includes('/public/preview/guides/') || p.includes('/public/guides/');
@@ -103,10 +118,11 @@ for(const file of await walk(publicDir)){
   const nextFooter=footerHtml(lang);
   html = html.replace(/<header\b[^>]*class=["'][^"']*(?:shared-site-header|roof-site-header|site-header|brochure-header)[^"']*["'][^>]*>[\s\S]*?<\/header>/i,nextHeader);
   html = html.replace(/<footer\b[^>]*class=["'][^"']*(?:shared-site-footer|roof-site-footer|site-footer|brochure-footer)[^"']*["'][^>]*>[\s\S]*?<\/footer>/i,nextFooter);
+  html = cleanTechnicalActions(file, html, context);
   if(!html.includes('/assets/shared-header.css')) html=html.replace('</head>',`  <link rel="stylesheet" href="/assets/shared-header.css?v=${version}">\n</head>`);
   if(!html.includes('/assets/shared-footer.css')) html=html.replace('</head>',`  <link rel="stylesheet" href="/assets/shared-footer.css?v=${version}">\n</head>`);
   if(!html.includes('/assets/shared-header.js')) html=html.replace('</body>',`  <script src="/assets/shared-header.js?v=${version}" defer></script>\n</body>`);
   await writeFile(file,html,'utf8');
   changed++;
 }
-console.log(`Shared EcoViva header/footer synchronized across ${changed} HTML files.`);
+console.log(`Shared EcoViva chrome synchronized and Technical Library actions cleaned across ${changed} HTML files.`);
