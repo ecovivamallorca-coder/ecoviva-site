@@ -6,8 +6,10 @@ await fs.mkdir(outDir, { recursive: true });
 
 // Pexels free-to-use source images. Keep the source IDs here for licensing traceability.
 const assets = [
-  ['roof-renovation-mallorca-v2.jpg', 'https://images.pexels.com/photos/31763541/pexels-photo-31763541.jpeg?auto=compress&cs=tinysrgb&w=2000'],
-  ['facade-renovation-mallorca-v2.jpg', 'https://images.pexels.com/photos/28243788/pexels-photo-28243788.jpeg?auto=compress&cs=tinysrgb&w=2000'],
+  // Approved: weathered traditional clay roof that clearly needs renovation.
+  ['roof-renovation-mallorca-v3.jpg', 'https://images.pexels.com/photos/15562216/pexels-photo-15562216.jpeg?auto=compress&cs=tinysrgb&w=2000'],
+  // Approved: wider Mallorcan facade in Soller, suitable as a renovation-before image.
+  ['facade-renovation-mallorca-v3.jpg', 'https://images.pexels.com/photos/33299796/pexels-photo-33299796.jpeg?auto=compress&cs=tinysrgb&w=2000'],
   // Palma de Mallorca apartment facade with multiple wooden shutters/openings.
   ['windows-doors-mallorca-v3.jpg', 'https://images.pexels.com/photos/28243804/pexels-photo-28243804.jpeg?auto=compress&cs=tinysrgb&w=2000'],
   // Real residential interior undergoing renovation, with exposed beams and construction fabric visible.
