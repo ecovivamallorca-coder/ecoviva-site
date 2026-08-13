@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node scripts/fetch-seo-hero-assets.mjs && node scripts/generate-seo-renovation-cluster.mjs && node scripts/sync-shared-header.mjs",
+  "buildCommand": "node scripts/fetch-seo-hero-assets.mjs && node scripts/generate-seo-renovation-cluster.mjs && node scripts/publish-damp-guide.mjs && node scripts/sync-shared-header.mjs && node scripts/activate-guides-chrome.mjs",
   "outputDirectory": "public",
   "redirects": [
     {
