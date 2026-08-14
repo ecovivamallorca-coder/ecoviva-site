@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const publicDir = join(root, 'public');
-const version = '20260814-guides-hub-v5';
+const version = '20260814-guides-tray-v6';
 
 const copy = {
   en: {
@@ -115,6 +115,9 @@ for(const file of await walk(publicDir)){
   html = html.replace(/<header\b[^>]*class=["'][^"']*(?:shared-site-header|roof-site-header|site-header|brochure-header)[^"']*["'][^>]*>[\s\S]*?<\/header>/i,nextHeader);
   html = html.replace(/<footer\b[^>]*class=["'][^"']*(?:shared-site-footer|roof-site-footer|site-footer|brochure-footer)[^"']*["'][^>]*>[\s\S]*?<\/footer>/i,nextFooter);
   html = cleanTechnicalActions(file, html, context);
+  html=html.replace(/\/assets\/shared-header\.css\?v=[^"']+/g,`/assets/shared-header.css?v=${version}`);
+  html=html.replace(/\/assets\/shared-footer\.css\?v=[^"']+/g,`/assets/shared-footer.css?v=${version}`);
+  html=html.replace(/\/assets\/shared-header\.js\?v=[^"']+/g,`/assets/shared-header.js?v=${version}`);
   if(!html.includes('/assets/shared-header.css')) html=html.replace('</head>',`  <link rel="stylesheet" href="/assets/shared-header.css?v=${version}">\n</head>`);
   if(!html.includes('/assets/shared-footer.css')) html=html.replace('</head>',`  <link rel="stylesheet" href="/assets/shared-footer.css?v=${version}">\n</head>`);
   if(context === 'guides' && !html.includes('data-guide-mobile-nav-fix')) {
