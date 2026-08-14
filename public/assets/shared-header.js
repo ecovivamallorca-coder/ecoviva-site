@@ -3,12 +3,16 @@
   if(!header)return;
   const toggle=header.querySelector('.menu-toggle');
   const nav=header.querySelector('.main-nav');
+  const state=header.querySelector('.menu-state');
   const setMenu=open=>{
+    if(state)state.checked=open;
     document.body.classList.toggle('menu-open',open);
     nav?.classList.toggle('is-open',open);
     toggle?.setAttribute('aria-expanded',String(open));
   };
-  if(toggle&&nav){
+  if(state&&toggle&&nav){
+    state.addEventListener('change',()=>setMenu(state.checked));
+  }else if(toggle&&nav){
     toggle.addEventListener('click',event=>{
       event.preventDefault();
       event.stopPropagation();
