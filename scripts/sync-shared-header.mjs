@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const publicDir = join(root, 'public');
-const version = '20260812-chrome-v3';
+const version = '20260814-mobile-guides-v4';
 
 const copy = {
   en: {
@@ -121,6 +121,21 @@ for(const file of await walk(publicDir)){
   html = cleanTechnicalActions(file, html, context);
   if(!html.includes('/assets/shared-header.css')) html=html.replace('</head>',`  <link rel="stylesheet" href="/assets/shared-header.css?v=${version}">\n</head>`);
   if(!html.includes('/assets/shared-footer.css')) html=html.replace('</head>',`  <link rel="stylesheet" href="/assets/shared-footer.css?v=${version}">\n</head>`);
+  if(context === 'guides' && !html.includes('data-guide-mobile-nav-fix')) {
+    html=html.replace('</head>',`  <style data-guide-mobile-nav-fix>
+    .guide-page .guide-hero{margin-top:0!important}
+    @media(max-width:1080px){
+      .guide-page .shared-site-header .main-nav{
+        z-index:1000;
+        height:calc(100dvh - 72px);
+        overflow-y:auto;
+        overscroll-behavior:contain;
+        -webkit-overflow-scrolling:touch;
+      }
+    }
+  </style>
+</head>`);
+  }
   if(!html.includes('/assets/shared-header.js')) html=html.replace('</body>',`  <script src="/assets/shared-header.js?v=${version}" defer></script>\n</body>`);
   await writeFile(file,html,'utf8');
   changed++;
