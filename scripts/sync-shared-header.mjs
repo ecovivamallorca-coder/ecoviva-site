@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const publicDir = join(root, 'public');
-const version = '20260814-guides-tray-v8';
+const version = '20260814-guides-tray-v9';
 
 const copy = {
   en: {
