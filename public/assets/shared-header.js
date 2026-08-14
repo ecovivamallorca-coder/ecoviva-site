@@ -44,7 +44,7 @@
       item.querySelector('.nav-dropdown-toggle')?.setAttribute('aria-expanded','false');
     });
   });
-  window.addEventListener('resize',()=>{if(window.innerWidth>1080)setMenu(false);},{passive:true});
+  window.addEventListener('resize',()=>{if(window.innerWidth>1400)setMenu(false);},{passive:true});
   const progress=header.querySelector('.scroll-progress span');
   const updateProgress=()=>{
     if(!progress)return;

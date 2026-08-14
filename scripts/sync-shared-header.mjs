@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const publicDir = join(root, 'public');
-const version = '20260814-guides-tray-v7';
+const version = '20260814-guides-tray-v8';
 
 const copy = {
   en: {
@@ -123,7 +123,7 @@ for(const file of await walk(publicDir)){
   if(context === 'guides' && !html.includes('data-guide-mobile-nav-fix')) {
     html=html.replace('</head>',`  <style data-guide-mobile-nav-fix>
     .guide-page .guide-hero{margin-top:0!important}
-    @media(max-width:1080px){
+    @media(max-width:1400px){
       .guide-page .shared-site-header .main-nav{
         z-index:1000;
         height:calc(100dvh - 72px);
