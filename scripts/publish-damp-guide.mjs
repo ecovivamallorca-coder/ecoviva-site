@@ -33,6 +33,8 @@ const alternate = Object.fromEntries(Object.entries(guides).map(([lang, g]) => [
 
 function seoHead(lang, g) {
   const ogLocale = lang === 'en' ? 'en_GB' : lang === 'es' ? 'es_ES' : 'de_DE';
+  const image = `${base}/assets/guides/damp-moisture/damp-moisture-mallorca-hero.webp`;
+  const schema = {'@context':'https://schema.org','@type':'Article',headline:g.title.replace(/ \| EcoViva Mallorca$/, ''),description:g.description,inLanguage:lang,datePublished:'2026-08-14',dateModified:'2026-08-14',author:{'@type':'Organization',name:'EcoViva Mallorca'},publisher:{'@type':'Organization',name:'EcoViva Mallorca'},mainEntityOfPage:`${base}${g.path}`,image};
   return [
     `<meta name="robots" content="index,follow,max-image-preview:large">`,
     `<meta name="description" content="${g.description}">`,
@@ -46,7 +48,12 @@ function seoHead(lang, g) {
     `<meta property="og:title" content="${g.title}">`,
     `<meta property="og:description" content="${g.description}">`,
     `<meta property="og:url" content="${base}${g.path}">`,
-    `<meta property="og:image" content="${base}/assets/guides/damp-moisture/damp-moisture-mallorca-hero.webp">`
+    `<meta property="og:image" content="${image}">`,
+    `<meta name="twitter:card" content="summary_large_image">`,
+    `<meta name="twitter:title" content="${g.title}">`,
+    `<meta name="twitter:description" content="${g.description}">`,
+    `<meta name="twitter:image" content="${image}">`,
+    `<script type="application/ld+json">${JSON.stringify(schema)}</script>`
   ].join('');
 }
 
