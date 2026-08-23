@@ -53,7 +53,48 @@ const T={
 
 function href(key,lang){return `/${lang}/${slugs[key][lang]}/`}
 function alternates(key){return langs.map(l=>`<link rel="alternate" hreflang="${l}" href="${base}${href(key,l)}">`).join('')+`<link rel="alternate" hreflang="x-default" href="${base}${href(key,'en')}">`}
-function head(key,lang,title,desc){return `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title} | EcoViva Mallorca</title><meta name="description" content="${desc}"><link rel="canonical" href="${base}${href(key,lang)}">${alternates(key)}<link rel="stylesheet" href="/assets/seo-service-mallorca.css?v=20260812-final">`}
+const ogLocales={en:'en_GB',es:'es_ES',de:'de_DE'};
+const heroImages={
+  hub:'facade-renovation-mallorca-v3.jpg',
+  roof:'roof-renovation-mallorca-v3.jpg',
+  facade:'facade-renovation-mallorca-v3.jpg',
+  windows:'windows-doors-mallorca-v3.jpg',
+  interior:'interior-renovation-mallorca-v3.jpg',
+  terrace:'terrace-renovation-mallorca-v3.jpg',
+  energy:'energy-renovation-mallorca-v3.jpg'
+};
+function structuredData(key,lang,title,desc){
+  const url=`${base}${href(key,lang)}`;
+  const isHub=key==='hub';
+  const data=[
+    {
+      '@context':'https://schema.org',
+      '@type':isHub?'CollectionPage':'Service',
+      '@id':`${url}#${isHub?'webpage':'service'}`,
+      url,
+      name:title,
+      description:desc,
+      inLanguage:lang,
+      provider:{'@type':'Organization','@id':`${base}/#organization`,name:'EcoViva Mallorca',url:base},
+      areaServed:{'@type':'AdministrativeArea',name:'Mallorca'}
+    },
+    {
+      '@context':'https://schema.org',
+      '@type':'BreadcrumbList',
+      itemListElement:[
+        {'@type':'ListItem',position:1,name:'EcoViva Mallorca',item:`${base}/`},
+        {'@type':'ListItem',position:2,name:T[lang].hub.title,item:`${base}${href('hub',lang)}`},
+        ...(!isHub?[{'@type':'ListItem',position:3,name:title,item:url}]:[])
+      ]
+    }
+  ];
+  return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g,'\\u003c')}</script>`;
+}
+function head(key,lang,title,desc){
+  const url=`${base}${href(key,lang)}`;
+  const image=`${base}/assets/seo/heroes/${heroImages[key]}`;
+  return `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title} | EcoViva Mallorca</title><meta name="description" content="${desc}"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"><link rel="canonical" href="${url}">${alternates(key)}<meta property="og:type" content="website"><meta property="og:site_name" content="EcoViva Mallorca"><meta property="og:locale" content="${ogLocales[lang]}"><meta property="og:title" content="${title} | EcoViva Mallorca"><meta property="og:description" content="${desc}"><meta property="og:url" content="${url}"><meta property="og:image" content="${image}"><meta property="og:image:alt" content="${title}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${title} | EcoViva Mallorca"><meta name="twitter:description" content="${desc}"><meta name="twitter:image" content="${image}">${structuredData(key,lang,title,desc)}<link rel="stylesheet" href="/assets/seo-service-mallorca.css?v=20260812-final">`;
+}
 function btn(label,url,alt=false){return `<a class="btn${alt?' alt':''}" href="${url}">${label}</a>`}
 function page(key,lang){const x=T[lang][key],c=T[lang].common; const hero=`hero-${key}`; const cards=x.cards.map(([h,p])=>`<article class="card"><h3>${h}</h3><p>${p}</p></article>`).join('');return `<!doctype html><html lang="${lang}"><head>${head(key,lang,x.label,x.lead)}</head><body><header class="site-header"></header><main><section class="service-hero ${hero}"><div class="shell"><p class="eyebrow">${x.label}</p><h1>${x.title}</h1><p class="lead">${x.lead}</p><div class="btnrow">${btn(c.discuss,`/${lang}/#renovation-request`)}${(key==='roof'||key==='facade'||key==='energy')?btn(c.library,`/technical-library/${lang}/`,true):''}</div></div></section><section class="section white"><div class="shell"><h2>${x.section}</h2><p class="intro">${x.text}</p><div class="grid">${cards}</div></div></section><section class="band"><div class="shell"><p>${x.band}</p></div></section><section class="section"><div class="shell"><p class="eyebrow">MALLORCA</p><h2>${T[lang].hub.localTitle}</h2><p class="intro">${T[lang].hub.localText}</p><div class="links"><a href="${href('hub',lang)}">${c.back}</a><a href="/technical-library/${lang}/">${c.library}</a></div></div></section><section class="section white"><div class="shell"><div class="cta"><p class="eyebrow">ECOVIVA MALLORCA</p><h2>${T[lang].hub.cta}</h2><p>${T[lang].hub.intro}</p><div class="btnrow">${btn(c.start,`/${lang}/#renovation-request`)}</div></div></div></section></main><footer class="site-footer"></footer></body></html>`}
 function hub(lang){const h=T[lang].hub,c=T[lang].common; const cards=serviceKeys.map(k=>`<article class="card"><h3>${T[lang][k].title}</h3><p>${T[lang][k].lead}</p><p><a href="${href(k,lang)}">${c.more} →</a></p></article>`).join(''); return `<!doctype html><html lang="${lang}"><head>${head('hub',lang,h.title,h.lead)}</head><body><header class="site-header"></header><main><section class="service-hero hero-hub"><div class="shell"><p class="eyebrow">${h.title.toUpperCase()}</p><h1>${h.h1}</h1><p class="lead">${h.lead}</p><p class="lead">${h.intro}</p><div class="btnrow">${btn(c.discuss,`/${lang}/#renovation-request`)}</div></div></section><section class="section white"><div class="shell"><h2>${h.processTitle}</h2><p class="intro">${h.processText}</p><div class="grid"><article class="card"><h3>01</h3><p>${lang==='en'?'Understand the property and objectives.':lang==='es'?'Comprender la propiedad y los objetivos.':'Immobilie und Ziele verstehen.'}</p></article><article class="card"><h3>02</h3><p>${lang==='en'?'Define scope, systems and specialists.':lang==='es'?'Definir alcance, sistemas y especialistas.':'Umfang, Systeme und Fachbetriebe definieren.'}</p></article><article class="card"><h3>03</h3><p>${lang==='en'?'Coordinate execution and completion.':lang==='es'?'Coordinar ejecución y finalización.':'Ausführung und Fertigstellung koordinieren.'}</p></article></div></div></section><section class="section"><div class="shell"><p class="eyebrow">MALLORCA</p><h2>${h.solutionTitle}</h2><div class="grid">${cards}</div></div></section><section class="band"><div class="shell"><p>${h.localTitle}</p></div></section><section class="section white"><div class="shell"><h2>${h.technicalTitle}</h2><p class="intro">${h.technicalText}</p><div class="links"><a href="/technical-library/${lang}/">${c.library}</a></div></div></section><section class="section"><div class="shell"><div class="cta"><h2>${h.cta}</h2><p>${h.intro}</p><div class="btnrow">${btn(c.start,`/${lang}/#renovation-request`)}</div></div></div></section></main><footer class="site-footer"></footer></body></html>`}
