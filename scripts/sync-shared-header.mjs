@@ -8,15 +8,15 @@ const version = '20260814-guides-tray-v9';
 
 const copy = {
   en: {
-    what:'What We Do', all:'All renovation solutions', examples:'Renovation Examples', how:'How We Work', why:'Why EcoViva', technical:'Technical Library', guides:'Guides', areas:'Areas', work:'Work with us', who:'Who We Are', office:'Offices & Studio', contact:'Contact', brochure:'Company brochure', cta:'Start your renovation', nav:'Main navigation', language:'Language', menu:'Open menu',
+    what:'What We Do', all:'All renovation solutions', check:'Technical property check', examples:'Renovation Examples', how:'How We Work', why:'Why EcoViva', technical:'Technical Library', guides:'Guides', areas:'Areas', work:'Work with us', who:'Who We Are', office:'Offices & Studio', contact:'Contact', brochure:'Company brochure', cta:'Start your renovation', nav:'Main navigation', language:'Language', menu:'Open menu',
     footerIntro:'Complete renovation solutions for properties across Mallorca—technically assessed and professionally coordinated.', visit:'Visit our Offices & Studio', appointment:'Visits by appointment', explore:'Explore', partners:'Partners & contractors', privacy:'Privacy policy', footerTag:'Renovation · Insulation · Façades · Roofs · Solar'
   },
   es: {
-    what:'Qué hacemos', all:'Todas las soluciones', examples:'Ejemplos de reforma', how:'Cómo trabajamos', why:'Por qué EcoViva', technical:'Biblioteca técnica', guides:'Guías', areas:'Zonas', work:'Trabaja con nosotros', who:'Quiénes somos', office:'Oficinas & Estudio', contact:'Contacto', brochure:'Folleto de empresa', cta:'Empieza tu reforma', nav:'Navegación principal', language:'Idioma', menu:'Abrir menú',
+    what:'Qué hacemos', all:'Todas las soluciones', check:'Revisión técnica', examples:'Ejemplos de reforma', how:'Cómo trabajamos', why:'Por qué EcoViva', technical:'Biblioteca técnica', guides:'Guías', areas:'Zonas', work:'Trabaja con nosotros', who:'Quiénes somos', office:'Oficinas & Estudio', contact:'Contacto', brochure:'Folleto de empresa', cta:'Empieza tu reforma', nav:'Navegación principal', language:'Idioma', menu:'Abrir menú',
     footerIntro:'Soluciones integrales de reforma para propiedades en Mallorca, evaluadas técnicamente y coordinadas profesionalmente.', visit:'Visita nuestras Oficinas & Estudio', appointment:'Visitas con cita previa', explore:'Explorar', partners:'Colaboradores y contratistas', privacy:'Política de privacidad', footerTag:'Reformas · Aislamiento · Fachadas · Cubiertas · Solar'
   },
   de: {
-    what:'Leistungen', all:'Alle Renovierungslösungen', examples:'Renovierungsbeispiele', how:'Unser Ablauf', why:'Warum EcoViva', technical:'Technische Bibliothek', guides:'Ratgeber', areas:'Regionen', work:'Mit uns arbeiten', who:'Über uns', office:'Büro & Studio', contact:'Kontakt', brochure:'Unternehmensbroschüre', cta:'Renovierung starten', nav:'Hauptnavigation', language:'Sprache', menu:'Menü öffnen',
+    what:'Leistungen', all:'Alle Renovierungslösungen', check:'Technischer Immobiliencheck', examples:'Renovierungsbeispiele', how:'Unser Ablauf', why:'Warum EcoViva', technical:'Technische Bibliothek', guides:'Ratgeber', areas:'Regionen', work:'Mit uns arbeiten', who:'Über uns', office:'Büro & Studio', contact:'Kontakt', brochure:'Unternehmensbroschüre', cta:'Renovierung starten', nav:'Hauptnavigation', language:'Sprache', menu:'Menü öffnen',
     footerIntro:'Komplette Renovierungslösungen für Immobilien auf Mallorca – technisch geprüft und professionell koordiniert.', visit:'Besuchen Sie unser Büro & Studio', appointment:'Besuche nach Terminvereinbarung', explore:'Entdecken', partners:'Partner & Fachbetriebe', privacy:'Datenschutz', footerTag:'Renovierung · Dämmung · Fassaden · Dächer · Solar'
   }
 };
@@ -24,6 +24,17 @@ const copy = {
 const defaultLangUrls = { en:'/en/', es:'/es/', de:'/de/' };
 const guideHubUrls = { en:'/guides/en/', es:'/guides/es/', de:'/guides/de/' };
 const privacyUrls = { en:'/en/privacy-policy/', es:'/es/politica-de-privacidad/', de:'/de/datenschutzerklaerung/' };
+const checkUrls = { en:'/en/technical-property-renovation-check-mallorca/', es:'/es/revision-tecnica-compra-reforma-mallorca/', de:'/de/technischer-immobiliencheck-renovierung-mallorca/' };
+
+function addCheckLinks(html, lang){
+  const c = copy[lang] || copy.en;
+  const allLink = `<a href="/${lang}/#what-we-do" data-section-link="what-we-do">${c.all}</a>`;
+  const checkLink = `<a href="${checkUrls[lang]}">${c.check}</a>`;
+  if(!html.includes(checkLink)) html = html.replace(allLink, allLink + checkLink);
+  const partnerLink = `<a href="/${lang}/#professionals">${c.partners}</a>`;
+  if(!html.includes(`${checkLink}${partnerLink}`)) html = html.replace(partnerLink, checkLink + partnerLink);
+  return html;
+}
 
 function langFor(file, html){
   const p = file.replaceAll('\\','/');
@@ -114,6 +125,7 @@ for(const file of await walk(publicDir)){
   const nextFooter=footerHtml(lang);
   html = html.replace(/<header\b[^>]*class=["'][^"']*(?:shared-site-header|roof-site-header|site-header|brochure-header)[^"']*["'][^>]*>[\s\S]*?<\/header>/i,nextHeader);
   html = html.replace(/<footer\b[^>]*class=["'][^"']*(?:shared-site-footer|roof-site-footer|site-footer|brochure-footer)[^"']*["'][^>]*>[\s\S]*?<\/footer>/i,nextFooter);
+  html = addCheckLinks(html, lang);
   html = cleanTechnicalActions(file, html, context);
   html=html.replace(/\/assets\/shared-header\.css\?v=[^"']+/g,`/assets/shared-header.css?v=${version}`);
   html=html.replace(/\/assets\/shared-footer\.css\?v=[^"']+/g,`/assets/shared-footer.css?v=${version}`);
