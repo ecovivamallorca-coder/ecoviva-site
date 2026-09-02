@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { serviceDepth } from './service-depth-content.mjs';
 
 const root=process.cwd();
 const pub=path.join(root,'public');
@@ -63,7 +64,7 @@ const heroImages={
   terrace:'terrace-renovation-mallorca-v3.jpg',
   energy:'energy-renovation-mallorca-v3.jpg'
 };
-function structuredData(key,lang,title,desc){
+function structuredData(key,lang,title,desc,faqs=[]){
   const url=`${base}${href(key,lang)}`;
   const isHub=key==='hub';
   const data=[
@@ -88,22 +89,40 @@ function structuredData(key,lang,title,desc){
       ]
     }
   ];
+  if(faqs.length) data.push({
+    '@context':'https://schema.org',
+    '@type':'FAQPage',
+    mainEntity:faqs.map(([question,answer])=>({
+      '@type':'Question',
+      name:question,
+      acceptedAnswer:{'@type':'Answer',text:answer}
+    }))
+  });
   return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g,'\\u003c')}</script>`;
 }
-function head(key,lang,title,desc){
+function head(key,lang,title,desc,faqs=[]){
   const url=`${base}${href(key,lang)}`;
   const image=`${base}/assets/seo/heroes/${heroImages[key]}`;
-  return `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title} | EcoViva Mallorca</title><meta name="description" content="${desc}"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"><link rel="canonical" href="${url}">${alternates(key)}<meta property="og:type" content="website"><meta property="og:site_name" content="EcoViva Mallorca"><meta property="og:locale" content="${ogLocales[lang]}"><meta property="og:title" content="${title} | EcoViva Mallorca"><meta property="og:description" content="${desc}"><meta property="og:url" content="${url}"><meta property="og:image" content="${image}"><meta property="og:image:alt" content="${title}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${title} | EcoViva Mallorca"><meta name="twitter:description" content="${desc}"><meta name="twitter:image" content="${image}">${structuredData(key,lang,title,desc)}<link rel="stylesheet" href="/assets/seo-service-mallorca.css?v=20260812-final">`;
+  return `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title} | EcoViva Mallorca</title><meta name="description" content="${desc}"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"><link rel="canonical" href="${url}">${alternates(key)}<meta property="og:type" content="website"><meta property="og:site_name" content="EcoViva Mallorca"><meta property="og:locale" content="${ogLocales[lang]}"><meta property="og:title" content="${title} | EcoViva Mallorca"><meta property="og:description" content="${desc}"><meta property="og:url" content="${url}"><meta property="og:image" content="${image}"><meta property="og:image:alt" content="${title}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${title} | EcoViva Mallorca"><meta name="twitter:description" content="${desc}"><meta name="twitter:image" content="${image}">${structuredData(key,lang,title,desc,faqs)}<link rel="stylesheet" href="/assets/seo-service-mallorca.css?v=20260902-roof-facade-v1">`;
 }
 function btn(label,url,alt=false){return `<a class="btn${alt?' alt':''}" href="${url}">${label}</a>`}
 function checkHref(lang){return lang==='en'?'/en/technical-property-renovation-check-mallorca/':lang==='es'?'/es/revision-tecnica-compra-reforma-mallorca/':'/de/technischer-immobiliencheck-renovierung-mallorca/'}
 function addCheckButton(html,lang){const c=T[lang].common;const first=`<div class="btnrow">${btn(c.discuss,`/${lang}/#renovation-request`)}`;return html.replace(first,first+btn(c.check,checkHref(lang),true))}
+function depthPage(key,lang){
+  const x=serviceDepth[lang][key];
+  const problemCards=x.problems.map(([h,p])=>`<article class="card"><h3>${h}</h3><p>${p}</p></article>`).join('');
+  const solutionCards=x.solutions.map(([h,p])=>`<article class="card"><h3>${h}</h3><p>${p}</p></article>`).join('');
+  const process=x.process.map(([h,p])=>`<article class="card"><h3>${h}</h3><p>${p}</p></article>`).join('');
+  const links=x.links.map(([url,label,note])=>`<a class="resource-card" href="${url}"><strong>${label}</strong><span>${note}</span></a>`).join('');
+  const faq=x.faqs.map(([q,a])=>`<article><h3>${q}</h3><p>${a}</p></article>`).join('');
+  return `<!doctype html><html lang="${lang}"><head>${head(key,lang,x.label,x.meta,x.faqs)}</head><body><header class="site-header"></header><main><section class="service-hero hero-${key}"><div class="shell"><p class="eyebrow">${x.label}</p><h1>${x.title}</h1><p class="lead">${x.lead}</p><div class="btnrow">${btn(x.ctaPrimary,`/${lang}/#renovation-request`)}${btn(T[lang].common.check,checkHref(lang),true)}</div></div></section><section class="section white"><div class="shell"><p class="eyebrow">${lang==='en'?'PROBLEMS & DIAGNOSIS':lang==='es'?'PROBLEMAS Y DIAGNÓSTICO':'PROBLEME & DIAGNOSE'}</p><h2>${x.problemTitle}</h2><p class="intro">${x.problemIntro}</p><div class="grid grid-two">${problemCards}</div></div></section><section class="band"><div class="shell"><p>${key==='roof'?(lang==='en'?'A durable roof is a complete water, heat and detail-management system.':lang==='es'?'Una cubierta duradera es un sistema completo para gestionar agua, calor y encuentros.':'Ein dauerhaftes Dach ist ein Gesamtsystem für Wasser, Wärme und Details.'):(lang==='en'?'The right façade system begins with the wall—not with the finish.':lang==='es'?'El sistema de fachada correcto empieza por el muro, no por el acabado.':'Das richtige Fassadensystem beginnt mit der Wand – nicht mit der Oberfläche.')}</p></div></section><section class="section"><div class="shell"><p class="eyebrow">${lang==='en'?'SYSTEMS & SOLUTIONS':lang==='es'?'SISTEMAS Y SOLUCIONES':'SYSTEME & LÖSUNGEN'}</p><h2>${x.solutionTitle}</h2><p class="intro">${x.solutionIntro}</p><div class="grid grid-two">${solutionCards}</div></div></section><section class="section white local-section"><div class="shell"><p class="eyebrow">MALLORCA</p><h2>${x.localTitle}</h2><p class="intro">${x.localText}</p></div></section><section class="section"><div class="shell"><p class="eyebrow">ECO<span aria-hidden="true">V</span>IVA</p><h2>${x.processTitle}</h2><p class="intro">${x.processIntro}</p><div class="grid grid-three process-grid">${process}</div></div></section><section class="section white"><div class="shell"><p class="eyebrow">${lang==='en'?'GUIDES & TECHNICAL LIBRARY':lang==='es'?'GUÍAS Y BIBLIOTECA TÉCNICA':'RATGEBER & TECHNISCHE BIBLIOTHEK'}</p><h2>${x.linksTitle}</h2><p class="intro">${x.linksIntro}</p><div class="resource-grid">${links}</div></div></section><section class="section"><div class="shell"><h2>${x.faqTitle}</h2><div class="faq">${faq}</div></div></section><section class="section white"><div class="shell"><div class="cta"><p class="eyebrow">MARKUS &amp; MARITZA</p><h2>${x.ctaTitle}</h2><p>${x.ctaText}</p><div class="btnrow">${btn(x.ctaPrimary,`/${lang}/#renovation-request`)}${btn(x.ctaSecondary,checkHref(lang),true)}</div></div></div></section></main><footer class="site-footer"></footer></body></html>`;
+}
 function page(key,lang){const x=T[lang][key],c=T[lang].common; const hero=`hero-${key}`; const cards=x.cards.map(([h,p])=>`<article class="card"><h3>${h}</h3><p>${p}</p></article>`).join('');return `<!doctype html><html lang="${lang}"><head>${head(key,lang,x.label,x.lead)}</head><body><header class="site-header"></header><main><section class="service-hero ${hero}"><div class="shell"><p class="eyebrow">${x.label}</p><h1>${x.title}</h1><p class="lead">${x.lead}</p><div class="btnrow">${btn(c.discuss,`/${lang}/#renovation-request`)}${(key==='roof'||key==='facade'||key==='energy')?btn(c.library,`/technical-library/${lang}/`,true):''}</div></div></section><section class="section white"><div class="shell"><h2>${x.section}</h2><p class="intro">${x.text}</p><div class="grid">${cards}</div></div></section><section class="band"><div class="shell"><p>${x.band}</p></div></section><section class="section"><div class="shell"><p class="eyebrow">MALLORCA</p><h2>${T[lang].hub.localTitle}</h2><p class="intro">${T[lang].hub.localText}</p><div class="links"><a href="${href('hub',lang)}">${c.back}</a><a href="/technical-library/${lang}/">${c.library}</a></div></div></section><section class="section white"><div class="shell"><div class="cta"><p class="eyebrow">ECOVIVA MALLORCA</p><h2>${T[lang].hub.cta}</h2><p>${T[lang].hub.intro}</p><div class="btnrow">${btn(c.start,`/${lang}/#renovation-request`)}</div></div></div></section></main><footer class="site-footer"></footer></body></html>`}
 function hub(lang){const h=T[lang].hub,c=T[lang].common; const cards=serviceKeys.map(k=>`<article class="card"><h3>${T[lang][k].title}</h3><p>${T[lang][k].lead}</p><p><a href="${href(k,lang)}">${c.more} →</a></p></article>`).join(''); return `<!doctype html><html lang="${lang}"><head>${head('hub',lang,h.title,h.lead)}</head><body><header class="site-header"></header><main><section class="service-hero hero-hub"><div class="shell"><p class="eyebrow">${h.title.toUpperCase()}</p><h1>${h.h1}</h1><p class="lead">${h.lead}</p><p class="lead">${h.intro}</p><div class="btnrow">${btn(c.discuss,`/${lang}/#renovation-request`)}</div></div></section><section class="section white"><div class="shell"><h2>${h.processTitle}</h2><p class="intro">${h.processText}</p><div class="grid"><article class="card"><h3>01</h3><p>${lang==='en'?'Understand the property and objectives.':lang==='es'?'Comprender la propiedad y los objetivos.':'Immobilie und Ziele verstehen.'}</p></article><article class="card"><h3>02</h3><p>${lang==='en'?'Define scope, systems and specialists.':lang==='es'?'Definir alcance, sistemas y especialistas.':'Umfang, Systeme und Fachbetriebe definieren.'}</p></article><article class="card"><h3>03</h3><p>${lang==='en'?'Coordinate execution and completion.':lang==='es'?'Coordinar ejecución y finalización.':'Ausführung und Fertigstellung koordinieren.'}</p></article></div></div></section><section class="section"><div class="shell"><p class="eyebrow">MALLORCA</p><h2>${h.solutionTitle}</h2><div class="grid">${cards}</div></div></section><section class="band"><div class="shell"><p>${h.localTitle}</p></div></section><section class="section white"><div class="shell"><h2>${h.technicalTitle}</h2><p class="intro">${h.technicalText}</p><div class="links"><a href="/technical-library/${lang}/">${c.library}</a></div></div></section><section class="section"><div class="shell"><div class="cta"><h2>${h.cta}</h2><p>${h.intro}</p><div class="btnrow">${btn(c.start,`/${lang}/#renovation-request`)}</div></div></div></section></main><footer class="site-footer"></footer></body></html>`}
 
 for(const lang of langs){
   const hp=path.join(pub,lang,slugs.hub[lang]); await fs.mkdir(hp,{recursive:true}); await fs.writeFile(path.join(hp,'index.html'),addCheckButton(hub(lang),lang));
-  for(const key of serviceKeys){const p=path.join(pub,lang,slugs[key][lang]); await fs.mkdir(p,{recursive:true}); await fs.writeFile(path.join(p,'index.html'),addCheckButton(page(key,lang),lang));}
+  for(const key of serviceKeys){const p=path.join(pub,lang,slugs[key][lang]); await fs.mkdir(p,{recursive:true}); const html=(key==='roof'||key==='facade')?depthPage(key,lang):addCheckButton(page(key,lang),lang); await fs.writeFile(path.join(p,'index.html'),html);}
 }
 
 // Add hub hero using the approved renovation hero.
@@ -117,7 +136,7 @@ const smPath=path.join(pub,'sitemap.xml');
 let sm=await fs.readFile(smPath,'utf8');
 sm=sm.replace(/\n?<!-- SEO_RENOVATION_CLUSTER_START -->[\s\S]*?<!-- SEO_RENOVATION_CLUSTER_END -->\n?/g,'\n');
 let block='<!-- SEO_RENOVATION_CLUSTER_START -->\n';
-for(const key of ['hub',...serviceKeys]){for(const lang of langs){block+=`  <url><loc>${base}${href(key,lang)}</loc>${langs.map(l=>`<xhtml:link rel="alternate" hreflang="${l}" href="${base}${href(key,l)}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="${base}${href(key,'en')}"/></url>\n`;}}
+for(const key of ['hub',...serviceKeys]){for(const lang of langs){const lastmod=(key==='roof'||key==='facade')?'<lastmod>2026-09-02</lastmod>':'';block+=`  <url><loc>${base}${href(key,lang)}</loc>${lastmod}${langs.map(l=>`<xhtml:link rel="alternate" hreflang="${l}" href="${base}${href(key,l)}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="${base}${href(key,'en')}"/></url>\n`;}}
 block+='<!-- SEO_RENOVATION_CLUSTER_END -->\n';
 sm=sm.replace('</urlset>',block+'</urlset>'); await fs.writeFile(smPath,sm);
 console.log('Generated multilingual renovation SEO cluster and sitemap entries.');

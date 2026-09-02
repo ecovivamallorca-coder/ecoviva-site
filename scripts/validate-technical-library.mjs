@@ -216,7 +216,7 @@ for (const lang of langs) {
       landing.includes("/assets/technical-library/universal-insulated-flat-roof/flat-roof-hero.png"),
     `${lang}: Flat Roof landing card does not use the clean approved hero`,
   );
-  assert((landing.match(/class="tl-button tl-button--secondary"/g) ?? []).length === 2, `${lang}: landing actions are not shared buttons`);
+  assert(!landing.includes('tl-actions--landing'), `${lang}: redundant legacy landing actions remain below the shared navigation`);
 
   for (const module of [
     { name: "Roof", slug: "traditional-mallorcan-roof", pdf: `EcoViva_A4_Traditional_Mallorcan_Roof_${lang.toUpperCase()}_Download.pdf` },
@@ -260,7 +260,7 @@ for (const lang of langs) {
     assert(page.includes(`/downloads/${printPdf}`), `${lang} ${module.name}: print link missing`);
     assert(page.includes(`/technical-library/${lang}/`), `${lang} ${module.name}: library return link missing`);
     assert(page.includes("https://www.ecoviva-mallorca.com/"), `${lang} ${module.name}: home link missing`);
-    assert((page.match(/class="tl-button /g) ?? []).length === 4, `${lang} ${module.name}: four shared action buttons required`);
+    assert((page.match(/class="tl-button /g) ?? []).length === 3, `${lang} ${module.name}: three relevant technical action buttons required`);
     assert(!page.includes("text-button"), `${lang} ${module.name}: plain-text home action remains`);
     assert(pdfHeader === "%PDF-", `${lang} ${module.name}: invalid PDF header`);
     assert(printPdfHeader === "%PDF-", `${lang} ${module.name}: invalid print PDF header`);
@@ -347,7 +347,7 @@ for (const lang of langs) {
     `${lang} ThermoWood: unnumbered design-option contract missing`,
   );
   assert((thermowoodPage.match(/<figure>/g) ?? []).length === 10, `${lang} ThermoWood: six design and four ageing figures required`);
-  assert((thermowoodPage.match(/class="tl-button /g) ?? []).length === 4, `${lang} ThermoWood: four shared action buttons required`);
+  assert((thermowoodPage.match(/class="tl-button /g) ?? []).length === 3, `${lang} ThermoWood: three relevant technical action buttons required`);
   assert(!/preview v6/i.test(thermowoodPage), `${lang} ThermoWood: preview label remains`);
   assert(!thermowoodPage.toLowerCase().includes("qr"), `${lang} ThermoWood: QR reference found`);
   assert(
@@ -456,7 +456,7 @@ for (const lang of langs) {
   assert((universalPage.match(/<span class="number">/g) ?? []).length === 5, `${lang} Universal Façade: build-up needs five numbered layers`);
   assert((universalPage.match(/class="component-image"/g) ?? []).length === 5, `${lang} Universal Façade: five components required`);
   assert((universalPage.match(/class="universal-material-card"/g) ?? []).length === 6, `${lang} Universal Façade: six material cards required`);
-  assert((universalPage.match(/class="tl-button /g) ?? []).length === 4, `${lang} Universal Façade: four shared action buttons required`);
+  assert((universalPage.match(/class="tl-button /g) ?? []).length === 3, `${lang} Universal Façade: three relevant technical action buttons required`);
   assert(!/preview|not for publication/i.test(universalPage), `${lang} Universal Façade: preview label remains`);
   assert(!universalPage.toLowerCase().includes("qr"), `${lang} Universal Façade: QR reference found`);
   assert(
@@ -562,7 +562,7 @@ for (const lang of langs) {
   assert((flatRoofPage.match(/<span class="number">/g) ?? []).length === 6, `${lang} Flat Roof: written build-up needs six layers`);
   assert((flatRoofPage.match(/class="flat-roof-component-image"/g) ?? []).length === 8, `${lang} Flat Roof: eight components required`);
   assert((flatRoofPage.match(/class="flat-roof-option-card"/g) ?? []).length === 6, `${lang} Flat Roof: six waterproofing options required`);
-  assert((flatRoofPage.match(/class="tl-button /g) ?? []).length === 4, `${lang} Flat Roof: four shared action buttons required`);
+  assert((flatRoofPage.match(/class="tl-button /g) ?? []).length === 3, `${lang} Flat Roof: three relevant technical action buttons required`);
   assert(!/preview|not for publication/i.test(flatRoofPage), `${lang} Flat Roof: preview label remains`);
   assert(!flatRoofPage.toLowerCase().includes("qr"), `${lang} Flat Roof: QR reference found in HTML`);
   for (const value of [
