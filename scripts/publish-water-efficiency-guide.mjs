@@ -5,7 +5,7 @@ const root = process.cwd();
 const pub = path.join(root, 'public');
 const base = 'https://www.ecoviva-mallorca.com';
 const published = '2026-09-05';
-const hero = '/assets/website-preview/home-hero.webp';
+const hero = '/assets/guides/water-efficiency/water-smart-mallorca-hero.webp';
 
 const routes = {
   en: '/guides/en/water-efficient-renovation-mallorca/',
@@ -143,14 +143,45 @@ const sourceUrls = [
   'https://www.ultimahora.es/noticias/local/2026/09/03/2701323/govern-destina-millones-ecotasa-seguridad-hidrica-serra-tramuntana.html'
 ];
 
+const decisionImages = {
+  0: {
+    src: '/assets/guides/water-efficiency/water-installation-inspection.webp',
+    alt: {
+      en: 'Pressure testing and inspection of water pipes before a Mallorca renovation wall is closed',
+      es: 'Prueba de presión y revisión de tuberías antes de cerrar una pared durante una reforma en Mallorca',
+      de: 'Druckprüfung und Kontrolle von Wasserleitungen vor dem Schließen einer Wand bei einer Sanierung auf Mallorca'
+    }
+  },
+  3: {
+    src: '/assets/guides/water-efficiency/pool-water-efficiency.webp',
+    alt: {
+      en: 'Mallorca villa pool with a cover and accessible filtration installation',
+      es: 'Piscina de una villa en Mallorca con cubierta e instalación de filtración accesible',
+      de: 'Pool einer Mallorca-Villa mit Abdeckung und zugänglicher Filteranlage'
+    }
+  },
+  5: {
+    src: '/assets/guides/water-efficiency/mediterranean-garden-rainwater.webp',
+    alt: {
+      en: 'Mediterranean garden with drip irrigation and rainwater storage at a Mallorca property',
+      es: 'Jardín mediterráneo con riego por goteo y depósito de agua de lluvia en una vivienda de Mallorca',
+      de: 'Mediterraner Garten mit Tropfbewässerung und Regenwasserspeicher an einer Immobilie auf Mallorca'
+    }
+  }
+};
+
 const css = `<style>
-.guide-page{background:#fff;color:#11111f}.guide-hero{position:relative;min-height:630px;display:flex;align-items:flex-end;background:#474940 url('${hero}') center/cover no-repeat;margin-top:84px}.guide-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,17,31,.82),rgba(17,17,31,.62) 45%,rgba(17,17,31,.1) 80%)}.guide-hero-inner{position:relative;z-index:1;width:min(1120px,calc(100% - 48px));margin:0 auto;padding:78px 0;color:#fff}.guide-eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:.78rem;font-weight:700;color:#b9c78f}.guide-hero h1{max-width:880px;margin:.45rem 0 1rem;font-size:clamp(2.6rem,5vw,5rem);line-height:.98;color:#fff}.guide-lead{max-width:760px;font-size:1.12rem;line-height:1.72}.guide-date{display:block;margin-top:18px;color:rgba(255,255,255,.76);font-size:.88rem}.guide-shell{max-width:1120px;margin:auto;padding:0 24px}.guide-section{padding:64px 0;border-bottom:1px solid rgba(17,17,31,.12)}.guide-section h2{max-width:820px;font-size:clamp(2rem,3.3vw,3.1rem);line-height:1.08;margin-top:0}.guide-section p,.guide-section li{line-height:1.72}.guide-intro-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:54px}.guide-quote{padding:32px;border:1px solid rgba(62,107,32,.35);border-radius:16px;background:#f6f5ef;font-size:1.45rem;line-height:1.28;color:#465c25}.issue-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:32px}.issue-card{overflow:hidden;border:1px solid rgba(17,17,31,.13);border-radius:18px;background:#fff}.issue-copy{padding:28px}.issue-copy h3{margin:.15rem 0 1rem;font-size:1.45rem}.issue-number{font-size:.76rem;letter-spacing:.12em;font-weight:800;color:#54742f}.warning-box{margin:34px 0;padding:30px 32px;background:#f1f0e8;border-left:4px solid #54742f;border-radius:0 14px 14px 0}.warning-box strong{display:block;font-size:1.2rem;margin-bottom:8px}.diagnosis-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 34px;margin:26px 0;padding:0;list-style:none}.diagnosis-list li{padding:18px 0;border-top:1px solid rgba(17,17,31,.12)}.route-box{margin-top:30px;padding:34px;border-radius:18px;background:#f3f1e9}.route-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 24px;margin-top:20px}.route-links a{color:#3e6b20;font-weight:700}.guide-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}.guide-button{display:inline-flex;padding:14px 21px;border-radius:999px;background:#3e6b20;color:#fff;text-decoration:none;font-weight:800}.guide-button--secondary{background:transparent;border:1px solid rgba(255,255,255,.7)}.guide-final{background:#11111f;color:#fff;padding:72px 0}.guide-final h2{color:#fff}.source-list{padding-left:20px}.source-list a{color:#3e6b20}.faq-list article{padding:22px 0;border-top:1px solid rgba(17,17,31,.12)}.faq-list h3{margin:0 0 8px;font-size:1.25rem}@media(max-width:800px){.guide-hero{min-height:560px;margin-top:72px}.guide-hero-inner{width:min(100% - 34px,1120px);padding:54px 0}.guide-intro-grid,.issue-grid,.diagnosis-list,.route-links{grid-template-columns:1fr}.guide-section{padding:48px 0}}
+.guide-page{background:#fff;color:#11111f}.guide-hero{position:relative;min-height:630px;display:flex;align-items:flex-end;background:#474940 url('${hero}') center/cover no-repeat;margin-top:84px}.guide-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,17,31,.82),rgba(17,17,31,.62) 45%,rgba(17,17,31,.1) 80%)}.guide-hero-inner{position:relative;z-index:1;width:min(1120px,calc(100% - 48px));margin:0 auto;padding:78px 0;color:#fff}.guide-eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:.78rem;font-weight:700;color:#b9c78f}.guide-hero h1{max-width:880px;margin:.45rem 0 1rem;font-size:clamp(2.6rem,5vw,5rem);line-height:.98;color:#fff}.guide-lead{max-width:760px;font-size:1.12rem;line-height:1.72}.guide-date{display:block;margin-top:18px;color:rgba(255,255,255,.76);font-size:.88rem}.guide-shell{max-width:1120px;margin:auto;padding:0 24px}.guide-section{padding:64px 0;border-bottom:1px solid rgba(17,17,31,.12)}.guide-section h2{max-width:820px;font-size:clamp(2rem,3.3vw,3.1rem);line-height:1.08;margin-top:0}.guide-section p,.guide-section li{line-height:1.72}.guide-intro-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:54px}.guide-quote{padding:32px;border:1px solid rgba(62,107,32,.35);border-radius:16px;background:#f6f5ef;font-size:1.45rem;line-height:1.28;color:#465c25}.issue-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:32px}.issue-card{overflow:hidden;border:1px solid rgba(17,17,31,.13);border-radius:18px;background:#fff}.issue-card>img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#e7e4dc}.issue-copy{padding:28px}.issue-copy h3{margin:.15rem 0 1rem;font-size:1.45rem}.issue-number{font-size:.76rem;letter-spacing:.12em;font-weight:800;color:#54742f}.warning-box{margin:34px 0;padding:30px 32px;background:#f1f0e8;border-left:4px solid #54742f;border-radius:0 14px 14px 0}.warning-box strong{display:block;font-size:1.2rem;margin-bottom:8px}.diagnosis-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 34px;margin:26px 0;padding:0;list-style:none}.diagnosis-list li{padding:18px 0;border-top:1px solid rgba(17,17,31,.12)}.route-box{margin-top:30px;padding:34px;border-radius:18px;background:#f3f1e9}.route-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 24px;margin-top:20px}.route-links a{color:#3e6b20;font-weight:700}.guide-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}.guide-button{display:inline-flex;padding:14px 21px;border-radius:999px;background:#3e6b20;color:#fff;text-decoration:none;font-weight:800}.guide-button--secondary{background:transparent;border:1px solid rgba(255,255,255,.7)}.guide-final{background:#11111f;color:#fff;padding:72px 0}.guide-final h2{color:#fff}.source-list{padding-left:20px}.source-list a{color:#3e6b20}.faq-list article{padding:22px 0;border-top:1px solid rgba(17,17,31,.12)}.faq-list h3{margin:0 0 8px;font-size:1.25rem}@media(max-width:800px){.guide-hero{min-height:560px;margin-top:72px}.guide-hero-inner{width:min(100% - 34px,1120px);padding:54px 0}.guide-intro-grid,.issue-grid,.diagnosis-list,.route-links{grid-template-columns:1fr}.guide-section{padding:48px 0}}
 </style>`;
 
 function page(lang, c) {
   const url = `${base}${routes[lang]}`;
   const alternates = Object.entries(routes).map(([l, route]) => `<link rel="alternate" hreflang="${l}" href="${base}${route}">`).join('');
-  const decisions = c.decisions.map(([heading, p1, p2], i) => `<article class="issue-card"><div class="issue-copy"><span class="issue-number">${String(i + 1).padStart(2, '0')} · ${c.before}</span><h3>${heading}</h3><p>${p1}</p><p>${p2}</p></div></article>`).join('');
+  const decisions = c.decisions.map(([heading, p1, p2], i) => {
+    const image = decisionImages[i];
+    const media = image ? `<img src="${image.src}" alt="${image.alt[lang]}" width="1280" height="801" loading="lazy">` : '';
+    return `<article class="issue-card">${media}<div class="issue-copy"><span class="issue-number">${String(i + 1).padStart(2, '0')} · ${c.before}</span><h3>${heading}</h3><p>${p1}</p><p>${p2}</p></div></article>`;
+  }).join('');
   const process = c.process.map(([heading, text], i) => `<li><strong>${String(i + 1).padStart(2, '0')} · ${heading}</strong><br>${text}</li>`).join('');
   const related = c.related.map(([label, href]) => `<a href="${href}">${label} <span aria-hidden="true">→</span></a>`).join('');
   const faq = c.faq.map(([question, answer]) => `<article><h3>${question}</h3><p>${answer}</p></article>`).join('');

@@ -10,6 +10,11 @@ const data={
   de:{lang:'de',title:'Renovierungsratgeber für Mallorca | EcoViva Mallorca',desc:'Praxisnahe Ratgeber zu Renovierung, WDVS, Feuchtigkeit, Wassereffizienz und Ausführungsqualität auf Mallorca.',home:'/de/',technical:'/technical-library/de/',eyebrow:'ECOVIVA MALLORCA · PRAXISWISSEN',h1:'Renovierungsratgeber für Immobilien auf Mallorca',lead:'Erfahren Sie mehr über typische Bauprobleme, technische Details und darüber, wie Koordination und Qualitätskontrolle Ihre Renovierung schützen.',guides:'Ratgeber',cta:'Renovierung starten',cards:[['WDVS-Ausführungsfehler: was der Oberputz verdecken kann','Acht unabhängige Baustellenbeobachtungen zeigen, weshalb kritische Details vor dem Verputzen geprüft werden müssen.','/guides/de/wdvs-ausfuehrungsfehler-mallorca/','/assets/guides/etics-quality-control/04-board-joints-mesh.webp?v=20260814-mobile-v3'],['Feuchtigkeitsprobleme in Häusern auf Mallorca','Unterscheiden Sie Kondensation, aufsteigende Feuchtigkeit, Wassereintritt und Dach- oder Terrassenleckagen.','/guides/de/feuchtigkeitsprobleme-mallorca/','/assets/guides/damp-moisture/damp-moisture-mallorca-hero.webp'],['7 Maßnahmen für eine wassersparende Sanierung','Verluste erkennen und Bäder, Pool, Garten und Verbrauchskontrolle als abgestimmtes System planen.','/guides/de/wassersparende-sanierung-mallorca/','/assets/website-preview/home-hero.webp']]}
 };
 
+for (const guideHub of Object.values(data)) {
+  const waterGuide = guideHub.cards.find(([, , href]) => href.includes('water-efficient-renovation') || href.includes('reforma-eficiente-agua') || href.includes('wassersparende-sanierung'));
+  if (waterGuide) waterGuide[3] = '/assets/guides/water-efficiency/water-smart-mallorca-hero.webp';
+}
+
 const alternates=Object.entries(routes).map(([l,r])=>`<link rel="alternate" hreflang="${l}" href="${base}${r}">`).join('');
 function page(c){
  const cards=c.cards.map(([h,p,u,img])=>`<article class="guide-card"><a class="guide-image" href="${u}"><img src="${img}" alt="${h}" loading="lazy"></a><div><h2><a href="${u}">${h}</a></h2><p>${p}</p><a class="read" href="${u}">${c.lang==='es'?'Leer la guía':c.lang==='de'?'Ratgeber lesen':'Read the guide'} →</a></div></article>`).join('');
