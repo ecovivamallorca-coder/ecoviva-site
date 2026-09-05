@@ -153,7 +153,7 @@ const decisionImages = {
     }
   },
   3: {
-    src: '/assets/guides/water-efficiency/pool-water-efficiency.webp',
+    src: '/assets/guides/water-efficiency/pool-water-efficiency-v2.webp',
     alt: {
       en: 'Mallorca villa pool with a cover and accessible filtration installation',
       es: 'Piscina de una villa en Mallorca con cubierta e instalación de filtración accesible',
