@@ -5,7 +5,7 @@ const root = process.cwd();
 const pub = path.join(root, 'public');
 const base = 'https://www.ecoviva-mallorca.com';
 const published = '2026-09-05';
-const hero = '/assets/guides/water-efficiency/water-smart-mallorca-hero.webp';
+const hero = '/assets/guides/water-efficiency/water-smart-mallorca-hero-v2.webp';
 
 const routes = {
   en: '/guides/en/water-efficient-renovation-mallorca/',
@@ -153,7 +153,7 @@ const decisionImages = {
     }
   },
   3: {
-    src: '/assets/guides/water-efficiency/pool-water-efficiency-v2.webp',
+    src: '/assets/guides/water-efficiency/pool-cover-filtration-detail-v3.webp',
     alt: {
       en: 'Mallorca villa pool with a cover and accessible filtration installation',
       es: 'Piscina de una villa en Mallorca con cubierta e instalación de filtración accesible',
