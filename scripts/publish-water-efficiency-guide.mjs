@@ -153,7 +153,7 @@ const decisionImages = {
     }
   },
   3: {
-    src: '/assets/guides/water-efficiency/pool-water-efficiency.webp',
+    src: '/assets/guides/water-efficiency/mediterranean-garden-rainwater.webp',
     alt: {
       en: 'Mallorca villa pool with a cover and accessible filtration installation',
       es: 'Piscina de una villa en Mallorca con cubierta e instalación de filtración accesible',
@@ -161,7 +161,7 @@ const decisionImages = {
     }
   },
   5: {
-    src: '/assets/guides/water-efficiency/mediterranean-garden-rainwater.webp',
+    src: '/assets/guides/water-efficiency/pool-water-efficiency.webp',
     alt: {
       en: 'Mediterranean garden with drip irrigation and rainwater storage at a Mallorca property',
       es: 'Jardín mediterráneo con riego por goteo y depósito de agua de lluvia en una vivienda de Mallorca',
