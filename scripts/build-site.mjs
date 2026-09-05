@@ -3,7 +3,9 @@ import { spawnSync } from 'node:child_process';
 const steps = [
   'fetch-seo-hero-assets.mjs',
   'generate-seo-renovation-cluster.mjs',
+  'publish-guides-hub.mjs',
   'publish-damp-guide.mjs',
+  'publish-water-efficiency-guide.mjs',
   'publish-technical-check.mjs',
   'sync-shared-header.mjs',
   'activate-guides-chrome.mjs',
