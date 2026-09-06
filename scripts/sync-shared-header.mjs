@@ -4,20 +4,26 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const publicDir = join(root, 'public');
-const version = '20260902-roof-facade-v1';
+const version = '20260906-social-links-v1';
+
+const socialUrls = {
+  instagram: 'https://www.instagram.com/ecovivamallorca/',
+  facebook: 'https://www.facebook.com/ecovivamallorca/',
+  whatsapp: 'https://wa.me/34645354228'
+};
 
 const copy = {
   en: {
     what:'What We Do', all:'All renovation solutions', roof:'Roof renovation', facade:'Façades & ETICS', check:'Technical property check', examples:'Renovation Examples', how:'How We Work', why:'Why EcoViva', technical:'Technical Library', guides:'Guides', areas:'Areas', work:'Work with us', who:'Who We Are', office:'Offices & Studio', contact:'Contact', brochure:'Company brochure', cta:'Start your renovation', nav:'Main navigation', language:'Language', menu:'Open menu',
-    footerIntro:'Complete renovation solutions for properties across Mallorca—technically assessed and professionally coordinated.', visit:'Visit our Offices & Studio', appointment:'Visits by appointment', explore:'Explore', partners:'Partners & contractors', privacy:'Privacy policy', footerTag:'Renovation · Insulation · Façades · Roofs · Solar'
+    footerIntro:'Complete renovation solutions for properties across Mallorca—technically assessed and professionally coordinated.', visit:'Visit our Offices & Studio', appointment:'Visits by appointment', explore:'Explore', partners:'Partners & contractors', privacy:'Privacy policy', social:'Follow & contact EcoViva', whatsappMessage:'Hello EcoViva, I would like more information about renovating my property in Mallorca.', footerTag:'Renovation · Insulation · Façades · Roofs · Solar'
   },
   es: {
     what:'Qué hacemos', all:'Todas las soluciones', roof:'Cubiertas', facade:'Fachadas & SATE', check:'Revisión técnica', examples:'Ejemplos de reforma', how:'Cómo trabajamos', why:'Por qué EcoViva', technical:'Biblioteca técnica', guides:'Guías', areas:'Zonas', work:'Trabaja con nosotros', who:'Quiénes somos', office:'Oficinas & Estudio', contact:'Contacto', brochure:'Folleto de empresa', cta:'Empieza tu reforma', nav:'Navegación principal', language:'Idioma', menu:'Abrir menú',
-    footerIntro:'Soluciones integrales de reforma para propiedades en Mallorca, evaluadas técnicamente y coordinadas profesionalmente.', visit:'Visita nuestras Oficinas & Estudio', appointment:'Visitas con cita previa', explore:'Explorar', partners:'Colaboradores y contratistas', privacy:'Política de privacidad', footerTag:'Reformas · Aislamiento · Fachadas · Cubiertas · Solar'
+    footerIntro:'Soluciones integrales de reforma para propiedades en Mallorca, evaluadas técnicamente y coordinadas profesionalmente.', visit:'Visita nuestras Oficinas & Estudio', appointment:'Visitas con cita previa', explore:'Explorar', partners:'Colaboradores y contratistas', privacy:'Política de privacidad', social:'Sigue y contacta con EcoViva', whatsappMessage:'Hola EcoViva, me gustaría recibir más información sobre la reforma de mi propiedad en Mallorca.', footerTag:'Reformas · Aislamiento · Fachadas · Cubiertas · Solar'
   },
   de: {
     what:'Leistungen', all:'Alle Renovierungslösungen', roof:'Dachsanierung', facade:'Fassaden & WDVS', check:'Technischer Immobiliencheck', examples:'Renovierungsbeispiele', how:'Unser Ablauf', why:'Warum EcoViva', technical:'Technische Bibliothek', guides:'Ratgeber', areas:'Regionen', work:'Mit uns arbeiten', who:'Über uns', office:'Büro & Studio', contact:'Kontakt', brochure:'Unternehmensbroschüre', cta:'Renovierung starten', nav:'Hauptnavigation', language:'Sprache', menu:'Menü öffnen',
-    footerIntro:'Komplette Renovierungslösungen für Immobilien auf Mallorca – technisch geprüft und professionell koordiniert.', visit:'Besuchen Sie unser Büro & Studio', appointment:'Besuche nach Terminvereinbarung', explore:'Entdecken', partners:'Partner & Fachbetriebe', privacy:'Datenschutz', footerTag:'Renovierung · Dämmung · Fassaden · Dächer · Solar'
+    footerIntro:'Komplette Renovierungslösungen für Immobilien auf Mallorca – technisch geprüft und professionell koordiniert.', visit:'Besuchen Sie unser Büro & Studio', appointment:'Besuche nach Terminvereinbarung', explore:'Entdecken', partners:'Partner & Fachbetriebe', privacy:'Datenschutz', social:'EcoViva folgen & kontaktieren', whatsappMessage:'Hallo EcoViva, ich möchte mehr über die Renovierung meiner Immobilie auf Mallorca erfahren.', footerTag:'Renovierung · Dämmung · Fassaden · Dächer · Solar'
   }
 };
 
@@ -80,7 +86,9 @@ function headerHtml(lang, context, html){
 function footerHtml(lang){
   const c = copy[lang] || copy.en;
   const rootUrl = `/${lang}/`;
-  return `<footer class="site-footer shared-site-footer"><div class="shared-footer-shell"><div class="footer-grid"><div class="footer-brand"><img src="/assets/logos/ecoviva-horizontal-header.png" alt="EcoViva Mallorca"><p>${c.footerIntro}</p></div><div class="footer-column"><h3>${c.visit}</h3><strong class="appointment-note">${c.appointment}</strong><span>Passeig de Mallorca, 14-A<br>Entresuelo 2, Puerta E<br>07012 Palma</span><a href="tel:+34871532758">+34 871 53 27 58</a><a href="mailto:info@ecoviva-mallorca.com">info@ecoviva-mallorca.com</a></div><div class="footer-column"><h3>${c.explore}</h3><a href="${roofUrls[lang]}">${c.roof}</a><a href="${facadeUrls[lang]}">${c.facade}</a><a href="${rootUrl}#renovation-request">${c.cta}</a><a href="${rootUrl}#professionals">${c.partners}</a><a href="/technical-library/${lang}/">${c.technical}</a><a href="${guideHubUrls[lang]}">${c.guides}</a><a href="${rootUrl}brochure/">${c.brochure}</a><a href="${privacyUrls[lang]}">${c.privacy}</a></div></div><div class="footer-bottom"><span>© 2026 EcoViva Mallorca SL</span><span>${c.footerTag}</span></div></div></footer>`;
+  const whatsappUrl = `${socialUrls.whatsapp}?text=${encodeURIComponent(c.whatsappMessage)}`;
+  const social = `<nav class="footer-socials" aria-label="${c.social}"><a href="${socialUrls.instagram}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">IG</span>Instagram</a><a href="${socialUrls.facebook}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">f</span>Facebook</a><a class="footer-whatsapp" href="${whatsappUrl}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">WA</span>WhatsApp</a></nav>`;
+  return `<footer class="site-footer shared-site-footer"><div class="shared-footer-shell"><div class="footer-grid"><div class="footer-brand"><img src="/assets/logos/ecoviva-horizontal-header.png" alt="EcoViva Mallorca"><p>${c.footerIntro}</p>${social}</div><div class="footer-column"><h3>${c.visit}</h3><strong class="appointment-note">${c.appointment}</strong><span>Passeig de Mallorca, 14-A<br>Entresuelo 2, Puerta E<br>07012 Palma</span><a href="tel:+34871532758">+34 871 53 27 58</a><a href="mailto:info@ecoviva-mallorca.com">info@ecoviva-mallorca.com</a></div><div class="footer-column"><h3>${c.explore}</h3><a href="${roofUrls[lang]}">${c.roof}</a><a href="${facadeUrls[lang]}">${c.facade}</a><a href="${rootUrl}#renovation-request">${c.cta}</a><a href="${rootUrl}#professionals">${c.partners}</a><a href="/technical-library/${lang}/">${c.technical}</a><a href="${guideHubUrls[lang]}">${c.guides}</a><a href="${rootUrl}brochure/">${c.brochure}</a><a href="${privacyUrls[lang]}">${c.privacy}</a></div></div><div class="footer-bottom"><span>© 2026 EcoViva Mallorca SL</span><span>${c.footerTag}</span></div></div></footer>`;
 }
 
 function cleanTechnicalActions(file, html, context){
@@ -135,6 +143,7 @@ for(const file of await walk(publicDir)){
   html=html.replace(/\/assets\/shared-header\.js\?v=[^"']+/g,`/assets/shared-header.js?v=${version}`);
   if(!html.includes('/assets/shared-header.css')) html=html.replace('</head>',`  <link rel="stylesheet" href="/assets/shared-header.css?v=${version}">\n</head>`);
   if(!html.includes('/assets/shared-footer.css')) html=html.replace('</head>',`  <link rel="stylesheet" href="/assets/shared-footer.css?v=${version}">\n</head>`);
+  if(!html.includes('/assets/social-footer.css')) html=html.replace('</head>',`  <link rel="stylesheet" href="/assets/social-footer.css?v=20260906-v1">\n</head>`);
   if(context === 'guides' && !html.includes('data-guide-mobile-nav-fix')) {
     html=html.replace('</head>',`  <style data-guide-mobile-nav-fix>
     .guide-page .guide-hero{margin-top:0!important}
