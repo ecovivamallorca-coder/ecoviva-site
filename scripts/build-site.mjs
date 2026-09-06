@@ -6,10 +6,12 @@ const steps = [
   'publish-guides-hub.mjs',
   'publish-damp-guide.mjs',
   'publish-water-efficiency-guide.mjs',
+  'publish-summer-heat-guide.mjs',
   'publish-technical-check.mjs',
   'sync-shared-header.mjs',
   'activate-guides-chrome.mjs',
-  'link-roof-facade-services.mjs'
+  'link-roof-facade-services.mjs',
+  'link-summer-heat-guide.mjs'
 ];
 
 for (const script of steps) {
