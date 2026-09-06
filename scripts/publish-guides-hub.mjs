@@ -12,7 +12,7 @@ const data={
 
 for (const guideHub of Object.values(data)) {
   const waterGuide = guideHub.cards.find(([, , href]) => href.includes('water-efficient-renovation') || href.includes('reforma-eficiente-agua') || href.includes('wassersparende-sanierung'));
-  if (waterGuide) waterGuide[3] = '/assets/guides/water-efficiency/water-smart-mallorca-hero.webp';
+  if (waterGuide) waterGuide[3] = '/assets/guides/water-efficiency/water-smart-mallorca-hero-v2.webp';
 }
 
 const alternates=Object.entries(routes).map(([l,r])=>`<link rel="alternate" hreflang="${l}" href="${base}${r}">`).join('');
