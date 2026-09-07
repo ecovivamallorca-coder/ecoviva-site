@@ -33,6 +33,18 @@ const privacyUrls = { en:'/en/privacy-policy/', es:'/es/politica-de-privacidad/'
 const checkUrls = { en:'/en/technical-property-renovation-check-mallorca/', es:'/es/revision-tecnica-compra-reforma-mallorca/', de:'/de/technischer-immobiliencheck-renovierung-mallorca/' };
 const roofUrls = { en:'/en/roof-renovation-mallorca/', es:'/es/reforma-cubierta-mallorca/', de:'/de/dachsanierung-mallorca/' };
 const facadeUrls = { en:'/en/facade-renovation-mallorca/', es:'/es/reforma-fachada-mallorca/', de:'/de/fassadensanierung-mallorca/' };
+const serviceUrls = {
+  en: { windows:'/en/windows-doors-mallorca/', solar:'/en/energy-renovation-mallorca/', interiors:'/en/interior-renovation-mallorca/', terraces:'/en/terrace-renovation-mallorca/' },
+  es: { windows:'/es/ventanas-puertas-mallorca/', solar:'/es/reforma-energetica-mallorca/', interiors:'/es/reforma-interior-mallorca/', terraces:'/es/reforma-terraza-mallorca/' },
+  de: { windows:'/de/fenster-tueren-mallorca/', solar:'/de/energetische-sanierung-mallorca/', interiors:'/de/innenrenovierung-mallorca/', terraces:'/de/terrassensanierung-mallorca/' }
+};
+
+function replaceStaleServiceLinks(html, lang){
+  for(const [service, url] of Object.entries(serviceUrls[lang])){
+    html = html.replaceAll(`/technical-library/${lang}/guide-in-development/?service=${service}`, url);
+  }
+  return html;
+}
 
 function addCheckLinks(html, lang){
   const c = copy[lang] || copy.en;
@@ -134,6 +146,7 @@ for(const file of await walk(publicDir)){
   const context=contextFor(file);
   const nextHeader=headerHtml(lang,context,html);
   const nextFooter=footerHtml(lang);
+  html = replaceStaleServiceLinks(html, lang);
   html = html.replace(/<header\b[^>]*class=["'][^"']*(?:shared-site-header|roof-site-header|site-header|brochure-header)[^"']*["'][^>]*>[\s\S]*?<\/header>/i,nextHeader);
   html = html.replace(/<footer\b[^>]*class=["'][^"']*(?:shared-site-footer|roof-site-footer|site-footer|brochure-footer)[^"']*["'][^>]*>[\s\S]*?<\/footer>/i,nextFooter);
   html = addCheckLinks(html, lang);
