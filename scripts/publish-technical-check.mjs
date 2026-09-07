@@ -175,7 +175,7 @@ for (const [lang,p] of Object.entries(pages)) {
 const smPath = path.join(pub,'sitemap.xml');
 let sm = await fs.readFile(smPath,'utf8');
 sm = sm.replace(/\s*<!-- TECHNICAL-CHECK-SITEMAP:START -->[\s\S]*?<!-- TECHNICAL-CHECK-SITEMAP:END -->\s*/g,'\n');
-const sitemapRows = Object.entries(urls).map(([lang,url])=>`  <url><loc>${base}${url}</loc>${Object.entries(urls).map(([l,u])=>`<xhtml:link rel="alternate" hreflang="${l}" href="${base}${u}"/>`).join('')}${lang==='en'?`<xhtml:link rel="alternate" hreflang="x-default" href="${base}${urls.en}"/>`:''}</url>`).join('\n');
+const sitemapRows = Object.entries(urls).map(([,url])=>`  <url><loc>${base}${url}</loc>${Object.entries(urls).map(([l,u])=>`<xhtml:link rel="alternate" hreflang="${l}" href="${base}${u}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="${base}${urls.en}"/></url>`).join('\n');
 sm = sm.replace('</urlset>',`  <!-- TECHNICAL-CHECK-SITEMAP:START -->\n${sitemapRows}\n  <!-- TECHNICAL-CHECK-SITEMAP:END -->\n</urlset>`);
 await fs.writeFile(smPath,sm);
 
