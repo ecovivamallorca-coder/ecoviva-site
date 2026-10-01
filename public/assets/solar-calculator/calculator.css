@@ -6,3 +6,5 @@
 .sc-support select{display:block;width:100%;padding:14px;margin:12px 0;border:1px solid #c9d0c4;border-radius:8px;background:#fff;font:inherit;color:#213c27}.sc-support table th,.sc-support table td{padding:12px 8px;border-bottom:1px solid #ced6c7;font-size:.9rem}.sc-support input[type=checkbox]{width:20px;height:20px;vertical-align:middle}
 
 [data-aid-tax][hidden],[data-aid-grant][hidden],[data-aid-confirm][hidden]{display:none!important}
+
+.sc-payback{background:#d7e9c5;color:var(--sc-green)}.sc-benefits strong{font-size:clamp(36px,4.5vw,52px)}.sc-details strong{font-size:28px}.sc-result-conditions{font-size:14px;line-height:1.65;margin-bottom:20px}.sc-benefits small{font-size:14px}
