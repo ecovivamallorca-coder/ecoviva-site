@@ -9,6 +9,7 @@ const steps = [
   'publish-summer-heat-guide.mjs',
   'publish-technical-check.mjs',
   'publish-solar-service.mjs',
+  'publish-solar-calculator.mjs',
   'sync-shared-header.mjs',
   'activate-guides-chrome.mjs',
   'link-roof-facade-services.mjs',
