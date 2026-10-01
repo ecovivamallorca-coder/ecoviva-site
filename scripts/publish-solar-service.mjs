@@ -52,9 +52,9 @@ de:{
 };
 for(const l of langs){
  const c=C[l],p=premium[l];c.hero=p.hero;c.lead=p.lead;c.partnerTitle=p.partnerTitle;c.partner=p.partner;
- c.meta=p.lead;c.faqs.splice(4,1);c.packs[0][3]=p.price;
+ c.meta=p.lead;c.faqs.splice(4,1);c.packs[0][3]=p.price.replace('6,250','6,000').replace('6.250','6.000');
  c.homeText=p.lead;
- c.budgetNote=c.budgetNote.replace('The €7,500 figure is a planning estimate','The €6,250 and €7,500 figures are planning estimates').replace('Los 7.500 € son','Los 6.250 € y 7.500 € son').replace('7.500 € ist','6.250 € und 7.500 € sind');
+ c.budgetNote=c.budgetNote.replace('The €7,500 figure is a planning estimate','The €6,000 and €7,500 figures are planning estimates').replace('Los 7.500 € son','Los 6.000 € y 7.500 € son').replace('7.500 € ist','6.000 € und 7.500 € sind');
 }
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const su=l=>`/${l}/${service[l]}/`,tu=l=>`/technical-library/${l}/${technical[l]}/`,request=l=>`/${l}/#renovation-request`;
