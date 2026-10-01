@@ -6,6 +6,8 @@ await fs.mkdir(outDir, { recursive: true });
 
 // Pexels free-to-use source images. Keep the source IDs here for licensing traceability.
 const assets = [
+  // Pexels stock image 159397: illustrative solar array, not an EcoViva project.
+  ['solar-panels-mallorca-v1.jpg', 'https://images.pexels.com/photos/159397/solar-panel-array-power-sun-electricity-159397.jpeg?auto=compress&cs=tinysrgb&w=2000'],
   // Approved: weathered traditional clay roof that clearly needs renovation.
   ['roof-renovation-mallorca-v3.jpg', 'https://images.pexels.com/photos/15562216/pexels-photo-15562216.jpeg?auto=compress&cs=tinysrgb&w=2000'],
   // Approved: wider Mallorcan facade in Soller, suitable as a renovation-before image.
