@@ -2,8 +2,9 @@ import {estimateSolar} from './model.mjs?v=6';
 const form=document.querySelector('#solar-calculator'),c=JSON.parse(document.querySelector('#sc-copy').textContent),lang=document.documentElement.lang;
 const money=new Intl.NumberFormat(lang,{style:'currency',currency:'EUR',maximumFractionDigits:0}),number=new Intl.NumberFormat(lang,{maximumFractionDigits:0});
 let data=null,last=null,step=0,lastSummary='';
+// Dedicated Solar intake starts on contact details; general enquiries keep their existing form.
 // Change only this mapping when translated production intakes are ready.
-const intakeByLanguage={en:{id:'59qsbh9ckrus',client:'I have a property or project',solar:'Solar and battery installation'},es:{id:'59qsbh9ckrus',client:'I have a property or project',solar:'Solar and battery installation'},de:{id:'59qsbh9ckrus',client:'I have a property or project',solar:'Solar and battery installation'}};
+const intakeByLanguage={en:{id:'vXyCV7KGHWus',client:'I have a property or project',solar:'Solar and battery installation'},es:{id:'vXyCV7KGHWus',client:'I have a property or project',solar:'Solar and battery installation'},de:{id:'vXyCV7KGHWus',client:'I have a property or project',solar:'Solar and battery installation'}};
 const valueInput=form.elements.consumption,calculate=document.querySelector('#sc-calculate'),error=document.querySelector('#sc-error');
 calculate.disabled=true;calculate.textContent=c.loading;
 fetch('/assets/solar-calculator/pvgis-data.json?v=2').then(r=>{if(!r.ok)throw new Error('data');return r.json()}).then(d=>{data=d;calculate.disabled=false;calculate.textContent=c.calculate+' →'}).catch(()=>{error.textContent=c.unavailable;calculate.textContent=c.calculate});
