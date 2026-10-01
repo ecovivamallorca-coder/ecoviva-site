@@ -78,7 +78,8 @@
     "pdfApplications": "APPLICATIONS",
     "pdfElectric": "ENERGY & ELECTRICAL DESIGN",
     "pdfContact": "Discuss your solar installation",
-    "pdfPrinciples": "Design the support system for the roof structure and wind exposure. Preserve waterproofing, drainage and maintenance access. Confirm equipment, protections, metering and registration with the appointed electrical specialist."
+    "pdfPrinciples": "Design the support system for the roof structure and wind exposure. Preserve waterproofing, drainage and maintenance access. Confirm equipment, protections, metering and registration with the appointed electrical specialist.",
+    "heroPartner": "In collaboration with TLS Balear"
   },
   "es": {
     "hero": "Energía solar adaptada a tu propiedad.",
@@ -159,7 +160,8 @@
     "pdfApplications": "APLICACIONES",
     "pdfElectric": "ENERGÍA Y DISEÑO ELÉCTRICO",
     "pdfContact": "Hablar de tu instalación solar",
-    "pdfPrinciples": "Diseñar los soportes según estructura y exposición al viento. Preservar impermeabilización, drenaje y acceso de mantenimiento. Confirmar equipos, protecciones, medición y registro con el especialista eléctrico designado."
+    "pdfPrinciples": "Diseñar los soportes según estructura y exposición al viento. Preservar impermeabilización, drenaje y acceso de mantenimiento. Confirmar equipos, protecciones, medición y registro con el especialista eléctrico designado.",
+    "heroPartner": "En colaboración con TLS Balear"
   },
   "de": {
     "hero": "Solarenergie, passend zu Ihrer Immobilie.",
@@ -240,6 +242,7 @@
     "pdfApplications": "ANWENDUNGEN",
     "pdfElectric": "ENERGIE & ELEKTROPLANUNG",
     "pdfContact": "Solaranlage besprechen",
-    "pdfPrinciples": "Unterkonstruktion auf Dachtragwerk und Windexposition abstimmen. Abdichtung, Entwässerung und Wartungszugang erhalten. Technik, Schutz, Messung und Anmeldung mit dem beauftragten Elektrofachbetrieb bestätigen."
+    "pdfPrinciples": "Unterkonstruktion auf Dachtragwerk und Windexposition abstimmen. Abdichtung, Entwässerung und Wartungszugang erhalten. Technik, Schutz, Messung und Anmeldung mit dem beauftragten Elektrofachbetrieb bestätigen.",
+    "heroPartner": "In Zusammenarbeit mit TLS Balear"
   }
 }
