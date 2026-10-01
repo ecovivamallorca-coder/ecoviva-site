@@ -43,3 +43,19 @@ for(const battery of ['no','yes']){
  const r=estimateSolar({...base,battery},data);
  console.log(JSON.stringify({battery,investment:r.investment,saving:Math.round(r.centralSavings),range:r.savings.map(Math.round),payback:r.centralPayback.toFixed(1)}));
 }
+const conditional={...base,aidConfirmed:true,supportYear:2};
+assert.equal(estimateSolar({...conditional,aidScheme:'balearic',taxAvailable:2000},data).support,2000);
+assert.equal(estimateSolar({...conditional,aidScheme:'balearic',taxAvailable:10000},data).support,4537.5);
+assert.equal(estimateSolar({...conditional,aidScheme:'state40',taxAvailable:10000},data).support,3000);
+assert.equal(estimateSolar({...conditional,aidScheme:'state10',taxAvailable:10000},data).support,500);
+for(const [panels,ceiling] of [['12',1361.25],['16',2722.5]]){
+ const r=estimateSolar({...conditional,panels,battery:'yes',aidScheme:'factor',grantTax:.2},data);
+ assert(Math.abs(r.aidCeiling-ceiling)<1e-8);assert(Math.abs(r.support-ceiling*.8)<1e-8);
+}
+assert.throws(()=>estimateSolar({...conditional,aidScheme:'factor',grantTax:0},data));
+assert.throws(()=>estimateSolar({...conditional,aidScheme:'balearic'},data));
+assert.throws(()=>estimateSolar({...conditional,aidScheme:'state40',taxAvailable:10000,aidConfirmed:false},data));
+assert.throws(()=>estimateSolar({...conditional,aidScheme:'state40',taxAvailable:10000,support:100},data));
+const delayed=estimateSolar({...base,support:7000,supportYear:8},data);
+assert.equal(delayed.supportedPayback,8);
+console.log('Support ceilings, usable tax caps, no stacking, grant taxation and receipt timing checks passed.');

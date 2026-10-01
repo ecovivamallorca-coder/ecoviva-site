@@ -1,4 +1,4 @@
-import {packages,batteryExample,defaultVat} from './packages.mjs?v=3';
+import {packages,batteryExample,defaultVat} from './packages.mjs?v=4';
 const days=[31,28,31,30,31,30,31,31,30,31,30,31];
 export function estimateSolar(input,data){
  const {region,roof,shade,use,mode,value,tariff,fixed}=input;
@@ -52,11 +52,33 @@ export function estimateSolar(input,data){
  const defaultInvestment=net*(1+vat);
  const investment=input.investment===undefined||input.investment===''?defaultInvestment:Number(input.investment);
  if(!Number.isFinite(investment)||investment<1000||investment>100000)throw new Error('invalid');
- const support=input.support===undefined||input.support===''?0:Number(input.support);
+ const scheme=input.aidScheme||'none';
+ if(!['none','factor','balearic','state40','state10'].includes(scheme))throw new Error('invalid');
+ let support=input.support===undefined||input.support===''?0:Number(input.support);
+ let aidCeiling=0;
+ if(scheme!=='none'){
+  if(!input.aidConfirmed)throw new Error('aidconditions');
+  if(support!==0)throw new Error('aidcombine');
+  if(scheme==='factor'){
+   if(!batteryUnits)throw new Error('aidbattery');
+   const capacity=batteryUnits*batteryExample.nominalKwh;
+   aidCeiling=.45*Math.min(batteryUnits*batteryExample.netAllowance*(1+vat),capacity*(capacity<=10?910:650));
+   const grantTax=input.grantTax===''||input.grantTax===undefined?NaN:Number(input.grantTax);
+   if(!Number.isFinite(grantTax)||grantTax<0||grantTax>.6)throw new Error('aidtax');
+   support=aidCeiling*(1-grantTax);
+  }else{
+   aidCeiling=scheme==='balearic'?.5*Math.min(investment,10000):scheme==='state40'?.4*Math.min(investment,7500):.1*Math.min(investment,5000);
+   const quota=input.taxAvailable===''||input.taxAvailable===undefined?NaN:Number(input.taxAvailable);
+   if(!Number.isFinite(quota)||quota<0||quota>100000)throw new Error('aidquota');
+   support=Math.min(aidCeiling,quota);
+  }
+ }
+ const supportYear=input.supportYear===undefined?0:Number(input.supportYear);
+ if(!Number.isFinite(supportYear)||supportYear<0||supportYear>10)throw new Error('invalid');
  if(!Number.isFinite(support)||support<0||support>=investment)throw new Error('invalid');
  const netInvestment=investment-support;
- const supportedPayback=center.savings>0?netInvestment/center.savings:null;
+ const supportedPayback=center.savings>0?(investment/center.savings<=supportYear?investment/center.savings:Math.max(supportYear,netInvestment/center.savings)):null;
  const savings=range('savings');
  const payback=[savings[1]>0?investment/savings[1]:null,savings[0]>0?investment/savings[0]:null];
- return {support,netInvestment,supportedPayback,production:range('production'),savings,centralSavings:center.savings,centralProduction:center.production,batteryEnergy:center.stored,exportCredit:center.exportCredit,exported:center.exported,selfUseSaving:center.selfUseSaving,exportRate,consumption,kwp,panels,suggestedPanels,battery,tariff,fixed,shadow,daytimeShare,investment,defaultInvestment,net,vat,payback,centralPayback:center.savings>0?investment/center.savings:null,usableBattery,batteryUnits,batteryNominalKwh:batteryUnits*batteryExample.nominalKwh};
+ return {aidScheme:scheme,aidCeiling,supportYear,support,netInvestment,supportedPayback,production:range('production'),savings,centralSavings:center.savings,centralProduction:center.production,batteryEnergy:center.stored,exportCredit:center.exportCredit,exported:center.exported,selfUseSaving:center.selfUseSaving,exportRate,consumption,kwp,panels,suggestedPanels,battery,tariff,fixed,shadow,daytimeShare,investment,defaultInvestment,net,vat,payback,centralPayback:center.savings>0?investment/center.savings:null,usableBattery,batteryUnits,batteryNominalKwh:batteryUnits*batteryExample.nominalKwh};
 }

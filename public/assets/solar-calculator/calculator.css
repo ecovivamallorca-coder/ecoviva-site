@@ -2,3 +2,7 @@
 .sc-result-grid{grid-template-columns:1fr 1fr}.sc-result-grid strong{white-space:normal;font-size:clamp(28px,3.2vw,39px)}.sc-result-grid small{line-height:1.6}.sc-result-grid article>p{min-height:18px}@media(max-width:650px){.sc-result-grid{grid-template-columns:1fr}.sc-result-grid strong{font-size:34px}}
 
 .sc-support{margin:24px 0;padding:24px;background:#edf1e8;border-radius:14px}.sc-support strong{font-size:32px}.sc-support p{line-height:1.6}
+
+.sc-support select{display:block;width:100%;padding:14px;margin:12px 0;border:1px solid #c9d0c4;border-radius:8px;background:#fff;font:inherit;color:#213c27}.sc-support table th,.sc-support table td{padding:12px 8px;border-bottom:1px solid #ced6c7;font-size:.9rem}.sc-support input[type=checkbox]{width:20px;height:20px;vertical-align:middle}
+
+[data-aid-tax][hidden],[data-aid-grant][hidden],[data-aid-confirm][hidden]{display:none!important}
