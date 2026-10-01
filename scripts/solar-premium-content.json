@@ -1,0 +1,245 @@
+{
+  "en": {
+    "hero": "Solar energy, designed around your property.",
+    "lead": "Premium solar panels and optional battery storage for Mallorca homes. Carefully integrated with your roof, architecture and everyday energy use.",
+    "partnerTitle": "Joining forces for solar in Mallorca.",
+    "partner": "EcoViva and TLS Balear bring together roof and renovation expertise with specialist solar technology. A carefully planned combination of mounting, electrical integration and commissioning.",
+    "overviewTitle": "A complete system, from roof to energy.",
+    "overview": "The roof remains the weatherproof envelope. Above it, the mounting system supports the modules and transfers loads to the structure. Electrical conversion, protection and optional storage complete the installation.",
+    "pitchedTitle": "Solar on a traditional tiled roof",
+    "pitchedIntro": "A layered roof, a precise connection and a discreet array. Solar is installed above the tiles while maintaining the roof’s drainage and ventilation.",
+    "flatTitle": "Solar above an insulated flat roof",
+    "flatIntro": "Low-profile supports sit above the waterproofing. Protection pads, roof capacity, drainage and wind design determine the mounting and ballast.",
+    "layersTitle": "Roof build-up & solar integration",
+    "pitchedLayers": [
+      "Structural timber & roof deck",
+      "Vapour control & insulation",
+      "Underlay & ventilated battens",
+      "Terracotta roof tiles",
+      "Structural roof hooks & rails",
+      "Photovoltaic modules"
+    ],
+    "flatLayers": [
+      "Structural joists & roof deck",
+      "Vapour control layer",
+      "Rigid thermal insulation",
+      "Continuous waterproofing",
+      "Protection pads & support system",
+      "Photovoltaic modules"
+    ],
+    "layerNote": "Example insulated roof build-ups. Existing roofs may have a different construction; solar installation does not automatically include new insulation or a roof renovation.",
+    "detailsTitle": "The details that make the installation.",
+    "detailsIntro": "Original ProMount product images from the TLS-Solutions material proposal. Final dimensions, fixing spacing, ballast and article references are specified for the installation.",
+    "details": [
+      [
+        "Double-adjustable roof hook",
+        "ProMount adjustable connection for pitched roofs."
+      ],
+      [
+        "Aluminium mounting rail",
+        "ProMount rail supporting the panel array."
+      ],
+      [
+        "Click middle clamp",
+        "ProMount clamp between adjacent modules."
+      ],
+      [
+        "Click end clamp",
+        "ProMount fixing at the end of the panel row."
+      ],
+      [
+        "SOLARSPEED east-west profile",
+        "ProMount support profile for opposing module orientations."
+      ],
+      [
+        "SOLARSPEED side plate",
+        "Matching side plate for the selected support layout."
+      ],
+      [
+        "Ballast holder",
+        "ProMount tray for the calculated ballast."
+      ]
+    ],
+    "galleryTitle": "Three settings. One carefully designed system.",
+    "galleryIntro": "A discreet installation should suit the architecture and the available space.",
+    "imageNote": "Illustrative installation concepts; not completed EcoViva projects.",
+    "renderNote": "Illustrative roof build-up; final fixing, weatherproofing and load design are project-specific.",
+    "download": "Download technical sheet",
+    "back": "Back to Technical Library",
+    "electrical": "From sunlight to useful electricity",
+    "equipmentEyebrow": "SYSTEM TECHNOLOGY",
+    "batteryTitle": "Store a share of your solar energy.",
+    "batteryText": "Optional AC-coupled storage can make daytime generation available later. Capacity, metering and any backup function are selected for your consumption and electrical installation.",
+    "price": "Indicative budget: around €6,250 excl. VAT",
+    "pdfTitle": "SOLAR PANELS & BATTERY SYSTEM",
+    "pdfSubtitle": "Roof integration · Mounting details · Electrical system",
+    "pdfMounting": "ROOF INTEGRATION",
+    "pdfDetails": "MOUNTING & COMPONENTS",
+    "pdfApplications": "APPLICATIONS",
+    "pdfElectric": "ENERGY & ELECTRICAL DESIGN",
+    "pdfContact": "Discuss your solar installation",
+    "pdfPrinciples": "Design the support system for the roof structure and wind exposure. Preserve waterproofing, drainage and maintenance access. Confirm equipment, protections, metering and registration with the appointed electrical specialist."
+  },
+  "es": {
+    "hero": "Energía solar adaptada a tu propiedad.",
+    "lead": "Paneles solares de calidad y baterías opcionales para viviendas en Mallorca. Integrados cuidadosamente con la cubierta, la arquitectura y el uso diario de energía.",
+    "partnerTitle": "Unimos fuerzas para la energía solar en Mallorca.",
+    "partner": "EcoViva y TLS Balear combinan experiencia en cubiertas y reformas con tecnología solar especializada. Una solución cuidadosamente planificada de montaje, integración eléctrica y puesta en marcha.",
+    "overviewTitle": "Un sistema completo, de la cubierta a la energía.",
+    "overview": "La cubierta mantiene la protección frente al agua. Sobre ella, el sistema de montaje sostiene los módulos y transmite las cargas a la estructura. Conversión eléctrica, protecciones y almacenamiento opcional completan la instalación.",
+    "pitchedTitle": "Solar sobre una cubierta tradicional de teja",
+    "pitchedIntro": "Una cubierta por capas, una conexión precisa y paneles discretos. El montaje se realiza sobre las tejas, conservando drenaje y ventilación.",
+    "flatTitle": "Solar sobre una cubierta plana aislada",
+    "flatIntro": "Los soportes de baja altura se sitúan sobre la impermeabilización. Las bases protectoras, capacidad de carga, drenaje y viento determinan el montaje y lastre.",
+    "layersTitle": "Capas de cubierta e integración solar",
+    "pitchedLayers": [
+      "Estructura de madera y tablero",
+      "Control de vapor y aislamiento",
+      "Lámina bajo teja y rastreles ventilados",
+      "Tejas de terracota",
+      "Ganchos estructurales y carriles",
+      "Módulos fotovoltaicos"
+    ],
+    "flatLayers": [
+      "Vigas estructurales y tablero",
+      "Capa de control de vapor",
+      "Aislamiento térmico rígido",
+      "Impermeabilización continua",
+      "Bases protectoras y soportes",
+      "Módulos fotovoltaicos"
+    ],
+    "layerNote": "Ejemplos de cubiertas aisladas. La construcción existente puede ser diferente; instalar solar no incluye automáticamente un nuevo aislamiento o reforma de cubierta.",
+    "detailsTitle": "Los detalles que definen la instalación.",
+    "detailsIntro": "Imágenes originales de productos ProMount de la propuesta de materiales TLS-Solutions. Dimensiones, separación, lastre y referencias se definen para la instalación.",
+    "details": [
+      [
+        "Gancho doble ajustable",
+        "Conexión ProMount regulable para cubiertas inclinadas."
+      ],
+      [
+        "Carril de aluminio",
+        "Carril ProMount que soporta los módulos."
+      ],
+      [
+        "Abrazadera central de clic",
+        "Fijación ProMount entre módulos contiguos."
+      ],
+      [
+        "Abrazadera final de clic",
+        "Fijación ProMount al final de la fila."
+      ],
+      [
+        "Perfil SOLARSPEED este-oeste",
+        "Perfil ProMount para orientaciones opuestas."
+      ],
+      [
+        "Placa lateral SOLARSPEED",
+        "Placa lateral correspondiente al montaje elegido."
+      ],
+      [
+        "Soporte de lastre",
+        "Bandeja ProMount para el lastre calculado."
+      ]
+    ],
+    "galleryTitle": "Tres ubicaciones. Un sistema bien diseñado.",
+    "galleryIntro": "Una instalación discreta debe adaptarse a la arquitectura y al espacio disponible.",
+    "imageNote": "Conceptos ilustrativos de instalación; no son proyectos ejecutados por EcoViva.",
+    "renderNote": "Cubierta ilustrativa; fijaciones, estanqueidad y cálculo de cargas se definen por proyecto.",
+    "download": "Descargar ficha técnica",
+    "back": "Volver a la Biblioteca Técnica",
+    "electrical": "De la luz solar a la electricidad útil",
+    "equipmentEyebrow": "TECNOLOGÍA DEL SISTEMA",
+    "batteryTitle": "Almacena parte de tu energía solar.",
+    "batteryText": "El almacenamiento opcional acoplado en CA permite utilizar después parte de la generación diurna. Capacidad, medición y posible respaldo se seleccionan según el consumo y la instalación eléctrica.",
+    "price": "Inversión orientativa: unos 6.250 € sin IVA",
+    "pdfTitle": "SISTEMA FOTOVOLTAICO Y BATERÍAS",
+    "pdfSubtitle": "Integración en cubierta · Montaje · Sistema eléctrico",
+    "pdfMounting": "INTEGRACIÓN EN CUBIERTA",
+    "pdfDetails": "MONTAJE Y COMPONENTES",
+    "pdfApplications": "APLICACIONES",
+    "pdfElectric": "ENERGÍA Y DISEÑO ELÉCTRICO",
+    "pdfContact": "Hablar de tu instalación solar",
+    "pdfPrinciples": "Diseñar los soportes según estructura y exposición al viento. Preservar impermeabilización, drenaje y acceso de mantenimiento. Confirmar equipos, protecciones, medición y registro con el especialista eléctrico designado."
+  },
+  "de": {
+    "hero": "Solarenergie, passend zu Ihrer Immobilie.",
+    "lead": "Hochwertige Photovoltaik und optionaler Batteriespeicher für Häuser auf Mallorca. Sorgfältig abgestimmt auf Dach, Architektur und Ihren täglichen Energieverbrauch.",
+    "partnerTitle": "Gemeinsam für Solarenergie auf Mallorca.",
+    "partner": "EcoViva und TLS Balear verbinden Dach- und Renovierungskompetenz mit spezialisierter Solartechnik. Eine sorgfältig geplante Kombination aus Montage, elektrischer Integration und Inbetriebnahme.",
+    "overviewTitle": "Ein vollständiges System, vom Dach zur Energie.",
+    "overview": "Das Dach bleibt die wetterfeste Gebäudehülle. Darüber trägt das Montagesystem die Module und leitet Lasten in die Tragstruktur. Stromumwandlung, Schutz und optionaler Speicher ergänzen die Installation.",
+    "pitchedTitle": "Photovoltaik auf dem traditionellen Ziegeldach",
+    "pitchedIntro": "Ein durchdachter Dachaufbau, präzise Anschlüsse und ein dezentes Modulfeld. Die Anlage sitzt über den Ziegeln; Entwässerung und Hinterlüftung bleiben erhalten.",
+    "flatTitle": "Photovoltaik über einem gedämmten Flachdach",
+    "flatIntro": "Niedrige Halterungen sitzen über der Abdichtung. Schutzmatten, Tragfähigkeit, Entwässerung und Windplanung bestimmen Montage und Ballastierung.",
+    "layersTitle": "Dachaufbau & Solarintegration",
+    "pitchedLayers": [
+      "Tragende Sparren & Dachschalung",
+      "Dampfbremse & Dämmung",
+      "Unterdeckung & hinterlüftete Lattung",
+      "Terrakotta-Dachziegel",
+      "Tragende Dachhaken & Schienen",
+      "Photovoltaikmodule"
+    ],
+    "flatLayers": [
+      "Tragende Balken & Dachschalung",
+      "Dampfsperre",
+      "Starre Wärmedämmung",
+      "Durchgehende Dachabdichtung",
+      "Schutzmatten & Unterkonstruktion",
+      "Photovoltaikmodule"
+    ],
+    "layerNote": "Beispielhafte gedämmte Dachaufbauten. Bestandsdächer können anders aufgebaut sein; Solarinstallation umfasst nicht automatisch eine neue Dämmung oder Dachsanierung.",
+    "detailsTitle": "Die Details einer guten Installation.",
+    "detailsIntro": "Originale ProMount-Produktbilder aus dem Materialvorschlag von TLS-Solutions. Abmessungen, Abstände, Ballast und Artikelreferenzen werden für die Anlage festgelegt.",
+    "details": [
+      [
+        "Doppelt verstellbarer Dachhaken",
+        "Verstellbarer ProMount-Anschluss für Schrägdächer."
+      ],
+      [
+        "Aluminiumschiene",
+        "ProMount-Schiene für das Modulfeld."
+      ],
+      [
+        "Klick-Mittelklemme",
+        "ProMount-Befestigung zwischen benachbarten Modulen."
+      ],
+      [
+        "Klick-Endklemme",
+        "ProMount-Befestigung am Ende der Modulreihe."
+      ],
+      [
+        "SOLARSPEED Ost-West-Profil",
+        "ProMount-Trägerprofil für entgegengesetzte Modulausrichtungen."
+      ],
+      [
+        "SOLARSPEED Seitenblech",
+        "Passendes Seitenblech für die gewählte Unterkonstruktion."
+      ],
+      [
+        "Ballasthalter",
+        "ProMount-Aufnahme für den berechneten Ballast."
+      ]
+    ],
+    "galleryTitle": "Drei Montageorte. Ein durchdachtes System.",
+    "galleryIntro": "Eine dezente Anlage sollte zu Architektur und verfügbarem Platz passen.",
+    "imageNote": "Illustrative Anlagenkonzepte; keine ausgeführten EcoViva-Projekte.",
+    "renderNote": "Illustrativer Dachaufbau; Befestigung, Abdichtung und Lasten werden objektbezogen geplant.",
+    "download": "Technisches Systemblatt herunterladen",
+    "back": "Zur Technischen Bibliothek",
+    "electrical": "Vom Sonnenlicht zum nutzbaren Strom",
+    "equipmentEyebrow": "SYSTEMTECHNIK",
+    "batteryTitle": "Einen Teil Ihres Solarstroms speichern.",
+    "batteryText": "Optionaler AC-Speicher macht einen Teil der Tageserzeugung später verfügbar. Kapazität, Messung und eine mögliche Ersatzstromfunktion werden passend zu Verbrauch und Elektroinstallation gewählt.",
+    "price": "Orientierungsbudget: ca. 6.250 € zzgl. MwSt.",
+    "pdfTitle": "PHOTOVOLTAIK- & BATTERIESYSTEM",
+    "pdfSubtitle": "Dachintegration · Montagedetails · Elektrisches System",
+    "pdfMounting": "DACHINTEGRATION",
+    "pdfDetails": "MONTAGE & KOMPONENTEN",
+    "pdfApplications": "ANWENDUNGEN",
+    "pdfElectric": "ENERGIE & ELEKTROPLANUNG",
+    "pdfContact": "Solaranlage besprechen",
+    "pdfPrinciples": "Unterkonstruktion auf Dachtragwerk und Windexposition abstimmen. Abdichtung, Entwässerung und Wartungszugang erhalten. Technik, Schutz, Messung und Anmeldung mit dem beauftragten Elektrofachbetrieb bestätigen."
+  }
+}
