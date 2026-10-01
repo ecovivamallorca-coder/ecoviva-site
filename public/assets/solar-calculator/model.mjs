@@ -1,9 +1,24 @@
 import {packages,batteryExample,defaultVat} from './packages.mjs?v=4';
 const days=[31,28,31,30,31,30,31,31,30,31,30,31];
 export function estimateSolar(input,data){
+ // Recommend from the four test budgets using unsubsidised simple payback.
+ // Never select a design merely because its assumed grant makes it look better.
+ if(input.panels===undefined||input.panels==='auto'||input.battery==='auto'){
+  const sizes=input.panels===undefined||input.panels==='auto'?[8,12,16,32]:[Number(input.panels)];
+  const batteries=input.battery==='auto'?(input.aidScheme==='factor'?['yes']:['no','yes']):[input.battery||'no'];
+  const options=sizes.flatMap(panels=>batteries.map(battery=>estimateSolar({...input,panels,battery,investment:'',aidScheme:'none',support:0,supportYear:0},data)));
+  const finite=options.filter(x=>x.centralPayback!==null);
+  const fastest=finite.length?Math.min(...finite.map(x=>x.centralPayback)):null;
+  // Prefer the lower investment when payback is within 5% of the fastest option.
+  const shortlist=fastest===null?options:finite.filter(x=>x.centralPayback<=fastest*1.05);
+  const best=shortlist.sort((a,b)=>a.investment-b.investment||a.panels-b.panels)[0];
+  return {...estimateSolar({...input,panels:best.panels,battery:best.battery},data),suggestedPanels:best.panels,autoRecommended:true};
+ }
  const {region,roof,shade,use,mode,value,tariff,fixed}=input;
  if(!['bill','kwh'].includes(mode)||!Number.isFinite(value)||!Number.isFinite(tariff)||!Number.isFinite(fixed)||tariff<.05||tariff>1||fixed<0||fixed>100||value<(mode==='bill'?25:500)||value>(mode==='bill'?1000:40000))throw new Error('invalid');
  if(mode==='bill'&&value<=fixed)throw new Error('bill');
+ const occupancy=input.occupancy||'year';
+ if(!['year','summer','occasional'].includes(occupancy))throw new Error('invalid');
  const consumption=mode==='bill'?(value-fixed)*12/tariff:value;
  const areas=region==='unknown'?Object.values(data.places):[data.places[region]];
  if(areas.some(a=>!a))throw new Error('invalid');
@@ -30,12 +45,14 @@ export function estimateSolar(input,data){
  const exportRate=input.exportRate===undefined?.05:Number(input.exportRate);
  if(!Number.isFinite(exportRate)||exportRate<0||exportRate>.5)throw new Error('invalid');
  const kwp=panels*.465;
+ const summerDays=days.slice(4,10).reduce((a,b)=>a+b,0);
+ const demandWeights=days.map((d,i)=>occupancy==='summer'?d*(i>=4&&i<=9?.8/summerDays:.2/(365-summerDays)):d/365);
  const batteryUnits=battery==='yes'?(panels>=16?2:1):0;
  const usableBattery=batteryUnits*batteryExample.nominalKwh*batteryExample.usableFraction;
  function simulation(monthly,shadeFactor,dayShare,capture){
   let production=0,direct=0,stored=0,exported=0,exportCredit=0;
   monthly.forEach((m,i)=>{
-   const pv=m*kwp*shadeFactor,demand=consumption*days[i]/365,pvDaily=pv/days[i],dayDemand=demand*dayShare/days[i],nightDemand=demand*(1-dayShare)/days[i];
+   const pv=m*kwp*shadeFactor,demand=consumption*demandWeights[i],pvDaily=pv/days[i],dayDemand=demand*dayShare/days[i],nightDemand=demand*(1-dayShare)/days[i];
    const usedDirect=Math.min(pvDaily*capture,dayDemand);
    const charge=Math.min(Math.max(0,pvDaily-usedDirect),usableBattery,batteryUnits*batteryExample.powerKw*2,nightDemand/batteryExample.roundTripEfficiency);
    const used=(usedDirect+charge*batteryExample.roundTripEfficiency)*days[i];
@@ -80,5 +97,5 @@ export function estimateSolar(input,data){
  const supportedPayback=center.savings>0?(investment/center.savings<=supportYear?investment/center.savings:Math.max(supportYear,netInvestment/center.savings)):null;
  const savings=range('savings');
  const payback=[savings[1]>0?investment/savings[1]:null,savings[0]>0?investment/savings[0]:null];
- return {aidScheme:scheme,aidCeiling,supportYear,support,netInvestment,supportedPayback,production:range('production'),savings,centralSavings:center.savings,centralProduction:center.production,batteryEnergy:center.stored,exportCredit:center.exportCredit,exported:center.exported,selfUseSaving:center.selfUseSaving,exportRate,consumption,kwp,panels,suggestedPanels,battery,tariff,fixed,shadow,daytimeShare,investment,defaultInvestment,net,vat,payback,centralPayback:center.savings>0?investment/center.savings:null,usableBattery,batteryUnits,batteryNominalKwh:batteryUnits*batteryExample.nominalKwh};
+ return {occupancy,demandWeights,aidScheme:scheme,aidCeiling,supportYear,support,netInvestment,supportedPayback,production:range('production'),savings,centralSavings:center.savings,centralProduction:center.production,batteryEnergy:center.stored,exportCredit:center.exportCredit,exported:center.exported,selfUseSaving:center.selfUseSaving,exportRate,consumption,kwp,panels,suggestedPanels,battery,tariff,fixed,shadow,daytimeShare,investment,defaultInvestment,net,vat,payback,centralPayback:center.savings>0?investment/center.savings:null,usableBattery,batteryUnits,batteryNominalKwh:batteryUnits*batteryExample.nominalKwh};
 }

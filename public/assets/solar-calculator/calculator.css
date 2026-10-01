@@ -8,3 +8,5 @@
 [data-aid-tax][hidden],[data-aid-grant][hidden],[data-aid-confirm][hidden]{display:none!important}
 
 .sc-payback{background:#d7e9c5;color:var(--sc-green)}.sc-benefits strong{font-size:clamp(36px,4.5vw,52px)}.sc-details strong{font-size:28px}.sc-result-conditions{font-size:14px;line-height:1.65;margin-bottom:20px}.sc-benefits small{font-size:14px}
+
+#bill-slider{width:100%;accent-color:var(--sc-green);margin:12px 0 20px;height:26px}.sc-lead fieldset{margin-top:20px}.sc-expert-support>.sc-support{margin-top:16px}.sc-lead .sc-choices{grid-template-columns:repeat(3,1fr)}@media(max-width:650px){.sc-lead .sc-choices{grid-template-columns:1fr}}

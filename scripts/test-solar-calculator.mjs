@@ -59,3 +59,18 @@ assert.throws(()=>estimateSolar({...conditional,aidScheme:'state40',taxAvailable
 const delayed=estimateSolar({...base,support:7000,supportYear:8},data);
 assert.equal(delayed.supportedPayback,8);
 console.log('Support ceilings, usable tax caps, no stacking, grant taxation and receipt timing checks passed.');
+for(const occupancy of ['year','summer','occasional'])for(const use of ['day','evening','mixed','unknown']){
+ const input={...base,occupancy,use,panels:'auto',battery:'auto'};
+ const r=estimateSolar(input,data);
+ assert(Math.abs(r.demandWeights.reduce((a,b)=>a+b,0)-1)<1e-10);
+ if(occupancy==='summer')assert(Math.abs(r.demandWeights.slice(4,10).reduce((a,b)=>a+b,0)-.8)<1e-10);
+ const options=[8,12,16,32].flatMap(panels=>['no','yes'].map(battery=>estimateSolar({...input,panels,battery},data)));
+ const fastest=Math.min(...options.map(x=>x.centralPayback));
+ assert(r.centralPayback<=fastest*1.05+1e-10);
+ assert.equal(r.investment,Math.min(...options.filter(x=>x.centralPayback<=fastest*1.05).map(x=>x.investment)));
+ assert(r.centralSavings<=r.consumption*r.tariff+1e-8);
+}
+const darkAuto=estimateSolar({...base,panels:'auto',battery:'auto',shade:'heavy'},data);
+assert([8,12,16,32].includes(darkAuto.panels));
+assert.throws(()=>estimateSolar({...base,occupancy:'invalid'},data));
+console.log('Seasonal demand conservation and automatic economic suggestions passed.');
