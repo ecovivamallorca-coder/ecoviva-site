@@ -16,7 +16,7 @@
 
 /* The Solar intake stays inside the calculator and keeps the site's navigation. */
 #solar-calculator[hidden],.sc-progress[hidden],.sc-intake[hidden]{display:none!important}
-.sc-intake{scroll-margin-top:24px}
+.sc-intake{scroll-margin-top:104px}
 .sc-intake-top{padding:24px 32px 18px;border-bottom:1px solid #dfe5d8;background:#f7f8f3}
 .sc-intake-top h2{font:400 clamp(25px,4vw,34px)/1.2 Georgia,serif;color:var(--sc-green);margin:22px 0 0}
 .sc-fillout{width:100%;min-height:760px;background:#fff}
