@@ -13,6 +13,11 @@ export const copy = {
     overviewTitle: "System Overview",
     overview:
       "This ventilated roof build-up combines traditional Mallorcan curved clay tiles with modern insulation, moisture control and professional detailing. The system is designed to improve thermal performance, support a healthier indoor climate and preserve the architectural character of Mallorca.",
+    serviceIntro: "Planning a complete roof renovation?",
+    serviceLinkLabel: "Explore EcoViva’s roof renovation service in Mallorca.",
+    serviceHref: "/en/roof-renovation-mallorca/",
+    ctaLabel: "Request a roof assessment",
+    ctaHref: "/en/#renovation-request",
     whyTitle: "Why EcoViva",
     why: [
       "Independent renovation guidance",
@@ -82,6 +87,11 @@ export const copy = {
     overviewTitle: "Descripción del Sistema",
     overview:
       "Esta solución de cubierta ventilada combina las tejas curvas mallorquinas tradicionales con aislamiento moderno, control de humedad y detalles constructivos profesionales. El sistema está diseñado para mejorar el rendimiento térmico, favorecer un clima interior más saludable y preservar el carácter arquitectónico de Mallorca.",
+    serviceIntro: "¿Está pensando en una reforma completa de la cubierta?",
+    serviceLinkLabel: "Descubra el servicio de reforma de cubiertas de EcoViva en Mallorca.",
+    serviceHref: "/es/reforma-cubierta-mallorca/",
+    ctaLabel: "Solicitar evaluación de cubierta",
+    ctaHref: "/es/#renovation-request",
     whyTitle: "Por qué EcoViva",
     why: [
       "Asesoramiento independiente en reformas",
@@ -151,6 +161,11 @@ export const copy = {
     overviewTitle: "Systemübersicht",
     overview:
       "Dieser hinterlüftete Dachaufbau verbindet traditionelle mallorquinische Hohlziegel mit moderner Dämmung, Feuchteschutz und fachgerechten Anschlussdetails. Das System ist darauf ausgelegt, die thermische Leistung zu verbessern, ein gesünderes Innenraumklima zu unterstützen und den architektonischen Charakter Mallorcas zu bewahren.",
+    serviceIntro: "Planen Sie eine vollständige Dachsanierung?",
+    serviceLinkLabel: "EcoVivas Dachsanierungsservice auf Mallorca ansehen.",
+    serviceHref: "/de/dachsanierung-mallorca/",
+    ctaLabel: "Dachprüfung anfragen",
+    ctaHref: "/de/#renovation-request",
     whyTitle: "Warum EcoViva",
     why: [
       "Unabhängige Renovierungsberatung",
