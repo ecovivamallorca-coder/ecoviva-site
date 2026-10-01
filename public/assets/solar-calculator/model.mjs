@@ -5,7 +5,9 @@ export function estimateSolar(input,data){
  const consumption=mode==='bill'?(value-fixed)*12/tariff:value;
  const areas=region==='unknown'?Object.values(data.places):[data.places[region]];
  if(areas.some(a=>!a))throw new Error('invalid');
- const keys=roof==='flat'?['10:-90','10:90']:roof==='unknown'?['30:-90','30:0','30:90','10:-90','10:90']:['30:-90','30:0','30:90'];
+ const lowSlope=['8.5:-90','8.5:0','8.5:90','8.5:180'];
+ const keys=roof==='pitched'?lowSlope:roof==='flat'?['10:-90','10:90']:roof==='ground'?['30:-90','30:0','30:90']:roof==='unknown'?[...lowSlope,'10:-90','10:90','30:-90','30:0','30:90']:null;
+ if(!keys)throw new Error('invalid');
  const scenarios=areas.flatMap(a=>keys.map(k=>a.scenarios[k]));
  if(scenarios.some(s=>!s||!Number.isFinite(s.yield)||s.monthly.length!==12))throw new Error('data');
  const shadow={sun:[.9,1],some:[.65,.9],heavy:[0,.65],unknown:[.55,.95]}[shade];
