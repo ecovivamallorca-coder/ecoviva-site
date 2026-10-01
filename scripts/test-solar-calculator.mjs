@@ -2,32 +2,44 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {estimateSolar} from '../public/assets/solar-calculator/model.mjs';
 const data=JSON.parse(fs.readFileSync('public/assets/solar-calculator/pvgis-data.json'));
-const base={region:'palma',roof:'pitched',shade:'sun',use:'mixed',mode:'kwh',value:6000,tariff:.25,fixed:20};
-for(const region of ['palma','calvia','andratx','north','east','unknown'])for(const roof of ['pitched','flat','ground','unknown'])for(const shade of ['sun','some','heavy','unknown'])for(const use of ['day','evening','mixed','unknown']){
- const r=estimateSolar({...base,region,roof,shade,use},data);
+const base={region:'palma',roof:'pitched',shade:'sun',use:'mixed',mode:'kwh',value:6000,tariff:.25,fixed:20,panels:'12',battery:'no',vat:.21,exportRate:.05};
+let count=0;
+for(const region of ['palma','calvia','andratx','north','east','unknown'])for(const roof of ['pitched','flat','ground','unknown'])for(const shade of ['sun','some','heavy','unknown'])for(const use of ['day','evening','mixed','unknown'])for(const panels of ['auto','8','12','16','32'])for(const battery of ['no','yes']){
+ const r=estimateSolar({...base,region,roof,shade,use,panels,battery},data);count++;
  assert(r.production[0]>=0&&r.production[1]>=r.production[0]);
  assert(r.savings[0]>=0&&r.savings[1]>=r.savings[0]);
  assert(r.savings[1]<=r.consumption*r.tariff+1e-6);
- if(shade==='heavy')assert.equal(r.savings[0],0);
+ assert(r.centralSavings>=r.savings[0]-1e-6&&r.centralSavings<=r.savings[1]+1e-6);
+ assert(r.centralProduction>=r.production[0]-1e-6&&r.centralProduction<=r.production[1]+1e-6);
+ assert(r.batteryEnergy<=r.batteryUnits*5.12*.9*.9*365+1e-6);
+ if(battery==='no')assert.equal(r.batteryEnergy,0);
+ if(shade==='heavy'){assert.equal(r.savings[0],0);assert.equal(r.payback[1],null);}
+ assert(Math.abs(r.centralPayback*r.centralSavings-r.investment)<1e-5);
 }
-const bill=estimateSolar({...base,mode:'bill',value:145},data);
-assert.equal(bill.consumption,6000);
-assert.deepEqual(bill.savings,estimateSolar(base,data).savings);
-const low=estimateSolar({...base,value:1000},data),high=estimateSolar({...base,value:12000},data);
-assert(high.savings[0]>=low.savings[0]&&high.savings[1]>=low.savings[1]);
-assert(estimateSolar({...base,use:'day'},data).savings[0]>=estimateSolar({...base,use:'evening'},data).savings[1]);
-assert.throws(()=>estimateSolar({...base,value:NaN},data));
-assert.throws(()=>estimateSolar({...base,mode:'bill',value:25,fixed:30},data));
-assert.throws(()=>estimateSolar({...base,region:'invalid'},data));
-assert.throws(()=>estimateSolar({...base,tariff:0},data));
-console.log('384 scenarios, demand caps, bill conversion, profile comparison and invalid inputs passed.');
-const sunny=estimateSolar(base,data),unknownShade=estimateSolar({...base,shade:'unknown'},data);
+const no=estimateSolar(base,data),yes=estimateSolar({...base,battery:'yes'},data);
+assert(yes.centralSavings>=no.centralSavings);
+const zeroExport=estimateSolar({...base,exportRate:0},data);
+assert.equal(zeroExport.exportCredit,0);assert(no.centralSavings>=zeroExport.centralSavings);
+assert(Math.abs(no.centralSavings-no.selfUseSaving-no.exportCredit)<1e-6);
+assert.equal(no.investment,7500*1.21);assert.equal(yes.investment,10000*1.21);
+assert.equal(estimateSolar({...base,investment:'12000'},data).investment,12000);
+assert.equal(estimateSolar({...base,mode:'bill',value:145},data).consumption,6000);
+assert.equal(estimateSolar({...base,panels:'32'},data).kwp,14.88);
+assert(estimateSolar({...base,use:'day'},data).centralSavings>estimateSolar({...base,use:'evening'},data).centralSavings);
+const sunny=estimateSolar(base,data),unknownShade=estimateSolar({...base,shade:'unknown'},data),unknownUse=estimateSolar({...base,use:'unknown'},data);
 assert(sunny.production[1]-sunny.production[0]<unknownShade.production[1]-unknownShade.production[0]);
-const scenarios=data.places.palma.scenarios,lowKeys=['8.5:-90','8.5:0','8.5:90','8.5:180'];
-assert.equal(sunny.production[0],Math.min(...lowKeys.map(k=>scenarios[k].yield))*5.58*.9);
-assert.equal(sunny.production[1],Math.max(...lowKeys.map(k=>scenarios[k].yield))*5.58);
-const flat=estimateSolar({...base,roof:'flat'},data);
-assert.equal(flat.production[1],Math.max(scenarios['10:-90'].yield,scenarios['10:90'].yield)*5.58);
-assert.throws(()=>estimateSolar({...base,roof:'invalid'},data));
-console.log('Low-slope selection, north-facing inclusion, flat mounting and shade uncertainty checks passed.');
-console.log(JSON.stringify({palmaSunny: sunny.production.map(Math.round),palmaSunnySavings:sunny.savings.map(Math.round),flatSunny:flat.production.map(Math.round)}));
+assert(sunny.savings[1]-sunny.savings[0]<unknownUse.savings[1]-unknownUse.savings[0]);
+assert(Math.abs(sunny.production[0]-Math.min(...['8.5:-90','8.5:0','8.5:90','8.5:180'].map(k=>data.places.palma.scenarios[k].yield))*5.58*.9)<1);
+assert.equal(estimateSolar({...base,panels:'16',battery:'yes'},data).batteryUnits,2);
+assert.equal(estimateSolar({...base,panels:'32',battery:'yes'},data).batteryNominalKwh,10.24);
+for(const input of [{value:NaN},{mode:'bill',value:25,fixed:30},{region:'invalid'},{tariff:0},{roof:'invalid'},{panels:'20'},{battery:'invalid'},{vat:1},{investment:'100'},{exportRate:-1},{exportRate:1}])assert.throws(()=>estimateSolar({...base,...input},data));
+const supported=estimateSolar({...base,support:3000},data);
+assert.equal(supported.netInvestment,sunny.investment-3000);
+assert.equal(supported.centralSavings,sunny.centralSavings);
+assert(Math.abs(supported.supportedPayback*supported.centralSavings-supported.netInvestment)<1e-6);
+for(const support of [-1,NaN,sunny.investment,sunny.investment+1])assert.throws(()=>estimateSolar({...base,support},data));
+console.log(`${count} scenarios passed: demand/energy caps, battery losses and capacity, all sizes, investment/VAT, payback, unknown-input ranges and invalid inputs.`);
+for(const battery of ['no','yes']){
+ const r=estimateSolar({...base,battery},data);
+ console.log(JSON.stringify({battery,investment:r.investment,saving:Math.round(r.centralSavings),range:r.savings.map(Math.round),payback:r.centralPayback.toFixed(1)}));
+}
