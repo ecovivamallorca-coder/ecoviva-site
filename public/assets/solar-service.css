@@ -14,3 +14,5 @@
 .solar-partnership{background:#191919}.solar-partner-brands{gap:28px}.solar-partner-brands .solar-logo-ecoviva{width:230px;max-width:44%;height:auto;object-fit:contain}.solar-partner-brands .solar-logo-tls{width:230px;max-width:44%;height:120px;object-fit:cover}.solar-partner-brands .partner-cross{font-size:1.6rem;flex:0 0 auto}@media(max-width:750px){.solar-partner-brands{gap:18px;justify-content:flex-start}.solar-partner-brands .solar-logo-ecoviva{width:180px;max-width:43%}.solar-partner-brands .solar-logo-tls{width:180px;max-width:43%;height:100px}}
 
 .solar-page .service-hero .solar-hero-partner{margin:20px 0 0;font-size:.95rem;line-height:1.5;font-weight:600;letter-spacing:.025em;color:#dbe8ce}
+
+.solar-calculator-teaser{background:#e8eddd}.solar-calculator-grid{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:clamp(28px,5vw,70px)}.solar-calculator-grid figure{margin:0;border-radius:18px;overflow:hidden}.solar-calculator-grid img{display:block;width:100%;height:100%;object-fit:cover}.solar-calculator-teaser .solar-image-note{margin-top:20px}@media(max-width:760px){.solar-calculator-grid{grid-template-columns:1fr}}

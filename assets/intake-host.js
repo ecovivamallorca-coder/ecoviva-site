@@ -3,7 +3,7 @@
   const locale = body.dataset.locale;
   const purpose = body.dataset.purpose;
   const formId = body.dataset.formId;
-  const allowed = ["source", "source_page", "source_url", "form_variant", "locale", "language_code", "request_context", "contact_type_code", "request_type_code", "schema_version", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "ref", "campaign"];
+  const allowed = ["source", "source_page", "source_url", "form_variant", "locale", "language_code", "request_context", "contact_type_code", "request_type_code", "schema_version", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "ref", "campaign", "solar_summary", "solar_roof", "solar_battery", "solar_region"];
   const params = new URLSearchParams(location.search);
   const defaults = {
     source: "website",
