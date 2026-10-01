@@ -481,7 +481,11 @@ const eticsPage = (lang) => {
             <article class="panel overview">
               ${sectionTitle(c.overviewTitle)}
               <p>${escapeHtml(c.overview)}</p>
-            </article>
+${c.serviceHref ? `              <p class="overview-service">${escapeHtml(c.serviceIntro)} <a href="${escapeHtml(c.serviceHref)}">${escapeHtml(c.serviceLinkLabel)}</a></p>
+              <nav class="overview-actions" aria-label="${escapeHtml(c.ctaLabel)}">
+                <a class="tl-button tl-button--primary" href="${escapeHtml(c.ctaHref)}">${escapeHtml(c.ctaLabel)}</a>
+              </nav>
+` : ""}            </article>
             <article class="panel">
               ${sectionTitle(c.whyTitle)}
               <ul class="why-list">
