@@ -53,7 +53,65 @@ document.querySelector('#system-comparison').innerHTML=comparisons.map(x=>`<tr><
 handoff(input,r);show(2)}catch(e){error.textContent=e.message==='bill'?c.badBill:(c.aidErrors?.[e.message]||c.error);valueInput.focus()}});
 form.addEventListener('click',event=>{const b=event.target.closest('[data-next]');if(b){const next=Number(b.dataset.next);if(step===0&&next===1&&['region','roof'].some(name=>!form.elements[name].value)){document.querySelector('#sc-property-error').textContent=c.completeQuestions;return}show(next)}});
 form.addEventListener('change',event=>{if(event.target.name==='mode'){const isKwh=form.elements.mode.value==='kwh';valueInput.min=isKwh?'500':'25';valueInput.max=isKwh?'40000':'1000';valueInput.value='';document.querySelector('#bill-slider').hidden=isKwh;document.querySelector('#value-label').textContent=isKwh?c.annual:c.value;document.querySelector('#value-unit').textContent=isKwh?c.units:c.billUnit;error.textContent='';} if(step===2&&event.target.name!=='residence'){document.querySelector('#solar-intake-link').removeAttribute('href');show(1)}});
-document.querySelector('#solar-intake-link').addEventListener('click',event=>{if(!last)event.preventDefault()});
+const intakeLink=document.querySelector('#solar-intake-link');
+const embedCopy={
+ en:{back:'← Back to my estimate',loading:'Loading your Solar request…',retry:'Reload form'},
+ es:{back:'← Volver a mi estimación',loading:'Cargando tu solicitud Solar…',retry:'Recargar formulario'},
+ de:{back:'← Zurück zu meiner Schätzung',loading:'Ihre Solar-Anfrage wird geladen…',retry:'Formular neu laden'}
+}[lang]||{back:'← Back to my estimate',loading:'Loading your Solar request…',retry:'Reload form'};
+let intakeSection=null,embedContainer=null,embeddedUrl='';
+function loadSolarEmbed(url){
+ const parsed=new URL(url);
+ if(embedContainer?.querySelector('iframe')){
+  const iframe=embedContainer.querySelector('iframe');
+  const embedded=new URL(iframe.src);
+  for(const [key,value] of parsed.searchParams)embedded.searchParams.set(key,value);
+  iframe.src=embedded.toString();
+ }else{
+  embedContainer.replaceChildren();
+  const mount=document.createElement('div');
+  mount.className='sc-fillout-mount';
+  mount.setAttribute('data-fillout-id',(intakeByLanguage[lang]||intakeByLanguage.en).id);
+  mount.setAttribute('data-fillout-embed-type','standard');
+  mount.setAttribute('data-fillout-dynamic-resize','');
+  for(const [key,value] of parsed.searchParams)mount.setAttribute('data-'+key,value);
+  embedContainer.append(mount);
+  const script=document.createElement('script');
+  script.src='https://server.fillout.com/embed/v1/';
+  script.async=true;
+  script.onerror=()=>{
+   const retry=document.createElement('button');
+   retry.type='button';retry.className='sc-secondary';retry.textContent=embedCopy.retry;
+   retry.addEventListener('click',()=>loadSolarEmbed(url));
+   embedContainer.replaceChildren(retry);
+  };
+  embedContainer.append(script);
+ }
+ embeddedUrl=url;
+}
+intakeLink.addEventListener('click',event=>{
+ event.preventDefault();
+ if(!last)return;
+ if(!intakeSection){
+  intakeSection=document.createElement('section');
+  intakeSection.className='sc-intake';intakeSection.setAttribute('aria-labelledby','sc-intake-title');
+  const top=document.createElement('div');top.className='sc-intake-top';
+  const back=document.createElement('button');
+  back.type='button';back.className='sc-secondary';back.textContent=embedCopy.back;
+  const title=document.createElement('h2');title.id='sc-intake-title';title.tabIndex=-1;title.textContent=c.cta;
+  back.addEventListener('click',()=>{
+   intakeSection.hidden=true;form.hidden=false;document.querySelector('.sc-progress').hidden=false;
+   intakeLink.focus();intakeLink.scrollIntoView({block:'center',behavior:'smooth'});
+  });
+  top.append(back,title);embedContainer=document.createElement('div');embedContainer.className='sc-fillout';
+  embedContainer.setAttribute('aria-label',c.cta);
+  intakeSection.append(top,embedContainer);form.parentElement.append(intakeSection);
+ }
+ form.hidden=true;document.querySelector('.sc-progress').hidden=true;intakeSection.hidden=false;
+ if(embeddedUrl!==intakeLink.href)loadSolarEmbed(intakeLink.href);
+ document.querySelector('#sc-intake-title').focus({preventScroll:true});
+ intakeSection.scrollIntoView({block:'start',behavior:'smooth'});
+});
 document.querySelectorAll('a[href*="/solar-calculator/"],a[href*="/calculadora-solar/"],a[href*="/solar-rechner/"]').forEach(a=>{const u=new URL(a.href);for(const [k,v] of new URLSearchParams(location.search))if(k.startsWith('utm_'))u.searchParams.set(k,v.slice(0,100));a.href=u.toString()});
 const billSlider=document.querySelector('#bill-slider');
 billSlider.addEventListener('input',()=>{valueInput.value=billSlider.value;error.textContent=''});
