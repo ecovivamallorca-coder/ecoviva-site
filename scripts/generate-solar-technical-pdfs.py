@@ -21,7 +21,7 @@ W,H=595.276,841.89;M=32;G=HexColor('#3e6b20');INK=HexColor('#171a16');MUTED=HexC
 style=ParagraphStyle('body',fontName='Body',fontSize=9,leading=14,textColor=MUTED)
 heading=ParagraphStyle('heading',fontName='Bold',fontSize=10,leading=15,textColor=G)
 paths={'en':'solar-panels-battery-system','es':'sistema-fotovoltaico-baterias','de':'photovoltaik-batteriesystem'}
-points={'pitched':[(68,76),(77,51),(77,46),(60,28),(13,23),(50,19)],'flat':[(70,76),(80,49),(79,43),(64,27),(18,33),(32,20)]}
+points={'pitched':[(68,76),(77,51),(80,40),(60,28),(13,23),(50,19)],'flat':[(70,76),(80,49),(79,43),(64,27),(18,33),(32,20)]}
 def para(cv,text,x,y,w,sty=style,maxh=None):
  p=Paragraph(escape(text),sty);_,h=p.wrap(w,900)
  if maxh is not None and h>maxh:raise ValueError(f'Text overflow: {text[:60]} {h}>{maxh}')
