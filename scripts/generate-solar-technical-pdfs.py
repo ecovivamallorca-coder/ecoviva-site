@@ -6,24 +6,23 @@ from io import BytesIO
 import base64, json, re
 from xml.sax.saxutils import escape
 from PIL import Image
-import qrcode
+import fitz
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.colors import HexColor, white
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import Paragraph
 from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase.pdfmetrics import Font
 from reportlab.lib.utils import ImageReader
 ROOT=Path(__file__).resolve().parent.parent
 A=ROOT/'public/assets/technical-library/solar'
 P=json.loads((ROOT/'scripts/solar-premium-content.json').read_text())
 C=json.loads((ROOT/'scripts/solar-pdf-content.generated.json').read_text())
-F=Path('/usr/share/fonts/truetype/dejavu')
-for name,file in [('Body','DejaVuSans.ttf'),('Bold','DejaVuSans-Bold.ttf')]:
- pdfmetrics.registerFont(TTFont(name,str(F/file)))
+# Arial-compatible PDF standard metrics; the original header marks and footer
+# are copied as vector content from the approved facade templates below.
 W,H=595.276,841.89;M=20;G=HexColor('#3e6b20');INK=HexColor('#0b0d0b');MUTED=HexColor('#454a45');PALE=HexColor('#f6f8f4');LINE=HexColor('#d9ded8')
-style=ParagraphStyle('body',fontName='Body',fontSize=9,leading=12.5,textColor=MUTED)
-heading=ParagraphStyle('heading',fontName='Bold',fontSize=10,leading=13,textColor=G)
+style=ParagraphStyle('body',fontName='Helvetica',fontSize=9,leading=12.5,textColor=MUTED)
+heading=ParagraphStyle('heading',fontName='Helvetica-Bold',fontSize=10,leading=13,textColor=G)
 paths={'en':'solar-panels-battery-system','es':'sistema-fotovoltaico-baterias','de':'photovoltaik-batteriesystem'}
 services={'en':'solar-panels-mallorca','es':'placas-solares-mallorca','de':'photovoltaik-mallorca'}
 points={'pitched':[(68,76),(77,51),(80,40),(60,28),(13,23),(50,19)],'flat':[(70,76),(80,49),(79,43),(64,27),(18,33),(32,20)]}
@@ -50,36 +49,45 @@ def image(cv,key,x,y,w,h):
  buf=BytesIO();im.save(buf,format='JPEG',quality=86,optimize=True);buf.seek(0)
  cv.drawImage(ImageReader(buf),x,y,w,h,preserveAspectRatio=True,anchor='c')
 
-def qr(cv,url,x,y,size,label=None):
- code=qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_M,box_size=6,border=4)
- code.add_data(url);code.make(fit=True);im=code.make_image(fill_color='#3e6b20',back_color='white').convert('RGB')
- cv.drawImage(ImageReader(im),x,y,size,size);cv.linkURL(url,(x,y,x+size,y+size),relative=0)
- if label:
-  cv.setFont('Bold',6.5);cv.setFillColor(G);cv.drawCentredString(x+size/2,y-8,label)
-
-logo_data=re.search(r'data:image/png;base64,([^\"\']+)',(ROOT/'public/assets/technical-library/ecoviva-logo.svg').read_text()).group(1)
-logo=ImageReader(BytesIO(base64.b64decode(logo_data)))
+TEMPLATES={
+ 'en':'EcoViva_A4_Universal_Ventilated_Facade_System_EN_Download.pdf',
+ 'es':'EcoViva_A4_Sistema_Universal_Fachada_Ventilada_ES_Download.pdf',
+ 'de':'EcoViva_A4_Universelles_Hinterlueftetes_Fassadensystem_DE_Download.pdf',
+}
+TITLE_LINES={
+ 'en':['SOLAR PANELS &','BATTERY SYSTEM'],
+ 'es':['SISTEMA FOTOVOLTAICO','Y BATERÍAS'],
+ 'de':['PHOTOVOLTAIK- &','BATTERIESYSTEM'],
+}
 
 def base(cv,l,num,subtitle):
  cv.setFillColor(white);cv.rect(0,0,W,H,fill=1,stroke=0)
- cv.drawImage(logo,M,H-61,144,44,preserveAspectRatio=True,mask='auto',anchor='c')
- para(cv,'TECHNICAL LIBRARY',178,H-18,300,ParagraphStyle('kicker',parent=heading,fontSize=7,leading=9))
- para(cv,P[l]['pdfTitle'],178,H-33,318,ParagraphStyle('title',fontName='Bold',fontSize=17 if l=='en' else 15.5,leading=19,textColor=INK),maxh=39)
- para(cv,subtitle.upper(),178,H-78,320,ParagraphStyle('subtitle',parent=heading,fontSize=7,leading=9,textColor=MUTED),maxh=19)
- qr(cv,f'https://www.ecoviva-mallorca.com/technical-library/{l}/{paths[l]}/',W-M-57,H-68,57)
- cv.setFillColor(G);cv.circle(W-M-79,H-80,13,fill=1,stroke=0)
- cv.setFillColor(white);cv.setFont('Bold',8);cv.drawCentredString(W-M-79,H-83,l.upper())
- # Repeated navigation stays usable when a single page is printed separately.
- cv.setStrokeColor(G);cv.setLineWidth(.7);cv.line(M,110,W-M,110)
- qr(cv,f'https://www.ecoviva-mallorca.com/technical-library/{l}/',M+7,53,49,labels[l][1])
- qr(cv,f'https://www.ecoviva-mallorca.com/{l}/{services[l]}/',W-M-56,53,49,labels[l][2])
- para(cv,P[l]['pdfContact'],M+85,97,W-2*M-170,ParagraphStyle('contact-title',parent=heading,fontSize=10,leading=13,alignment=1),maxh=28)
- para(cv,'EcoViva × TLS Balear',M+85,68,W-2*M-170,ParagraphStyle('partner',parent=style,fontSize=8,leading=10,alignment=1))
- cv.setStrokeColor(LINE);cv.line(M,32,W-M,32)
- cv.setFillColor(G);cv.setFont('Bold',7);cv.drawString(M,20,'www.ecoviva-mallorca.com')
- cv.setFont('Body',7);cv.setFillColor(MUTED);cv.drawCentredString(W/2,20,'info@ecoviva-mallorca.com  ·  +34 871 53 27 58')
- cv.drawRightString(W-M,20,f'{l.upper()} · {num}/4')
- cv.setFont('Body',5.8);cv.drawCentredString(W/2,9,'© EcoViva Mallorca SL · Technical Library · 01.10.2026')
+ # The positions and sizes follow the approved A4 facade header.
+ cv.setFillColor(G);cv.setFont('Helvetica-Bold',7.2)
+ # Library label is copied from the language-specific approved PDF.
+ cv.setFillColor(INK);cv.setFont('Helvetica-Bold',20.2)
+ for i,line in enumerate(TITLE_LINES[l]):cv.drawString(178.5827,H-49.1131-i*22.11035,line)
+ cv.setFillColor(MUTED);cv.setFont('Helvetica-Bold',8.4)
+ cv.drawString(178.5827,H-84.9351,subtitle.upper())
+
+def apply_approved_template(out,l):
+ """Reuse the actual PDF artwork, with no reconstructed footer or new QR URLs."""
+ doc=fitz.open(out);template=fitz.open(ROOT/'public/downloads'/TEMPLATES[l])
+ source=template[0]
+ # Remove the unused facade body before grafting PDF resources. This keeps
+ # unrelated high-resolution facade images out of the solar download.
+ source.add_redact_annot(fitz.Rect(0,96,W,801),fill=None)
+ source.apply_redactions(images=2,graphics=2,text=0)
+ clean=template.tobytes(garbage=4,deflate=True)
+ template.close();template=fitz.open(stream=clean,filetype='pdf')
+ # Exact source regions: logo, QR + language badge, and the complete footer.
+ # show_pdf_page retains the original fonts, glyphs, colours and vector geometry.
+ for page in doc:
+  for r in [fitz.Rect(0,0,170,96),fitz.Rect(178,15,300,28),fitz.Rect(520,8,577,65),fitz.Rect(485,64,515,94),fitz.Rect(0,801,595.2756,841.8898)]:
+   page.show_pdf_page(r,template,0,clip=r)
+  url=f'https://www.ecoviva-mallorca.com/technical-library/{l}/'
+  page.insert_link({'kind':fitz.LINK_URI,'from':fitz.Rect(520,12,577,66),'uri':url})
+ tmp=out.with_suffix('.template.pdf');doc.save(tmp,garbage=4,deflate=True);doc.close();template.close();tmp.replace(out)
 
 def roofpage(cv,l,kind,num):
  p=P[l];c=C[l];base(cv,l,num,p['pdfSubtitle'])
@@ -89,7 +97,7 @@ def roofpage(cv,l,kind,num):
  for n,(px,py) in enumerate(points[kind],1):
   xx=x+w*px/100;yy=y+h*(1-py/100)
   cv.setFillColor(G);cv.setStrokeColor(white);cv.setLineWidth(1);cv.circle(xx,yy,7,fill=1,stroke=1)
-  cv.setFillColor(white);cv.setFont('Bold',8);cv.drawCentredString(xx,yy-2.8,str(n))
+  cv.setFillColor(white);cv.setFont('Helvetica-Bold',8);cv.drawCentredString(xx,yy-2.8,str(n))
  para(cv,p[kind+'Intro'],M+12,675,W-2*M-24,style,maxh=47)
  xx=M+365;ww=W-2*M-377
  para(cv,labels[l][3].upper(),xx,619,ww,ParagraphStyle('sub',parent=heading,fontSize=8,leading=11),maxh=25)
@@ -98,11 +106,15 @@ def roofpage(cv,l,kind,num):
  box(cv,M,236,W-2*M,139);section(cv,p['layersTitle'],361)
  for i,text in enumerate(p[kind+'Layers']):
   col=i//3;row=i%3;x=M+13+col*270;y=320-row*26
-  cv.setFillColor(G);cv.circle(x+7,y-6,7,fill=1,stroke=0);cv.setFillColor(white);cv.setFont('Bold',7);cv.drawCentredString(x+7,y-8.5,str(i+1))
+  cv.setFillColor(G);cv.circle(x+7,y-6,7,fill=1,stroke=0);cv.setFillColor(white);cv.setFont('Helvetica-Bold',7);cv.drawCentredString(x+7,y-8.5,str(i+1))
   para(cv,text,x+21,y,235,ParagraphStyle('label',parent=style,fontSize=8.5,leading=11),maxh=24)
- box(cv,M,124,W-2*M,99);section(cv,labels[l][4],209)
+ box(cv,M,44,W-2*M,179);section(cv,labels[l][4],209)
  para(cv,p['pdfPrinciples'],M+12,170,W-2*M-24,ParagraphStyle('principle',parent=style,fontSize=8,leading=11),maxh=34)
  para(cv,p['layerNote'],M+12,141,W-2*M-24,ParagraphStyle('note',parent=style,fontSize=6.8,leading=9),maxh=20)
+ for i,(name,desc) in enumerate(c['checks'][:2]):
+  xx=M+12+i*270
+  yy=para(cv,name,xx,112,255,ParagraphStyle('roof-check',parent=heading,fontSize=8,leading=11),maxh=24)
+  para(cv,desc,xx,yy-4,255,ParagraphStyle('roof-check-copy',parent=style,fontSize=7.3,leading=10),maxh=40)
  cv.showPage()
 
 def detailpage(cv,l):
@@ -122,8 +134,12 @@ def detailpage(cv,l):
   x=M+12+i*(colw+8);image(cv,['bauer-panel','solis-inverter','marstek-venus'][i],x,290,colw,44)
   y=para(cv,name,x,283,colw,ParagraphStyle('eq-title',parent=heading,fontSize=8.2,leading=11),maxh=24)
   para(cv,desc,x,y-4,colw,ParagraphStyle('eq-copy',parent=style,fontSize=7.4,leading=10),maxh=65)
- box(cv,M,124,W-2*M,78);section(cv,c['checksTitle'],188)
+ box(cv,M,44,W-2*M,158);section(cv,c['checksTitle'],188)
  para(cv,p['pdfPrinciples'],M+12,149,W-2*M-24,ParagraphStyle('checks',parent=style,fontSize=8,leading=11),maxh=25)
+ for i,(name,desc) in enumerate(c['checks'][2:]):
+  xx=M+12+i*270
+  yy=para(cv,name,xx,112,255,ParagraphStyle('equipment-check',parent=heading,fontSize=8,leading=11),maxh=24)
+  para(cv,desc,xx,yy-4,255,ParagraphStyle('equipment-check-copy',parent=style,fontSize=7.3,leading=10),maxh=40)
  cv.showPage()
 
 def lastpage(cv,l):
@@ -140,16 +156,17 @@ def lastpage(cv,l):
   row=i//3;col=i%3;x=M+12+col*(colw+8);y=438-row*92
   y2=para(cv,name,x,y,colw,ParagraphStyle('smallhead',parent=heading,fontSize=8.5,leading=11),maxh=33)
   para(cv,desc,x,y2-5,colw,ParagraphStyle('smallbody',parent=style,fontSize=7.6,leading=10.2),maxh=65)
- box(cv,M,124,W-2*M,108);section(cv,c['checksTitle'],218)
+ box(cv,M,44,W-2*M,188);section(cv,c['checksTitle'],218)
  colw=(W-2*M-38)/2
  for i,(name,desc) in enumerate(c['checks']):
-  col=i%2;row=i//2;x=M+12+col*(colw+8);y=181-row*26
-  para(cv,name,x,y,colw,ParagraphStyle('checktitle',parent=heading,fontSize=8,leading=11),maxh=24)
- para(cv,p['imageNote'],M+12,139,W-2*M-24,ParagraphStyle('note',parent=style,fontSize=6.5,leading=9),maxh=12)
+  col=i%2;row=i//2;x=M+12+col*(colw+8);y=181-row*60
+  yy=para(cv,name,x,y,colw,ParagraphStyle('checktitle',parent=heading,fontSize=8,leading=11),maxh=24)
+  para(cv,desc,x,yy-4,colw,ParagraphStyle('check-description',parent=style,fontSize=7.3,leading=10),maxh=43)
+ para(cv,p['imageNote'],M+12,60,W-2*M-24,ParagraphStyle('note',parent=style,fontSize=6.5,leading=9),maxh=12)
  cv.showPage()
 
 for l in ['en','es','de']:
  out=ROOT/f'public/downloads/EcoViva_Solar_Technical_System_{l.upper()}.pdf'
  cv=Canvas(str(out),pagesize=(W,H),pageCompression=1)
  cv.setTitle(P[l]['pdfTitle']);cv.setAuthor('EcoViva Mallorca SL');cv.setSubject(P[l]['pdfSubtitle'])
- roofpage(cv,l,'pitched',1);roofpage(cv,l,'flat',2);detailpage(cv,l);lastpage(cv,l);cv.save();print(out)
+ roofpage(cv,l,'pitched',1);roofpage(cv,l,'flat',2);detailpage(cv,l);lastpage(cv,l);cv.save();apply_approved_template(out,l);print(out)
