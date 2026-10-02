@@ -279,6 +279,14 @@ ${items
   .join("\n")}
               </div>`;
 
+const overviewConversion = (c) =>
+  c.serviceHref
+    ? `<p class="overview-service">${escapeHtml(c.serviceIntro)} <a href="${escapeHtml(c.serviceHref)}">${escapeHtml(c.serviceLinkLabel)}</a></p>
+              <nav class="overview-actions" aria-label="${escapeHtml(c.ctaLabel)}">
+                <a class="tl-button tl-button--primary" href="${escapeHtml(c.ctaHref)}">${escapeHtml(c.ctaLabel)}</a>
+              </nav>`
+    : "";
+
 const roofPage = (lang) => {
   const c = copy[lang];
   const suffix = `${roofSlug}/`;
@@ -308,6 +316,7 @@ const roofPage = (lang) => {
             <article class="panel overview">
               ${sectionTitle(c.overviewTitle)}
               <p>${escapeHtml(c.overview)}</p>
+              ${overviewConversion(c)}
             </article>
             <article class="panel">
               ${sectionTitle(c.whyTitle)}
@@ -627,6 +636,7 @@ const stonePage = (lang) => {
             <article class="panel overview">
               ${sectionTitle(c.overviewTitle)}
               <p>${escapeHtml(c.overview)}</p>
+              ${overviewConversion(c)}
             </article>
             <article class="panel">
               ${sectionTitle(c.whyTitle)}
@@ -842,6 +852,7 @@ const thermowoodPage = (lang) => {
             <article class="panel overview">
               ${sectionTitle(c.overviewTitle)}
               <p>${escapeHtml(c.overview)}</p>
+              ${overviewConversion(c)}
               <p class="technical-note"><em>${escapeHtml(c.overviewNote)}</em></p>
             </article>
             <article class="panel">
@@ -1070,6 +1081,7 @@ const universalPage = (lang) => {
             <article class="panel overview">
               ${sectionTitle(c.overviewTitle)}
               <p>${escapeHtml(c.overview)}</p>
+              ${overviewConversion(c)}
               <p class="technical-note"><em>${escapeHtml(c.overviewNote)}</em></p>
             </article>
             <article class="panel">
@@ -1266,7 +1278,7 @@ const flatRoofPage = (lang) => {
         <section class="hero-overview" aria-label="${escapeHtml(c.overviewTitle)}">
           ${flatRoofHeroDiagram(lang, c)}
           <div class="stack">
-            <article class="panel overview">${sectionTitle(c.overviewTitle)}<p>${escapeHtml(c.overview)}</p><p class="technical-note"><em>${escapeHtml(c.overviewNote)}</em></p></article>
+            <article class="panel overview">${sectionTitle(c.overviewTitle)}<p>${escapeHtml(c.overview)}</p>${overviewConversion(c)}<p class="technical-note"><em>${escapeHtml(c.overviewNote)}</em></p></article>
             <article class="panel">${sectionTitle(c.whyTitle)}<ul class="why-list">${c.why.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></article>
           </div>
         </section>
