@@ -57,3 +57,5 @@ body{background:#e7eee2}
 .sc-request-layout .sc-choice span{font-size:13px}
 @media(max-width:1020px){.sc-request-layout{grid-template-columns:minmax(250px,.6fr) minmax(0,1.4fr)}.sc-request-guide{padding:30px 24px}.sc-request-layout .sc-step{padding:24px}.sc-request-layout .sc-roofs{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){.sc-main{padding:36px 16px 56px}.sc-intro{grid-template-columns:1fr;gap:20px;margin-bottom:28px}.sc-intro h1{font-size:40px}.sc-intro>p:last-child{font-size:16px}.sc-request-layout{grid-template-columns:1fr}.sc-request-guide{position:static;padding:24px}.sc-guide-intro>strong{font-size:26px}.sc-request-reasons,.sc-request-next{display:none}.sc-form-top{padding:22px 20px 16px}.sc-request-layout .sc-test{padding:10px 20px}.sc-request-layout .sc-step{padding:24px 20px}.sc-request-layout .sc-intake-top{padding:20px}.sc-request-layout .sc-result-grid{grid-template-columns:1fr}.sc-request-layout .sc-progress{padding:16px;gap:8px}.sc-request-layout .sc-progress span{font-size:11px}.sc-request-layout .sc-intake-top h2{font-size:25px}}
+
+.sc-request-layout,.sc-request-layout .sc-shell{scroll-margin-top:104px}
