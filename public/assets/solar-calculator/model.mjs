@@ -1,10 +1,10 @@
-import {packages,batteryExample,defaultVat} from './packages.mjs?v=4';
+import {packages,panelSizes,getPackage,batteryExample,defaultVat} from './packages.mjs?v=5';
 const days=[31,28,31,30,31,30,31,31,30,31,30,31];
 export function estimateSolar(input,data){
  // Recommend from the four test budgets using unsubsidised simple payback.
  // Never select a design merely because its assumed grant makes it look better.
  if(input.panels===undefined||input.panels==='auto'||input.battery==='auto'){
-  const sizes=input.panels===undefined||input.panels==='auto'?[8,12,16,32]:[Number(input.panels)];
+  const sizes=input.panels===undefined||input.panels==='auto'?panelSizes:[Number(input.panels)];
   const batteries=input.battery==='auto'?(input.aidScheme==='factor'?['yes']:['no','yes']):[input.battery||'no'];
   const options=sizes.flatMap(panels=>batteries.map(battery=>estimateSolar({...input,panels,battery,investment:'',aidScheme:'none',support:0,supportYear:0},data)));
   const finite=options.filter(x=>x.centralPayback!==null);
@@ -35,7 +35,7 @@ export function estimateSolar(input,data){
  const meanMonthly=days.map((_,i)=>scenarios.reduce((sum,s)=>sum+s.monthly[i],0)/scenarios.length);
  const shadeMid=(shadow[0]+shadow[1])/2,dayMid=(daytimeShare[0]+daytimeShare[1])/2;
  const yieldMid=meanMonthly.reduce((a,b)=>a+b,0)*shadeMid;
- const suggestedPanels=[8,12,16,32].find(n=>n*.465*yieldMid>=consumption)||32;
+ const suggestedPanels=panelSizes.find(n=>n*.465*yieldMid>=consumption)||panelSizes.at(-1);
  const panels=input.panels===undefined||input.panels==='auto'?suggestedPanels:Number(input.panels);
  if(!packages[panels])throw new Error('invalid');
  const battery=input.battery===undefined?'no':input.battery;
@@ -65,7 +65,8 @@ export function estimateSolar(input,data){
  const center=simulation(meanMonthly,shadeMid,dayMid,.85);
  const variants=scenarios.flatMap(s=>shadow.flatMap(factor=>daytimeShare.flatMap(share=>[.8,.9].map(capture=>simulation(s.monthly,factor,share,capture)))));
  const range=key=>[Math.min(...variants.map(v=>v[key])),Math.max(...variants.map(v=>v[key]))];
- const net=packages[panels].net+batteryUnits*batteryExample.netAllowance;
+ const packageBudget=getPackage(panels,roof);
+ const net=packageBudget.net+batteryUnits*batteryExample.netAllowance;
  const defaultInvestment=net*(1+vat);
  const investment=input.investment===undefined||input.investment===''?defaultInvestment:Number(input.investment);
  if(!Number.isFinite(investment)||investment<1000||investment>100000)throw new Error('invalid');
@@ -97,5 +98,5 @@ export function estimateSolar(input,data){
  const supportedPayback=center.savings>0?(investment/center.savings<=supportYear?investment/center.savings:Math.max(supportYear,netInvestment/center.savings)):null;
  const savings=range('savings');
  const payback=[savings[1]>0?investment/savings[1]:null,savings[0]>0?investment/savings[0]:null];
- return {occupancy,demandWeights,aidScheme:scheme,aidCeiling,supportYear,support,netInvestment,supportedPayback,production:range('production'),savings,centralSavings:center.savings,centralProduction:center.production,batteryEnergy:center.stored,exportCredit:center.exportCredit,exported:center.exported,selfUseSaving:center.selfUseSaving,exportRate,consumption,kwp,panels,suggestedPanels,battery,tariff,fixed,shadow,daytimeShare,investment,defaultInvestment,net,vat,payback,centralPayback:center.savings>0?investment/center.savings:null,usableBattery,batteryUnits,batteryNominalKwh:batteryUnits*batteryExample.nominalKwh};
+ return {packageBudget,occupancy,demandWeights,aidScheme:scheme,aidCeiling,supportYear,support,netInvestment,supportedPayback,production:range('production'),savings,centralSavings:center.savings,centralProduction:center.production,batteryEnergy:center.stored,exportCredit:center.exportCredit,exported:center.exported,selfUseSaving:center.selfUseSaving,exportRate,consumption,kwp,panels,suggestedPanels,battery,tariff,fixed,shadow,daytimeShare,investment,defaultInvestment,net,vat,payback,centralPayback:center.savings>0?investment/center.savings:null,usableBattery,batteryUnits,batteryNominalKwh:batteryUnits*batteryExample.nominalKwh};
 }

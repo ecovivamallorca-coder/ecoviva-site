@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {estimateSolar} from '../public/assets/solar-calculator/model.mjs';
+import {panelSizes,getPackage,batteryExample} from '../public/assets/solar-calculator/packages.mjs';
 const data=JSON.parse(fs.readFileSync('public/assets/solar-calculator/pvgis-data.json'));
 const base={region:'palma',roof:'pitched',shade:'sun',use:'mixed',mode:'kwh',value:6000,tariff:.25,fixed:20,panels:'12',battery:'no',vat:.21,exportRate:.05};
 let count=0;
-for(const region of ['palma','calvia','andratx','north','east','unknown'])for(const roof of ['pitched','flat','ground','unknown'])for(const shade of ['sun','some','heavy','unknown'])for(const use of ['day','evening','mixed','unknown'])for(const panels of ['auto','8','12','16','32'])for(const battery of ['no','yes']){
+for(const region of ['palma','calvia','andratx','north','east','unknown'])for(const roof of ['pitched','flat','ground','unknown'])for(const shade of ['sun','some','heavy','unknown'])for(const use of ['day','evening','mixed','unknown'])for(const panels of ['auto',...panelSizes.map(String)])for(const battery of ['no','yes']){
  const r=estimateSolar({...base,region,roof,shade,use,panels,battery},data);count++;
  assert(r.production[0]>=0&&r.production[1]>=r.production[0]);
  assert(r.savings[0]>=0&&r.savings[1]>=r.savings[0]);
@@ -21,7 +22,7 @@ assert(yes.centralSavings>=no.centralSavings);
 const zeroExport=estimateSolar({...base,exportRate:0},data);
 assert.equal(zeroExport.exportCredit,0);assert(no.centralSavings>=zeroExport.centralSavings);
 assert(Math.abs(no.centralSavings-no.selfUseSaving-no.exportCredit)<1e-6);
-assert.equal(no.investment,7500*1.21);assert.equal(yes.investment,10000*1.21);
+assert.equal(no.investment,getPackage(12,base.roof).net*1.21);assert.equal(yes.investment,(getPackage(12,base.roof).net+batteryExample.netAllowance)*1.21);
 assert.equal(estimateSolar({...base,investment:'12000'},data).investment,12000);
 assert.equal(estimateSolar({...base,mode:'bill',value:145},data).consumption,6000);
 assert.equal(estimateSolar({...base,panels:'32'},data).kwp,14.88);
@@ -45,7 +46,7 @@ for(const battery of ['no','yes']){
 }
 const conditional={...base,aidConfirmed:true,supportYear:2};
 assert.equal(estimateSolar({...conditional,aidScheme:'balearic',taxAvailable:2000},data).support,2000);
-assert.equal(estimateSolar({...conditional,aidScheme:'balearic',taxAvailable:10000},data).support,4537.5);
+assert.equal(estimateSolar({...conditional,aidScheme:'balearic',taxAvailable:10000},data).support,Math.min(5000,no.investment*.5));
 assert.equal(estimateSolar({...conditional,aidScheme:'state40',taxAvailable:10000},data).support,3000);
 assert.equal(estimateSolar({...conditional,aidScheme:'state10',taxAvailable:10000},data).support,500);
 for(const [panels,ceiling] of [['12',1361.25],['16',2722.5]]){
@@ -64,13 +65,13 @@ for(const occupancy of ['year','summer','occasional'])for(const use of ['day','e
  const r=estimateSolar(input,data);
  assert(Math.abs(r.demandWeights.reduce((a,b)=>a+b,0)-1)<1e-10);
  if(occupancy==='summer')assert(Math.abs(r.demandWeights.slice(4,10).reduce((a,b)=>a+b,0)-.8)<1e-10);
- const options=[8,12,16,32].flatMap(panels=>['no','yes'].map(battery=>estimateSolar({...input,panels,battery},data)));
+ const options=panelSizes.flatMap(panels=>['no','yes'].map(battery=>estimateSolar({...input,panels,battery},data)));
  const fastest=Math.min(...options.map(x=>x.centralPayback));
  assert(r.centralPayback<=fastest*1.05+1e-10);
  assert.equal(r.investment,Math.min(...options.filter(x=>x.centralPayback<=fastest*1.05).map(x=>x.investment)));
  assert(r.centralSavings<=r.consumption*r.tariff+1e-8);
 }
 const darkAuto=estimateSolar({...base,panels:'auto',battery:'auto',shade:'heavy'},data);
-assert([8,12,16,32].includes(darkAuto.panels));
+assert(panelSizes.includes(darkAuto.panels));
 assert.throws(()=>estimateSolar({...base,occupancy:'invalid'},data));
 console.log('Seasonal demand conservation and automatic economic suggestions passed.');

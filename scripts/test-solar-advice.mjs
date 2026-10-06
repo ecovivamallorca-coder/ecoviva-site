@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {compareSolar,scenarioRecord} from '../public/assets/solar-calculator/advice.mjs';
-import {estimateSolar} from '../public/assets/solar-calculator/model.mjs?v=6';
+import {getPackage} from '../public/assets/solar-calculator/packages.mjs';
+import {estimateSolar} from '../public/assets/solar-calculator/model.mjs?v=7';
 const data=JSON.parse(fs.readFileSync('public/assets/solar-calculator/pvgis-data.json'));
 const base={region:'calvia',roof:'pitched',shade:'sun',use:'day',occupancy:'year',mode:'kwh',value:3500,tariff:.25,fixed:20,panels:'8',battery:'yes',vat:.21,exportRate:0};
 const rob=compareSolar(base,data);
@@ -11,10 +12,10 @@ assert.equal(rob.recommended.battery,'no');
 assert(rob.recommended.centralPayback<=rob.selected.centralPayback*1.05);
 assert(rob.investmentDifference<0);
 assert(rob.savingDifference<0); // Storage saves more annually, but costs more.
-assert.equal(rob.selectedExVat,8500);
+assert.equal(rob.selectedExVat,rob.selected.net);
 const larger=compareSolar({...base,value:15000},data);
 assert(larger.recommended.panels>larger.selected.panels);
-assert([16,32].includes(larger.recommended.panels));
+assert([12,16,24,32,40,48].includes(larger.recommended.panels));
 assert(larger.savingDifference>0);
 assert(compareSolar({...base,shade:'unknown'},data).provisional);
 const custom=compareSolar({...base,investment:'12000'},data);
@@ -25,7 +26,7 @@ const same=compareSolar({...base,battery:'no'},data);
 assert(same.sameSystem);
 for(const use of ['day','mixed','evening'])for(const value of [2000,6000,15000,40000])for(const battery of ['auto','no','yes']){
  const c=compareSolar({...base,use,value,battery},data);
- assert.equal(c.options.length,8);
+ assert.equal(c.options.length,14);
  const fastest=Math.min(...c.options.map(x=>x.centralPayback));
  assert(c.recommended.centralPayback<=fastest*1.05+1e-9);
  const record=JSON.parse(JSON.stringify({selected:scenarioRecord(c.selected,c.selectedExVat),recommended:scenarioRecord(c.recommended)}));
@@ -35,3 +36,16 @@ for(const use of ['day','mixed','evening'])for(const value of [2000,6000,15000,4
  assert.equal(record.recommended.investment_ex_vat,c.recommended.net);
 }
 console.log('Solar advice: customer choice, larger sizing, battery tradeoff, unknown inputs, custom budgets and 36 scenario comparisons passed.');
+
+const fortyEight=compareSolar({...base,panels:'48',value:25000,ev:'included'},data);
+assert.equal(fortyEight.selected.kwp,22.32);
+assert.equal(fortyEight.selected.consumption,25000);
+assert.equal(fortyEight.selected.packageBudget.inverterUnits,2);
+assert.equal(getPackage(48,'pitched').net,20298.25);
+assert(getPackage(48,'flat').net>getPackage(48,'pitched').net);
+assert(getPackage(48,'ground').net>getPackage(48,'flat').net);
+const already=compareSolar({...base,ev:'included'},data),not=compareSolar({...base,ev:'no'},data);
+assert.equal(already.selected.consumption,not.selected.consumption);
+assert.equal(already.recommended.centralSavings,not.recommended.centralSavings);
+assert(compareSolar({...base,ev:'soon'},data).provisional);
+console.log('48-panel configuration, mounting prices and EV double-count protection passed.');
