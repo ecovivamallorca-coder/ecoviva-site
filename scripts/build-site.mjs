@@ -13,7 +13,8 @@ const steps = [
   'sync-shared-header.mjs',
   'activate-guides-chrome.mjs',
   'link-roof-facade-services.mjs',
-  'link-summer-heat-guide.mjs'
+  'link-summer-heat-guide.mjs',
+  'link-knowledge-to-services.mjs'
 ];
 
 for (const script of steps) {
