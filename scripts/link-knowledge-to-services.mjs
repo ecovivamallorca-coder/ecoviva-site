@@ -4,6 +4,8 @@ import path from 'node:path';
 const root = process.cwd();
 const markerStart = '<!-- KISS_PHASE7_SERVICE_LINK_START -->';
 const markerEnd = '<!-- KISS_PHASE7_SERVICE_LINK_END -->';
+const legacyMarkerStart = '<!-- RELATED_SERVICE_LINKS_START -->';
+const legacyMarkerEnd = '<!-- RELATED_SERVICE_LINKS_END -->';
 
 const labels = {
   en: {
@@ -99,6 +101,13 @@ async function apply(group, mapping) {
       try {
         let html = await fs.readFile(file, 'utf8');
         html = html.replace(new RegExp(`${markerStart}[\\s\\S]*?${markerEnd}`, 'g'), '');
+        html = html.replace(new RegExp(`${legacyMarkerStart}[\\s\\S]*?${legacyMarkerEnd}`, 'g'), '');
+        const destination = serviceUrls[service][lang];
+        if (html.includes(`href="${destination}"`) || html.includes(`href='${destination}'`)) {
+          await fs.writeFile(file, html);
+          updated++;
+          continue;
+        }
         if (!html.includes('id="kiss-phase7-service-link-style"')) html = html.replace('</head>', `${style}</head>`);
         const insertion = block(lang, service);
         html = html.includes('</main>') ? html.replace('</main>', `${insertion}</main>`) : html.replace(/<footer\b/, `${insertion}<footer`);
