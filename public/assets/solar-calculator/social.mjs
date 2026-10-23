@@ -122,6 +122,12 @@ export function installSocialFlow(form, copy, lang, show) {
     de:{book:'Termin vereinbaren',note:vat=>`Unverbindliche Schätzung ohne Förderung. Anlage und Endpreis nach Prüfung. Investition zzgl. MwSt.; Amortisation mit angenommenen ${vat}% MwSt.`}
   }[lang]||{book:'Book an appointment',note:vat=>`Indicative estimate, before incentives. Final system and price after assessment. Investment excludes VAT; payback assumes ${vat}% VAT.`};
   const resultNote=help('');resultNote.classList.add('sc-social-result-note');
+  const learn=document.createElement('a');learn.id='solar-learn-link';learn.className='sc-secondary';
+  learn.textContent=({en:'Learn more',es:'Saber más',de:'Mehr erfahren'})[lang]+' →';
+  const learnUrl=new URL(({en:'/en/solar-panels-mallorca/',es:'/es/placas-solares-mallorca/',de:'/de/photovoltaik-mallorca/'})[lang],location.origin);
+  for(const [key,value] of new URLSearchParams(location.search))if(key.startsWith('utm_'))learnUrl.searchParams.set(key,value.slice(0,100));
+  learn.href=learnUrl.toString();
+  results.querySelector('#solar-intake-link').after(learn);
   render(0,false);
   return { onError(e) {if(['bill','invalid'].includes(e.message))render(2);}, onShow(n) {
     main.classList.toggle('sc-social-result',n===2);
@@ -131,7 +137,7 @@ export function installSocialFlow(form, copy, lang, show) {
     const lead=results.querySelector('.sc-lead');
     const title=document.querySelector('#result-title');title.textContent=text.result;
     // Keep the existing calculation and complete CRM payload. Only the social
-    // presentation is reduced to one recommended system and one next action.
+    // presentation is reduced to one recommended system and two next actions.
     for(const element of results.children){
       element.classList.toggle('sc-social-extra',![title,advice,lead,resultNote].includes(element));
     }
