@@ -2,9 +2,9 @@
 // and the Fillout handoff stay owned by calculator.js.
 export function installSocialFlow(form, copy, lang, show) {
   const text = {
-    en: {question:'Question',of:'of',result:'Your solar estimate',answers:'Your answers',privacy:'See your result first. No contact details needed.',review:'Please choose an answer to continue.',settings:'Optional calculation settings',discuss:'Discuss my calculation'},
-    es: {question:'Pregunta',of:'de',result:'Tu estimación solar',answers:'Tus respuestas',privacy:'Primero, tu resultado. Sin datos de contacto.',review:'Elige una respuesta para continuar.',settings:'Ajustes opcionales del cálculo',discuss:'Comentar mi cálculo'},
-    de: {question:'Frage',of:'von',result:'Ihre Solareinschätzung',answers:'Ihre Antworten',privacy:'Erst Ihr Ergebnis. Ohne Kontaktdaten.',review:'Bitte wählen Sie eine Antwort.',settings:'Optionale Berechnungseinstellungen',discuss:'Meine Berechnung besprechen'}
+    en: {question:'Question',of:'of',result:'Your solar savings',answers:'Your answers',privacy:'See your savings first. No contact details needed.',review:'Please choose an answer to continue.',settings:'Optional calculation settings',discuss:'Discuss my calculation'},
+    es: {question:'Pregunta',of:'de',result:'Tu ahorro solar',answers:'Tus respuestas',privacy:'Primero, tu ahorro. Sin datos de contacto.',review:'Elige una respuesta para continuar.',settings:'Ajustes opcionales del cálculo',discuss:'Comentar mi cálculo'},
+    de: {question:'Frage',of:'von',result:'Ihre Solarersparnis',answers:'Ihre Antworten',privacy:'Erst Ihre Ersparnis. Ohne Kontaktdaten.',review:'Bitte wählen Sie eine Antwort.',settings:'Optionale Berechnungseinstellungen',discuss:'Meine Berechnung besprechen'}
   }[lang] || {question:'Question',of:'of',result:'Your solar estimate',answers:'Your answers',privacy:'See your result first. No contact details needed.',review:'Please choose an answer to continue.',settings:'Optional calculation settings',discuss:'Discuss my calculation'};
   const start = form.querySelector('[data-step="0"]');
   const electricity = form.querySelector('[data-step="1"]');
@@ -15,6 +15,17 @@ export function installSocialFlow(form, copy, lang, show) {
   const originalSettings = [...electricity.querySelectorAll(':scope > details')];
   const group = name => form.querySelector(`input[name="${name}"]`).closest('fieldset');
   const help = message => { const p=document.createElement('p'); p.className='sc-help'; p.textContent=message; return p; };
+  const salesCopy=({
+    en:{headline:'Calculate your solar savings',intro:'8 simple questions. Your potential savings, investment and payback.',calculate:'See my solar savings',book:'Talk to a solar expert',intake:'Let’s talk about your solar savings',next:'Share your details to arrange a conversation.',recommended:'Suggested for your home'},
+    es:{headline:'Calcula tu ahorro solar',intro:'8 preguntas sencillas. Tu ahorro potencial, inversión y amortización.',calculate:'Ver mi ahorro solar',book:'Habla con un experto solar',intake:'Hablemos de tu ahorro solar',next:'Déjanos tus datos para concertar una conversación.',recommended:'Una propuesta para tu vivienda'},
+    de:{headline:'Berechnen Sie Ihre Solarersparnis',intro:'8 einfache Fragen. Ihre mögliche Ersparnis, Investition und Amortisation.',calculate:'Meine Solarersparnis berechnen',book:'Mit einem Solarexperten sprechen',intake:'Sprechen wir über Ihre Solarersparnis',next:'Hinterlassen Sie Ihre Kontaktdaten für ein Gespräch.',recommended:'Ein Vorschlag für Ihr Zuhause'}
+  })[lang];
+  document.querySelector('.sc-intro h1').textContent=salesCopy.headline;
+  document.querySelector('.sc-intro>p:not(.sc-eyebrow)').textContent=salesCopy.intro;
+  document.title=salesCopy.headline+' | EcoViva Mallorca';
+  copy.calculate=salesCopy.calculate;
+  copy.cta=salesCopy.intake;
+  if(!calculate.disabled)calculate.textContent=salesCopy.calculate+' →';
   const billTitle = electricity.querySelector('h2');
   const panels = [
     {name:'region', nodes:[group('region'),document.querySelector('#solar-town-label'),help(copy.regionHelp)]},
@@ -117,17 +128,18 @@ export function installSocialFlow(form, copy, lang, show) {
   const privacy=document.createElement('a');privacy.href=({en:'/en/privacy-policy/',es:'/es/politica-de-privacidad/',de:'/de/datenschutzerklaerung/'})[lang]||'/en/privacy-policy/';privacy.textContent=({en:'Privacy',es:'Privacidad',de:'Datenschutz'})[lang]||'Privacy';
   footer.append('EcoViva Mallorca SL · ',privacy);main.append(footer);
   const resultCopy={
-    en:{book:'Book an appointment',note:vat=>`Indicative estimate, before incentives. Final system and price after assessment. Investment excludes VAT; payback assumes ${vat}% VAT.`},
-    es:{book:'Reservar una cita',note:vat=>`Estimación orientativa, sin ayudas. Sistema y precio finales tras la evaluación. Inversión sin IVA; amortización con un IVA supuesto del ${vat}%.`},
-    de:{book:'Termin vereinbaren',note:vat=>`Unverbindliche Schätzung ohne Förderung. Anlage und Endpreis nach Prüfung. Investition zzgl. MwSt.; Amortisation mit angenommenen ${vat}% MwSt.`}
-  }[lang]||{book:'Book an appointment',note:vat=>`Indicative estimate, before incentives. Final system and price after assessment. Investment excludes VAT; payback assumes ${vat}% VAT.`};
+    en:{note:vat=>`Indicative estimate, before incentives. Final system and price after assessment. Investment excludes VAT; payback assumes ${vat}% VAT.`},
+    es:{note:vat=>`Estimación orientativa, sin ayudas. Sistema y precio finales tras la evaluación. Inversión sin IVA; amortización con un IVA supuesto del ${vat}%.`},
+    de:{note:vat=>`Unverbindliche Schätzung ohne Förderung. Anlage und Endpreis nach Prüfung. Investition zzgl. MwSt.; Amortisation mit angenommenen ${vat}% MwSt.`}
+  }[lang]||{note:vat=>`Indicative estimate, before incentives. Final system and price after assessment. Investment excludes VAT; payback assumes ${vat}% VAT.`};
   const resultNote=help('');resultNote.classList.add('sc-social-result-note');
+  const nextStep=help(salesCopy.next);nextStep.id='solar-next-step';
   const learn=document.createElement('a');learn.id='solar-learn-link';learn.className='sc-secondary';
   learn.textContent=({en:'Learn more',es:'Saber más',de:'Mehr erfahren'})[lang]+' →';
   const learnUrl=new URL(({en:'/en/solar-panels-mallorca/',es:'/es/placas-solares-mallorca/',de:'/de/photovoltaik-mallorca/'})[lang],location.origin);
   for(const [key,value] of new URLSearchParams(location.search))if(key.startsWith('utm_'))learnUrl.searchParams.set(key,value.slice(0,100));
   learn.href=learnUrl.toString();
-  results.querySelector('#solar-intake-link').after(learn);
+  results.querySelector('#solar-intake-link').after(learn,nextStep);
   render(0,false);
   return { onError(e) {if(['bill','invalid'].includes(e.message))render(2);}, onShow(n) {
     main.classList.toggle('sc-social-result',n===2);
@@ -143,8 +155,9 @@ export function installSocialFlow(form, copy, lang, show) {
     }
     for(const element of advice.children)element.classList.toggle('sc-social-extra',!element.classList.contains('sc-advice-grid'));
     advice.querySelector('[data-scenario="selected"]').hidden=true;
+    advice.querySelector('[data-scenario="recommended"]>.sc-eyebrow').textContent=salesCopy.recommended;
     advice.after(lead,resultNote);
     resultNote.textContent=resultCopy.note(new Intl.NumberFormat(lang).format(Number(form.elements.vat.value)));
-    document.querySelector('#solar-intake-link').textContent=resultCopy.book+' →';
+    document.querySelector('#solar-intake-link').textContent=salesCopy.book+' →';
   }};
 }

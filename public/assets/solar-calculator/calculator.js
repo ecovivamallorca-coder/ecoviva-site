@@ -1,4 +1,4 @@
-import {installSocialFlow} from './social.mjs?v=20261023-result-v2';
+import {installSocialFlow} from './social.mjs?v=20261023-sales-v3';
 import {panelSizes} from './packages.mjs?v=5';
 import {estimateSolar} from './model.mjs?v=7';
 import {compareSolar,scenarioRecord} from './advice.mjs?v=3';
