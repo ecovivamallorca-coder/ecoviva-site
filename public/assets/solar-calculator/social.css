@@ -43,5 +43,26 @@
 .solar-social .sc-number input{font-size:24px}
 .solar-social .sc-social-footer{text-align:center;font-size:11px;color:#627064;margin:24px 0 0;line-height:1.6}
 .sc-social-footer a{color:inherit;text-underline-offset:3px}
+/* A social result is one recommendation followed immediately by booking. */
+.solar-social .sc-social-extra{display:none!important}
+.solar-social .sc-social-result .sc-intro,.solar-social .sc-social-result .sc-social-languages,.solar-social .sc-social-result .sc-progress{display:none!important}
+.sc-social-result .sc-social-brand{margin-bottom:16px}
+.solar-social .sc-social-result #result-title{font-size:28px;line-height:1.15;margin:0 0 16px}
+.solar-social .sc-social-result .sc-advice-grid{display:block;margin:0}
+.solar-social .sc-social-result .sc-scenario-advice{padding:20px;border-radius:14px}
+.solar-social .sc-social-result .sc-scenario-advice>.sc-eyebrow{font-size:10px;margin:0 0 8px}
+.solar-social .sc-social-result .sc-scenario-advice h3{font-size:18px;line-height:1.35;margin:0 0 16px}
+.solar-social .sc-social-result .sc-scenario-origin,.solar-social .sc-social-result .sc-scenario dl>div:nth-child(3){display:none}
+.solar-social .sc-social-result .sc-scenario dl{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;margin:0}
+.solar-social .sc-social-result .sc-scenario dl>div{padding:12px 0 0;margin:0}
+.solar-social .sc-social-result .sc-scenario dl>.sc-advice-saving{grid-column:1/-1;padding-top:0;border:0}
+.solar-social .sc-social-result .sc-scenario dt{font-size:11px;line-height:1.4}
+.solar-social .sc-social-result .sc-scenario dd{font-size:22px;line-height:1.25;margin:5px 0 0}
+.solar-social .sc-social-result .sc-advice-saving dd{font-size:38px}
+.solar-social .sc-social-result .sc-scenario dd small{font-size:12px;margin-top:4px}
+.solar-social .sc-social-result .sc-lead{margin:18px 0 0;padding:0;background:none;border:0}
+.solar-social .sc-social-result .sc-lead>:not(#solar-intake-link){display:none!important}
+.solar-social .sc-social-result #solar-intake-link{display:flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:54px;margin:0;font-size:16px;line-height:1.35;text-align:center}
+.solar-social .sc-social-result-note{font-size:11px;line-height:1.5;color:#627064;margin:14px 0 0}
 @media(prefers-reduced-motion:reduce){.sc-social-track>span{transition:none!important}}
 @media(max-width:370px){.solar-social .sc-main{padding:14px 10px 30px}.solar-social .sc-request-layout .sc-step{padding:22px 16px}.solar-social .sc-request-layout .sc-choice span{font-size:13px;padding-left:11px}.sc-social-brand span{font-size:8px}}

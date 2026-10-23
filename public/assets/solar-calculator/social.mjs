@@ -116,20 +116,29 @@ export function installSocialFlow(form, copy, lang, show) {
   const footer=document.createElement('p');footer.className='sc-social-footer';
   const privacy=document.createElement('a');privacy.href=({en:'/en/privacy-policy/',es:'/es/politica-de-privacidad/',de:'/de/datenschutzerklaerung/'})[lang]||'/en/privacy-policy/';privacy.textContent=({en:'Privacy',es:'Privacidad',de:'Datenschutz'})[lang]||'Privacy';
   footer.append('EcoViva Mallorca SL · ',privacy);main.append(footer);
+  const resultCopy={
+    en:{book:'Book an appointment',note:vat=>`Indicative estimate, before incentives. Final system and price after assessment. Investment excludes VAT; payback assumes ${vat}% VAT.`},
+    es:{book:'Reservar una cita',note:vat=>`Estimación orientativa, sin ayudas. Sistema y precio finales tras la evaluación. Inversión sin IVA; amortización con un IVA supuesto del ${vat}%.`},
+    de:{book:'Termin vereinbaren',note:vat=>`Unverbindliche Schätzung ohne Förderung. Anlage und Endpreis nach Prüfung. Investition zzgl. MwSt.; Amortisation mit angenommenen ${vat}% MwSt.`}
+  }[lang]||{book:'Book an appointment',note:vat=>`Indicative estimate, before incentives. Final system and price after assessment. Investment excludes VAT; payback assumes ${vat}% VAT.`};
+  const resultNote=help('');resultNote.classList.add('sc-social-result-note');
   render(0,false);
   return { onError(e) {if(['bill','invalid'].includes(e.message))render(2);}, onShow(n) {
+    main.classList.toggle('sc-social-result',n===2);
     if(n!==2)return;
     status.textContent=text.result;track.setAttribute('aria-valuenow',String(panels.length));track.setAttribute('aria-label',text.result);fill.style.width='100%';
     const advice=document.querySelector('#solar-advice-results');
-    const summary=advice.querySelector('.sc-input-summary');
-    if(summary){const details=document.createElement('details');details.className='sc-assumptions';const title=document.createElement('summary');title.textContent=text.answers;details.append(title,summary);advice.append(details);}
-    const chosen=advice.querySelector('[data-scenario="selected"]');
-    const recommended=advice.querySelector('[data-scenario="recommended"]');
-    if(chosen&&recommended&&chosen.querySelector('h3').textContent===recommended.querySelector('h3').textContent&&chosen.querySelector('dl').textContent===recommended.querySelector('dl').textContent)chosen.hidden=true;
     const lead=results.querySelector('.sc-lead');
-    const conditions=results.querySelector('.sc-result-conditions');
-    advice.after(conditions,lead);
-    lead.querySelector('h3').textContent=text.discuss;
-    document.querySelector('#solar-intake-link').textContent=text.discuss+' →';
+    const title=document.querySelector('#result-title');title.textContent=text.result;
+    // Keep the existing calculation and complete CRM payload. Only the social
+    // presentation is reduced to one recommended system and one next action.
+    for(const element of results.children){
+      element.classList.toggle('sc-social-extra',![title,advice,lead,resultNote].includes(element));
+    }
+    for(const element of advice.children)element.classList.toggle('sc-social-extra',!element.classList.contains('sc-advice-grid'));
+    advice.querySelector('[data-scenario="selected"]').hidden=true;
+    advice.after(lead,resultNote);
+    resultNote.textContent=resultCopy.note(new Intl.NumberFormat(lang).format(Number(form.elements.vat.value)));
+    document.querySelector('#solar-intake-link').textContent=resultCopy.book+' →';
   }};
 }
