@@ -1,17 +1,18 @@
+import {installSocialFlow} from './social.mjs?v=20261023';
 import {panelSizes} from './packages.mjs?v=5';
 import {estimateSolar} from './model.mjs?v=7';
 import {compareSolar,scenarioRecord} from './advice.mjs?v=3';
 import {renderAdvice} from './advice-ui.mjs?v=3';
 const form=document.querySelector('#solar-calculator'),c=JSON.parse(document.querySelector('#sc-copy').textContent),lang=document.documentElement.lang;
 const money=new Intl.NumberFormat(lang,{style:'currency',currency:'EUR',maximumFractionDigits:0}),number=new Intl.NumberFormat(lang,{maximumFractionDigits:0});
-let data=null,last=null,step=0,lastSummary='';
+let data=null,last=null,step=0,lastSummary='',socialFlow=null;
 // Dedicated Solar intake starts on contact details; general enquiries keep their existing form.
 // One dedicated intake is shared by all website languages. Hidden region options retain the legacy Fillout labels.
 const intakeByLanguage={en:{id:'vXyCV7KGHWus',client:'I have a property or project',solar:'Solar and battery installation'},es:{id:'vXyCV7KGHWus',client:'I have a property or project',solar:'Solar and battery installation'},de:{id:'vXyCV7KGHWus',client:'I have a property or project',solar:'Solar and battery installation'}};
 const valueInput=form.elements.consumption,calculate=document.querySelector('#sc-calculate'),error=document.querySelector('#sc-error');
 calculate.disabled=true;calculate.textContent=c.loading;
 fetch('/assets/solar-calculator/pvgis-data.json?v=2').then(r=>{if(!r.ok)throw new Error('data');return r.json()}).then(d=>{data=d;calculate.disabled=false;calculate.textContent=c.calculate+' →'}).catch(()=>{error.textContent=c.unavailable;calculate.textContent=c.calculate});
-function show(n,scroll=true){step=n;document.querySelectorAll('[data-step]').forEach(el=>el.hidden=Number(el.dataset.step)!==n);document.querySelectorAll('[data-progress]').forEach(el=>{if(Number(el.dataset.progress)===n)el.setAttribute('aria-current','step');else el.removeAttribute('aria-current')});if(n===2)document.querySelector('#result-title').focus({preventScroll:true});if(scroll)(document.querySelector('.sc-request-layout')||document.querySelector('.sc-shell')).scrollIntoView({behavior:'smooth',block:'start'});}
+function show(n,scroll=true){step=n;document.querySelectorAll('[data-step]').forEach(el=>el.hidden=Number(el.dataset.step)!==n);document.querySelectorAll('[data-progress]').forEach(el=>{if(Number(el.dataset.progress)===n)el.setAttribute('aria-current','step');else el.removeAttribute('aria-current')});socialFlow?.onShow(n);if(n===2)document.querySelector('#result-title').focus({preventScroll:true});if(scroll)(document.querySelector('.sc-request-layout')||document.querySelector('.sc-shell')).scrollIntoView({behavior:'smooth',block:'start'});}
 function read(){return {ev:form.elements.ev.value,occupancy:form.elements.occupancy.value,region:form.elements.region.value,roof:form.elements.roof.value,use:form.elements.use.value,shade:form.elements.shade.value,mode:form.elements.mode.value,value:Number(valueInput.value),tariff:Number(form.elements.tariff.value),fixed:Number(form.elements.fixed.value),panels:form.elements.panels.value,battery:form.elements.battery.value,vat:Number(form.elements.vat.value)/100,investment:form.elements.investment.value,exportRate:Number(form.elements.exportRate.value),support:Number(form.elements.support.value),aidScheme:form.elements.aidScheme.value,aidConfirmed:form.elements.aidConfirmed.checked,taxAvailable:form.elements.taxAvailable.value,grantTax:form.elements.grantTax.value===''?'':Number(form.elements.grantTax.value)/100,supportYear:Number(form.elements.supportYear.value)};}
 function roundRange(range,unit){return range.map((x,i)=>unit==='money'?money.format(i?Math.ceil(x/10)*10:Math.floor(x/10)*10):number.format(i?Math.ceil(x/100)*100:Math.floor(x/100)*100)).join(' – ')}
 function selectedText(name){return form.querySelector(`input[name="${name}"]:checked`).closest('label').querySelector('span').textContent.replace(/[☀☾◐◒●▣?✓]/g,'').trim()||'Not sure'}
@@ -64,7 +65,7 @@ document.querySelector('#battery-extra-payback').textContent=years(extraSaving>0
 document.querySelector('#battery-custom-budget').hidden=input.investment==='';
 const comparisons=panelSizes.map(panels=>{try{return estimateSolar({...input,panels,investment:''},data)}catch(e){if(e.message==='invalid')return {panels,unavailable:true};throw e}});
 document.querySelector('#system-comparison').innerHTML=comparisons.map(x=>`<tr><td>${x.panels}</td>${x.unavailable?`<td colspan="4">${c.comparisonUnavailable}</td>`:`<td>${money.format(x.centralSavings)}</td><td>${years(x.centralPayback)}</td><td>${x.support?years(x.supportedPayback):'—'}</td><td>${money.format(x.net)}</td>`}</tr>`).join('');
-last.adviceReason=renderAdvice(input,comparison,form,lang).reason;handoff(input,r);show(2)}catch(e){error.textContent=e.message==='bill'?c.badBill:(c.aidErrors?.[e.message]||c.error);valueInput.focus()}});
+last.adviceReason=renderAdvice(input,comparison,form,lang).reason;handoff(input,r);show(2)}catch(e){socialFlow?.onError(e);error.textContent=e.message==='bill'?c.badBill:(c.aidErrors?.[e.message]||c.error);valueInput.focus()}});
 form.addEventListener('click',event=>{const b=event.target.closest('[data-next]');if(b){const next=Number(b.dataset.next);if(step===0&&next===1&&['region','roof'].some(name=>!form.elements[name].value)){document.querySelector('#sc-property-error').textContent=c.completeQuestions;return}show(next)}});
 form.addEventListener('change',event=>{if(event.target.name==='region'){document.querySelector('#solar-town-label').hidden=form.elements.region.value!=='unknown';}if(event.target.name==='mode'){const isKwh=form.elements.mode.value==='kwh';valueInput.min=isKwh?'500':'25';valueInput.max=isKwh?'40000':'1000';valueInput.value='';document.querySelector('#bill-slider').hidden=isKwh;document.querySelector('#value-label').textContent=isKwh?c.annual:c.value;document.querySelector('#value-unit').textContent=isKwh?c.units:c.billUnit;error.textContent='';} if(step===2&&event.target.name!=='residence'){document.querySelector('#solar-intake-link').removeAttribute('href');show(1)}});
 const intakeLink=document.querySelector('#solar-intake-link');
@@ -126,7 +127,7 @@ intakeLink.addEventListener('click',event=>{
  document.querySelector('#sc-intake-title').focus({preventScroll:true});
  (intakeSection.closest('.sc-request-layout')||intakeSection).scrollIntoView({block:'start',behavior:'smooth'});
 });
-document.querySelectorAll('a[href*="/solar-calculator/"],a[href*="/calculadora-solar/"],a[href*="/solar-rechner/"]').forEach(a=>{const u=new URL(a.href);for(const [k,v] of new URLSearchParams(location.search))if(k.startsWith('utm_'))u.searchParams.set(k,v.slice(0,100));a.href=u.toString()});
+document.querySelectorAll('a[href*="/solar-calculator/"],a[href*="/calculadora-solar/"],a[href*="/solar-rechner/"]').forEach(a=>{const u=new URL(a.href);for(const [k,v] of new URLSearchParams(location.search))if(k.startsWith('utm_')||k==='view')u.searchParams.set(k,v.slice(0,100));a.href=u.toString()});
 const billSlider=document.querySelector('#bill-slider');
 billSlider.addEventListener('input',()=>{valueInput.value=billSlider.value;error.textContent=''});
 valueInput.addEventListener('input',()=>{if(form.elements.mode.value==='bill')billSlider.value=valueInput.value});
@@ -138,3 +139,5 @@ form.elements.aidScheme.addEventListener('change',()=>{const route=form.elements
 const copySummaryButton=document.querySelector('#copy-solar-summary');
 copySummaryButton?.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(lastSummary);document.querySelector('#copy-summary-status').textContent=c.summaryCopied;}catch{const box=document.querySelector('#solar-summary-copy');box.hidden=false;box.value=lastSummary;box.focus();box.select();document.querySelector('#copy-summary-status').textContent=c.copyManually;}});
 if(new URLSearchParams(location.search).get('utm_source')==='fillout'){document.querySelector('#solar-return-to-form').hidden=false;}
+
+if(document.documentElement.classList.contains('solar-social'))socialFlow=installSocialFlow(form,c,lang,show);
