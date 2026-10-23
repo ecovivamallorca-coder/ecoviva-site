@@ -94,6 +94,24 @@ export function installSocialFlow(form, copy, lang, show) {
   const brandLabel=document.createElement('span');brandLabel.textContent='SOLAR & BATTERY';
   brand.append(logo,brandLabel);
   const main=document.querySelector('.sc-main');main.prepend(brand);
+  // The full website header is hidden in social mode, so keep language choice
+  // available here with the same calculator destinations and campaign tags.
+  const languages=document.createElement('nav');
+  languages.className='sc-actions sc-social-languages';
+  languages.setAttribute('aria-label',({en:'Calculator language',es:'Idioma de la calculadora',de:'Sprache des Rechners'})[lang]||'Calculator language');
+  languages.style.cssText='display:flex;gap:20px;margin:0 0 24px;flex-wrap:wrap';
+  const paths={de:'/de/solar-rechner/',en:'/en/solar-calculator/',es:'/es/calculadora-solar/'};
+  for(const [code,path] of Object.entries(paths)){
+    const link=document.createElement('a');
+    const destination=new URL(path,location.origin);
+    destination.searchParams.set('view','social');
+    for(const [key,value] of new URLSearchParams(location.search))if(key.startsWith('utm_'))destination.searchParams.set(key,value.slice(0,100));
+    link.href=destination.toString();link.hreflang=code;link.lang=code;link.className='sc-text';
+    link.textContent={de:'Deutsch',en:'English',es:'Español'}[code];
+    if(code===lang){link.setAttribute('aria-current','page');link.style.fontWeight='700';}
+    languages.append(link);
+  }
+  brand.after(languages);
   const note=help(text.privacy);note.classList.add('sc-social-privacy');document.querySelector('.sc-intro').append(note);
   const footer=document.createElement('p');footer.className='sc-social-footer';
   const privacy=document.createElement('a');privacy.href=({en:'/en/privacy-policy/',es:'/es/politica-de-privacidad/',de:'/de/datenschutzerklaerung/'})[lang]||'/en/privacy-policy/';privacy.textContent=({en:'Privacy',es:'Privacidad',de:'Datenschutz'})[lang]||'Privacy';
