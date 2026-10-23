@@ -1,0 +1,47 @@
+.solar-social .site-header,.solar-social .site-footer,.solar-social .sc-request-guide,.solar-social .sc-form-top,.solar-social .sc-test{display:none!important}
+.solar-social body{background:#f4f1e8}
+.solar-social .sc-main{max-width:660px;margin:auto;padding:18px 16px 36px}
+.sc-social-brand{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 26px}
+.sc-social-brand img{display:block;max-width:58%;object-fit:contain;object-position:left center}
+.sc-social-brand span{color:#627064;font-size:9px;font-weight:700;letter-spacing:.12em;text-align:right}
+.solar-social .sc-intro{display:block;text-align:left;margin:0 0 24px}
+.solar-social .sc-intro .sc-eyebrow{font-size:10px!important}
+.solar-social .sc-intro h1{font-size:clamp(32px,7vw,43px);margin:10px 0 14px;line-height:1.08}
+.solar-social .sc-intro h1 em{display:none}
+.solar-social .sc-intro>p{font-size:14px;line-height:1.6;max-width:none;margin:0}
+.solar-social .sc-intro .sc-social-privacy{font-size:12px;color:#3e6b20;font-weight:600;margin-top:12px}
+.solar-social .sc-request-layout{display:block;max-width:100%;border:1px solid #dbe1d4;border-radius:18px;box-shadow:0 15px 45px #213d270b;overflow:hidden;scroll-margin-top:12px}
+.solar-social .sc-request-layout .sc-shell{scroll-margin-top:12px}
+.solar-social .sc-progress{display:block!important;padding:18px 22px;background:#fafbf7}
+.solar-social .sc-progress[hidden]{display:none!important}
+.sc-social-status{font-size:12px;color:#446035;margin:0 0 10px;font-weight:600}
+.sc-social-track{height:4px;border-radius:3px;background:#e1e7db;overflow:hidden}
+.solar-social .sc-social-track>span{display:block;height:100%;background:#547e37;transition:width .2s}
+.solar-social .sc-request-layout .sc-step{padding:24px 22px}
+.sc-social-panel{min-height:215px}
+.solar-social .sc-social-panel legend,.solar-social .sc-social-panel h2{font:400 27px/1.2 Georgia,serif;letter-spacing:-.02em;margin-bottom:22px}
+.solar-social .sc-choices{grid-template-columns:1fr 1fr}
+.solar-social .sc-roofs{grid-template-columns:1fr 1fr}
+.solar-social .sc-roofs img{height:100px}
+.solar-social .sc-request-layout .sc-choice span{font-size:14px;line-height:1.4;padding:17px 30px 17px 14px}
+.solar-social .sc-choice{min-height:60px}
+.solar-social .sc-help{margin-bottom:16px}
+.solar-social .sc-social-actions{margin-top:20px}
+.solar-social .sc-social-actions button{font-size:14px;min-height:50px}
+.sc-social-settings{margin-top:22px}
+.solar-social .sc-intake-top{padding:20px 22px}
+.solar-social .sc-advice-grid{display:flex;flex-direction:column;gap:16px}
+.solar-social .sc-scenario h3,.solar-social .sc-scenario-origin{min-height:0}
+.solar-social .sc-scenario-advice{order:-1}
+.solar-social .sc-input-summary{padding:18px}
+.solar-social .sc-result-conditions{font-size:12px;line-height:1.6;margin:22px 0}
+.solar-social .sc-battery-options{grid-template-columns:1fr}
+.solar-social .sc-advice-difference dl{grid-template-columns:1fr}
+.solar-social .sc-lead{padding:20px;margin-top:0}
+.solar-social .sc-lead .sc-choices{grid-template-columns:1fr}
+.solar-social .sc-settings{grid-template-columns:1fr}
+.solar-social .sc-number input{font-size:24px}
+.solar-social .sc-social-footer{text-align:center;font-size:11px;color:#627064;margin:24px 0 0;line-height:1.6}
+.sc-social-footer a{color:inherit;text-underline-offset:3px}
+@media(prefers-reduced-motion:reduce){.sc-social-track>span{transition:none!important}}
+@media(max-width:370px){.solar-social .sc-main{padding:14px 10px 30px}.solar-social .sc-request-layout .sc-step{padding:22px 16px}.solar-social .sc-request-layout .sc-choice span{font-size:13px;padding-left:11px}.sc-social-brand span{font-size:8px}}
