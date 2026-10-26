@@ -16,9 +16,9 @@ export function installSocialFlow(form, copy, lang, show) {
   const group = name => form.querySelector(`input[name="${name}"]`).closest('fieldset');
   const help = message => { const p=document.createElement('p'); p.className='sc-help'; p.textContent=message; return p; };
   const salesCopy=({
-    en:{headline:'Calculate your solar savings',intro:'8 simple questions. Your potential savings, investment and payback.',calculate:'See my solar savings',book:'Talk to a solar expert',intake:'Let’s talk about your solar savings',next:'Share your details to arrange a conversation.',recommended:'Suggested for your home'},
-    es:{headline:'Calcula tu ahorro solar',intro:'8 preguntas sencillas. Tu ahorro potencial, inversión y amortización.',calculate:'Ver mi ahorro solar',book:'Habla con un experto solar',intake:'Hablemos de tu ahorro solar',next:'Déjanos tus datos para concertar una conversación.',recommended:'Una propuesta para tu vivienda'},
-    de:{headline:'Berechnen Sie Ihre Solarersparnis',intro:'8 einfache Fragen. Ihre mögliche Ersparnis, Investition und Amortisation.',calculate:'Meine Solarersparnis berechnen',book:'Mit einem Solarexperten sprechen',intake:'Sprechen wir über Ihre Solarersparnis',next:'Hinterlassen Sie Ihre Kontaktdaten für ein Gespräch.',recommended:'Ein Vorschlag für Ihr Zuhause'}
+    en:{headline:'Calculate your solar savings',intro:'8 simple questions. Your potential savings, investment and payback.',calculate:'See my solar savings',book:'Book an appointment',intake:'Book your solar appointment',next:'Choose a phone call, Google Meet or a site visit. Your calculation is included.',recommended:'Suggested for your home'},
+    es:{headline:'Calcula tu ahorro solar',intro:'8 preguntas sencillas. Tu ahorro potencial, inversión y amortización.',calculate:'Ver mi ahorro solar',book:'Reservar una cita',intake:'Reserva tu cita solar',next:'Elige una llamada, Google Meet o una visita al inmueble. Tu cálculo va incluido.',recommended:'Una propuesta para tu vivienda'},
+    de:{headline:'Berechnen Sie Ihre Solarersparnis',intro:'8 einfache Fragen. Ihre mögliche Ersparnis, Investition und Amortisation.',calculate:'Meine Solarersparnis berechnen',book:'Termin buchen',intake:'Ihren Solartermin buchen',next:'Wählen Sie Telefonat, Google Meet oder Vor-Ort-Besuch. Ihre Berechnung wird mitgesendet.',recommended:'Ein Vorschlag für Ihr Zuhause'}
   })[lang];
   document.querySelector('.sc-intro h1').textContent=salesCopy.headline;
   document.querySelector('.sc-intro>p:not(.sc-eyebrow)').textContent=salesCopy.intro;

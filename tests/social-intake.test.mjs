@@ -15,7 +15,8 @@ for(const [language,label] of Object.entries({en:'English',es:'Spanish',de:'Germ
   assert.ok(p.renovation_summary.includes(values.work));
   assert.ok(p.renovation_summary.includes(values.timing));
   assert.ok(p.renovation_summary.includes(values.budget));
-  assert.ok(p.renovation_summary.includes('No appointment booked.'));
+  assert.ok(p.renovation_summary.includes('choose an appointment or send the request without booking.'));
+  assert.ok(!p.renovation_summary.includes('No appointment booked.'));
  });
 }
 test('keeps contact information out of link parameters and bounds campaign text',()=>{
