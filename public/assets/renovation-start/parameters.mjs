@@ -2,7 +2,7 @@ export function handoffParameters(values, language, tracking = {}) {
   const summary = ['ECOVIVA SOCIAL RENOVATION REQUEST', `Work: ${values.work}`,
     `Area: ${values.area}`, `Town: ${values.town || 'Not specified'}`,
     `Timing: ${values.timing}`, `Indicative budget: ${values.budget}`,
-    'Next step: personal review and contact. No appointment booked.'].join('\n');
+    'Next step: choose an appointment or send the request without booking.'].join('\n');
   const params = {
     schema_version: 'renovation-social-v1', request_context: 'social_renovation',
     contact_type_code: 'I have a property or project', request_type_code: 'Renovation project',

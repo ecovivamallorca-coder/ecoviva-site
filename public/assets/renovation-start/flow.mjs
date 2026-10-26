@@ -1,4 +1,4 @@
-import {handoffParameters} from './parameters.mjs?v=1';
+import {handoffParameters} from './parameters.mjs?v=20261026-booking';
 const form = document.querySelector('#renovation-start');
 const copy = JSON.parse(document.querySelector('#intake-copy').textContent);
 const panels = [...document.querySelectorAll('[data-step]')];
